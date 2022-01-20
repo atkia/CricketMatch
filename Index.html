@@ -1,106 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <style>
-        .center {
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            /*border: 15px solid darkgreen;*/
-            padding: 8px;
-            height: 700px;
-            width: 500px;
-        }
-        .button {
-            background-color: darkgreen;
-            /*border: 1px solid dimgray;*/
-            color: white;
-            padding: 15px 32px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 18px;
-            cursor: pointer;
-            float: left;
-        }
-        button:hover{
-            background-color: greenyellow;
-        }
-        ul {
-            list-style-type: none;
-            /*align-items: center;*/
-            /*margin: 10px;*/
-            /*padding: 10px;*/
-            overflow: hidden;
-            background-color: darkgreen;
-        }
-
-        li {
-            float: left;
-        }
-
-        form input#t1Name,#t2Name,#over{
-            border: 0px;
-            border-radius: 25px;
-            border-bottom: 1px solid;
-            height: 10%;
-            width: 98%;
-        }
-        #Submit{
-            background-color: darkgreen;
-            /*border: 1px solid dimgray;*/
-            color: white;
-            padding: 15px 32px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            cursor: pointer;
-            float: left;
-
-        }
-
-    </style>
+    <link rel="stylesheet" href="Navbar.css">
     <meta charset="UTF-8">
     <title>Cricket Saver</title>
 
 </head>
 <body>
 <div class="center">
-    <ul>
-        <li><button class="button">New Match</button></li>
-        <li> <button class="button">Teams</button></li>
-        <li><button class="button">History</button></li>
-    </ul>
+    <div id="firstRow"><h1 id="heading"><b>Cricket Scorer</b></h1>
+        <ul>
+            <li><a class="active" href="index.html">Menu</a></li>
+            <li><a href="">New Match</a></li>
+            <li><a href="">Teams</a></li>
+            <li><a href="">History</a></li>
+        </ul>
 
-    <form style="background-color: gainsboro" id="user_form"  >
-        <h3 style="color: darkgreen">Teams</h3>
+    </div>
+    <form id="user_form"  >
+        <h2 style="color: darkgreen">Teams</h2>
         <div id="input">
-            <input  type="text" id="t1Name"  name="hostTName" placeholder="Host team" ><br>
+            <input  type="text" id="t1Name"  name="hostTName" placeholder="Host team" ><br><br>
             <input  type="text" id="t2Name" name="visitorTName" placeholder="Visitor team" >
         </div>
 
-        <h3 style="color: darkgreen">Toss By Won?</h3>
+        <h2 style="color: darkgreen">Toss By Won?</h2>
         <input type="radio" id="hT"  name="tossWonBy" value="HostTeam">
-        <label for="hT">Host Team</label><br>
+        <label for="hT">Host Team</label>
         <input type="radio" id="vT"  name="tossWonBy" value="visitorTeam">
         <label for="vT">Visitor Team</label><br>
-        <h3 style="color: darkgreen">Opted to?</h3>
+        <h2 style="color: darkgreen">Opted to?</h2>
         <input type="radio" id="Bat"  name="optTo"value="Bat">
-        <label for="Bat">Bat</label><br>
+        <label for="Bat">Bat</label>
         <input type="radio" id="Ball" name="optTo"value="Ball">
         <label for="Ball">Ball</label><br>
-        <h3 style="color: darkgreen">Over</h3>
+        <h2 style="color: darkgreen">Overs?</h2>
         <div id="input2">
             <input  type="text" id="over" name="over" placeholder="16"><br>
         </div>
-
         <br><br>
-<!--        <a href="http://localhost:63342/CricketMatch/SecondPage.html">hii</a>-->
+
         <a href="http://localhost:63342/CricketMatch/SecondPage.html">
-<!--            <input type="submit" id="Submit" value="Start Match">-->
-        <input type="button" value="submit" id="Submit" onclick=doForm()>
+        <input class="centerSubmit" type="button" value="Start match" id="Submit" onclick=doForm()>
         </a>
 
     </form>

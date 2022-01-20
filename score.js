@@ -28,9 +28,19 @@ let team={
     },
     wicket:0
 }
+let c=0;
 function run(value){
+    if(c>=6){
+        c=0;
+    }
+    c++;
+
+    document.getElementById("ball"+c).innerText= value;
+
+console.log(c);
+
     player.run=player.run+value;
-    console.log(player.run);
+   // console.log(player.run);
     document.getElementById("runScore").innerText= player.run;
     //getRun();
 }
@@ -46,6 +56,7 @@ function getRun(){
 addPlayer(player);
 addPlayer(player2);
 document.getElementById("teamName").innerText = getTeamName();
+
 
 console.log(player.run);
 

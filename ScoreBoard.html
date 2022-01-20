@@ -1,33 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="ScoreBoard.css">
     <meta charset="UTF-8">
     <title>Title</title>
-    <style>
-        .button{
-            border-radius: 50%;
-        }
-        #bar{
-            background-color: gainsboro;
-        }
-
-    </style>
 </head>
 <body>
-<dev id="bar">
-    <dev id="teamName">
-    </dev>
-    <span id ="runScore">0
-    </span>-
-    <span id ="wicket">0
-    </span><br>
-</dev>
-<input type="button" class="button" value="1" onclick="run(1)">
-<input type="button" class="button" value="2" onclick="run(2)">
-<input type="button" class="button" value="3" onclick="run(3)">
-<input type="button" class="button" value="4" onclick="run(4)">
-<input type="button" class="button" value="5" onclick="run(5)">
-<input type="button" class="button" value="6" onclick="run(6)">
-<script src="score.js"></script>
+    <div id="center">
+        <div id="firstRow">
+            <div>
+                <span  id="teamName"></span>
+                <span>,</span>
+                <span id="innings">1st inning</span>
+            </div>
+            <div >
+                <span id ="runScore">0</span>
+                <span id="scoreP">-</span>
+                <span id ="wicket">0</span><br>
+            </div>
+
+        </div>
+        <div id="secondRow">
+            <table >
+                <tr id="1row">
+                    <th class="leftTd">Batsman</th>
+                    <th>R</th>
+                    <th>B</th>
+                    <th>4s</th>
+                    <th>6s</th>
+                    <th>SR</th>
+
+                </tr>
+
+                <tr>
+                    <td id ="strikerName">man</td>
+                    <td id="1run">0</td>
+                    <td id ="1ball">0</td>
+                    <td id ="14s">0</td>
+                    <td id ="16s">0</td>
+                    <td id ="1SR">0</td>
+                </tr>
+                <tr>
+                    <td id ="nonStrikerName">man</td>
+                    <td id="2run">0</td>
+                    <td id ="2ball">0</td>
+                    <td id ="24s">0</td>
+                    <td id ="26s">0</td>
+                    <td id ="2SR">0</td>
+                </tr>
+            </table>
+            <table >
+                <tr>
+                    <th class="leftTd">Bowler</th>
+                    <th>O</th>
+                    <th>M</th>
+                    <th>R</th>
+                    <th>W</th>
+                    <th>ER</th>
+
+                </tr>
+
+                <tr>
+                    <td id ="bowlerName">m</td>
+                    <td id="over">0.0</td>
+                    <td id ="median">0</td>
+                    <td id ="runGiven">0</td>
+                    <td id ="wicketTaken">0</td>
+                    <td id ="eR">0</td>
+                </tr>
+            </table>
+
+
+        </div>
+        <div id="thirdRow">
+            <h3>This over: </h3>
+            <span id="ball1"></span>
+            <span id="ball2"></span>
+            <span id="ball3"></span>
+            <span id="ball4"></span>
+            <span id="ball5"></span>
+            <span id="ball6"></span>
+        </div>
+        <div id="fourthRow">
+            <table>
+                <tr >
+                    <input type="checkbox" id ="wide"value="wide">
+                    <label for ="wide"> Wide</label>
+                    <input type="checkbox" id ="noBall"value="noBall">
+                    <label for ="noBall"> No ball</label>
+                    <input type="checkbox" id ="byes"value="byes">
+                    <label for ="byes"> Byes</label>
+                    <input type="checkbox" id ="legByes"value="legByes">
+                    <label for ="legByes"> Leg byes</label><br>
+
+                </tr>
+
+                <tr>
+                        <input type="checkbox" id ="wicketChecked"value="wicket">
+                        <label for ="wicketChecked"> Wicket</label>
+
+                    <span id="leftButton">
+                 <a href="">
+                     <input type="button" value ="Retire"id="retire" >
+                </a>
+                <button value="swap" >Swap Batsman</button>
+            </span>
+                </tr>
+            </table>
+            <br><br>
+
+        </div>
+        <div id="fifthRow">
+            <table>
+                <tr>
+                    <td>
+                        <a href="http://localhost:63342/CricketMatch/ScoreBoard.html">
+                            <input type="button" value ="Undo"id="undo">
+                        </a><br>
+                        <a href="http://localhost:63342/CricketMatch/ScoreBoard.html">
+                            <input type="button" value ="Partnerships"id="Partnerships">
+                        </a><br>
+                        <a href="http://localhost:63342/CricketMatch/ScoreBoard.html">
+                            <input type="button" value ="Extras"id="Extras">
+                        </a>
+                    </td>
+                    <td>
+                        <input type="button" class="button" value="1" onclick="run(1)">
+                        <input type="button" class="button" value="2" onclick="run(2)">
+                        <input type="button" class="button" value="3" onclick="run(3)">
+                        <input type="button" class="button" value="4" onclick="run(4)">
+                        <input type="button" class="button" value="5" onclick="run(5)">
+                        <input type="button" class="button" value="6" onclick="run(6)">
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+    </div>
+    <script src = "Scripts/Batting.js"></script>
+    <script src = "Scripts/Bowling.js"></script>
+    <script src="Scripts/Player.js"></script>
+    <script src="Scripts/Team.js"></script>
+    <script src="Scripts/scoring.js"></script>
 </body>
 </html>
