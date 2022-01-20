@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .center {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            /*border: 15px solid darkgreen;*/
+            padding: 8px;
+            height: 700px;
+            width: 500px;
+        }
+        form input#f1,#f2,#f3{
+            border: 0px;
+            border-radius: 25px;
+            border-bottom: 1px solid;
+            height: 10%;
+            width: 98%;
+        }
+        #Submit{
+            background-color: darkgreen;
+            /*border: 1px solid dimgray;*/
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            cursor: pointer;
+            float: left;
+            width: 500px;
+
+        }
+
+    </style>
+</head>
+<body>
+<div class="center">
+    <form id="player_form">
+        <h3 style="color: darkgreen">Striker</h3>
+        <input  type="text" id="f1" name="strikerName" placeholder="Player name"><br>
+        <h3 style="color: darkgreen">Non Striker</h3>
+        <input  type="text" id="f2" name="nonStrikerName" placeholder="Player name"><br>
+        <h3 style="color: darkgreen">Bowler</h3>
+        <input  type="text" id="f3" name="bowlerName" placeholder="Player name"><br>
+        <br><br>
+
+        <a href="http://localhost:63342/CricketMatch/ScoreBoard.html">
+            <!--            <input type="submit" id="Submit" value="Start Match">-->
+            <input type="button" value ="submit"id="Submit" onclick=secondForm()>
+        </a>
+    </form>
+</div>
+<script src="PlayerData.js"></script>
+</body>
+</html>
