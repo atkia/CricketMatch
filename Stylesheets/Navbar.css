@@ -3,14 +3,14 @@
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    /*padding: 8px;*/
+    padding: 8px;
     height: 850px;
     width: 600px;
 }
 #firstRow{
     background-color: darkgreen;
 }
-#heading{
+h1{
     color: whitesmoke;
     text-align: center;
     font-size: xxx-large ;
@@ -29,9 +29,6 @@ li {
     float: left;
     /*font-size: medium;*/
     font-size: large;
-}
-
-li a {
     display: block;
     color: #666;
     text-align: center;
@@ -39,25 +36,37 @@ li a {
     text-decoration: none;
 }
 
-li a:hover:not(.active) {
+li a {
+    display: block;
+    color: #666;
+    text-align: center;
+    /*padding: 14px 16px;*/
+    text-decoration: none;
+}
+
+li :hover {
     background-color: #ddd;
 }
 
-li a.active {
+ .active {
     color: white;
     /*background-color: #04AA6D;*/
     background-color: darkgreen;
 }
 #user_form{
     background-color: #f3f3f3;
+    padding-top: 1%;
+    padding-left: 2%;
+    padding-bottom: 2%;
 }
-
 form input#t1Name,#t2Name,#over{
+    /*margin-left: 2%;*/
     border: 0px;
-    border-radius: 25px;
+    /*border-radius: 25px;*/
     border-bottom: 1px solid;
+    margin-bottom: 2%;
     height: 25px;
-    width: 100%;
+    width: 98%;
 }
 #Submit{
     background-color: darkgreen;

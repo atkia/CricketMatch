@@ -1,53 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="Navbar.css">
+<!--    <link rel="stylesheet" href="Navbar.css">-->
     <meta charset="UTF-8">
     <title>Cricket Saver</title>
 
 </head>
 <body>
 <div class="center">
-    <div id="firstRow"><h1 id="heading"><b>Cricket Scorer</b></h1>
-        <ul>
-            <li><a class="active" href="index.html">Menu</a></li>
-            <li><a href="">New Match</a></li>
-            <li><a href="">Teams</a></li>
-            <li><a href="">History</a></li>
-        </ul>
-
+    <div id="firstRow">
     </div>
-    <form id="user_form"  >
-        <h2 style="color: darkgreen">Teams</h2>
-        <div id="input">
-            <input  type="text" id="t1Name"  name="hostTName" placeholder="Host team" ><br><br>
-            <input  type="text" id="t2Name" name="visitorTName" placeholder="Visitor team" >
-        </div>
-
-        <h2 style="color: darkgreen">Toss By Won?</h2>
-        <input type="radio" id="hT"  name="tossWonBy" value="HostTeam">
-        <label for="hT">Host Team</label>
-        <input type="radio" id="vT"  name="tossWonBy" value="visitorTeam">
-        <label for="vT">Visitor Team</label><br>
-        <h2 style="color: darkgreen">Opted to?</h2>
-        <input type="radio" id="Bat"  name="optTo"value="Bat">
-        <label for="Bat">Bat</label>
-        <input type="radio" id="Ball" name="optTo"value="Ball">
-        <label for="Ball">Ball</label><br>
-        <h2 style="color: darkgreen">Overs?</h2>
-        <div id="input2">
-            <input  type="text" id="over" name="over" placeholder="16"><br>
-        </div>
-        <br><br>
-
-        <br>
-        <a href="http://localhost:63342/CricketMatch/SecondPage.html">
-        <input class="centerSubmit" type="button" value="Start match" id="Submit" onclick=doForm()>
-        </a>
-
-    </form>
+    <div id="menuItems"></div>
+     <div id = "form">
+     </div>
 </div>
-
-<script src="input.js"></script>
+<script type="module" src ="./Scripts/index.js">
+</script>
 </body>
 </html>
