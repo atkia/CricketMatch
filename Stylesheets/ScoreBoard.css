@@ -1,0 +1,85 @@
+#center {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    height: 650px;
+    width: 500px;
+    background-color: #f3f3f3;
+    align-items: center;
+    padding-top: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+#firstRow,#secondRow, #thirdRow,#fourthRow,#fifthRow{
+    font-size: larger;
+    background-color: white;
+    border-radius: 10px;
+    padding-top: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-bottom: 10px;
+}
+#heading{
+    background-color: darkgreen;
+}
+h2{
+    color: white;
+}
+.button{
+    border-radius: 50%;
+}
+#teamName{
+    font-size: large;
+}
+#runScore,#scoreP,#wicket{
+    font-size: xxx-large;
+}
+
+#wide,#noBall,#byes,#legByes,#wicketChecked{
+    width: 10%;
+    /*text-align: left;*/
+}
+.leftTd,#firstData{
+    width: 80%;
+    text-align: left;
+}
+th, td {
+    padding-top: 10px;
+    padding-bottom: 5px;
+    /*padding-left: 20px;*/
+    padding-right: 20px;
+}
+th {
+    border-bottom:  solid;
+}
+
+
+button,#retire{
+    background-color: darkgreen;
+    border: 1px solid dimgray;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    margin: 5px;
+    width: 30%;
+    font-size: 12px;
+    cursor: pointer;
+    float: right;
+    border-radius: 10px;
+}
+#undo,#Partnerships,#Extras{
+    background-color: darkgreen;
+    border: 1px solid dimgray;
+    color: white;
+    padding: 10px 10px;
+    text-align: center;
+    text-decoration: none;
+    margin: 5px;
+    width: 90%;
+    font-size: 12px;
+    cursor: pointer;
+    float: left;
+    border-radius: 10px;
+}
