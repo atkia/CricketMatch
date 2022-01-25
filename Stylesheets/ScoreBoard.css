@@ -11,6 +11,10 @@
     padding-left: 15px;
     padding-right: 15px;
 }
+#title{
+    background-color: darkgreen;
+    padding: 1.5% 1.5% 1.5% 20%;
+}
 #firstRow,#secondRow, #thirdRow,#fourthRow,#fifthRow{
     font-size: larger;
     background-color: white;
@@ -40,7 +44,7 @@ h2{
     width: 10%;
     /*text-align: left;*/
 }
-.leftTd,#firstData{
+#leftTd,#firstData{
     width: 80%;
     text-align: left;
 }

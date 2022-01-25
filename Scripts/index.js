@@ -10,7 +10,9 @@ submitButton.onclick = function (){
     let submitButton = document.getElementById("Submit");
     submitButton.onclick = function (){
         elem.storeInputData();
+        players.createObjects();
          scores.createBody();
+
     }
 }
 

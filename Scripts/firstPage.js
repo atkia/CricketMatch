@@ -56,7 +56,7 @@ let headingTitle = "Cricket Scorer",
     }
 }
 
-function inputField(type,id,name){
+ function inputField(type,id,name){
     let input = document.createElement('input');
     input.type = type;
     input.id = id;
@@ -65,7 +65,7 @@ function inputField(type,id,name){
     return input;
 }
 
-function createLabel(forL,text){
+ function createLabel(forL,text){
     let label = document.createElement('label');
     label.for = forL;
     // label.innerText = localStorage.getItem("Host Name")
@@ -117,7 +117,7 @@ function createLabel(forL,text){
         if(heading =="Opted to?"){
             input1 = inputField("radio","Bat","optTo");
             input1.value = "Bat";
-            label1 = createLabel("Bat","Host Team")
+            label1 = createLabel("Bat","Bat")
             form.appendChild(input1);
             form.appendChild(label1);
             input2 = inputField("radio","Ball","optTo");
@@ -152,7 +152,7 @@ function createLabel(forL,text){
     div4.appendChild(input);
 }
 
-export function storeInputData(){
+ export function storeInputData(){
     console.log("Stored...")
     let data = new FormData();
 
@@ -177,7 +177,7 @@ export function storeInputData(){
 
 }
 
-export function createDivs(){
+ export function createDivs(){
      body.innerHTML = '';
      addLink();
     div1.className="center";
