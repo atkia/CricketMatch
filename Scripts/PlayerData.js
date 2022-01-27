@@ -26,6 +26,12 @@ export function Bowling(){
     this.getRuns=(run)=>{
         this.run+=run;
     };
+    this.getMaiden = ()=>{
+        if(this.run ==0){
+            this.maiden++;
+        }
+        return this.maiden;
+    }
     this.getOver=()=>{
         if(this.ballNo<6){
             this.overs = "0."+this.ballNo;
@@ -38,6 +44,11 @@ export function Bowling(){
     }
     this.eR=()=>{
         let er=0.00;
+        if(this.ballNo!=0){
+            er = this.run/this.ballNo;
+            er=er*6;
+            return er.toPrecision(5);
+        }
         return ''+er;
 
     }
@@ -53,12 +64,18 @@ export function team (name) {
     this.teamName = name;
     this.type;
     this.players=[];
+    this.partnershipScore=0;
+    this.addPartnershipScore=(score)=>{
+        this.partnershipScore+=score;
+    };
     this.totalScore=()=>{
         let total=0;
         for(let player of this.players){
             total = total+player.batting.run;
         }
+        total = total+this.partnershipScore;
         return total;
     }
+
 }
 

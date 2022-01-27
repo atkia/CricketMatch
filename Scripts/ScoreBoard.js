@@ -10,11 +10,14 @@ let body = document.getElementsByTagName('body')[0],
     headingDiv = document.createElement('div'),
     table = document.createElement('table'),
     table2 = document.createElement('table'),
+    scoreTable = document.createElement('table'),
+    scoreTR1 = document.createElement('tr'),
+    scoreTR2 = document.createElement('tr'),
     BattingTeamName,BowlingTeamName,
     tr = document.createElement('tr'),
     tr1 = document.createElement('tr'),
     tr2 = document.createElement('tr'),striker,nonStriker,bowler,battingTeam,bowlingTeam,
-    count = 0;
+    count = 0,byes,lB,NB,wide;
 
 function addLink(){
     let head = document.getElementsByTagName('head')[0],
@@ -64,13 +67,13 @@ function createFirstRow(){
 }
 
 function createTitle(){
-    let h2 = document.createElement('h2');
+    let h1 = document.createElement('h1');
 
     getBattingName();
 
-    h2.innerText = BattingTeamName+" v/s "+BowlingTeamName;
+    h1.innerText = BattingTeamName+" v/s "+BowlingTeamName;
     headingDiv.id = "title";
-    headingDiv.appendChild(h2);
+    headingDiv.appendChild(h1);
 }
 
 function createTableData(id,data){
@@ -226,28 +229,56 @@ function createThirdRow(){
     let h3 = document.createElement('h3');
     // let span = document.createElement('span');
     h3.id = "scoreTaken";
-    h3.innerText = "This over: ";
+    h3.innerText = "This over:  ";
+    scoreTable.appendChild(scoreTR1);
+    scoreTable.appendChild(scoreTR2);
+    h3.appendChild(scoreTable);
+
     div4.appendChild(h3);
 }
 
 function calculate(value){
     if(value=="wicket"){
         bowler.bowling.wickets++;
-        let name = striker.playerName;
+        let name = striker.playerName,td = document.createElement('td'),td2 = document.createElement('td');
         alert(name +"is out");
         createBowlerTable();
-        let span = document.createElement('span');
+        let span = document.createElement('span'),span2 = document.createElement('span');
         span.id = 'out';
         span.innerText = 'out';
-        document.getElementById('scoreTaken').appendChild(span);
+        td.appendChild(span);
+        scoreTR1.appendChild(td);
+        span2.innerText='';
+        td2.appendChild(span2);
+        scoreTR2.appendChild(td2);
+
+        // document.getElementById('scoreTaken').appendChild(span);
+
     }
 
-    if(value = 'noBall'){
+    if(value == 'NoBall'){
+        NB=true;
         bowler.bowling.getRuns(1);
-        let span = document.createElement('span');
-        span.id = 'NB';
-        span.innerText = 'NB';
-        document.getElementById('scoreTaken').appendChild(span);
+        battingTeam.addPartnershipScore(1);
+        console.log("NB:   "+NB);
+        // let span = document.getElementById()
+        // document.getElementById('scoreTaken').appendChild(span);
+    }
+
+    if(value =='byes' ){
+        byes = true;
+
+
+    }
+
+    if(value =='legByes' ){
+        lB = true;
+
+    }
+
+    if(value == 'wide'){
+        wide = true;
+        battingTeam.addPartnershipScore(1);
     }
 }
 
@@ -258,7 +289,9 @@ function getCheckBox(value){
     input.id =value;
     input.value = value;
     input.onclick=()=>{
+        console.log("checkbox:   "+value)
         calculate(value);
+        // input.checked=false;
     }
     return input;
 }
@@ -268,15 +301,6 @@ function getLabel(value){
     label.htmlFor = value;
     label.innerText = value;
     return label;
-}
-
-function createFourthRow(){
-    let data = ['wide','noBall','byes','legByes','wicket'];
-    for (let i=0;i<5;i++){
-        div5.appendChild( getCheckBox(data[i]));
-        div5.appendChild(getLabel(data[i]));
-    }
-
 }
 
 function swapPlayer(value){
@@ -295,6 +319,32 @@ function swapPlayer(value){
 
 }
 
+function createFourthRow(){
+    let data = ['wide','NoBall','byes','legByes','wicket'],
+    button1 = document.createElement('button'),
+    button2 = document.createElement('button');
+    for (let i=0;i<5;i++){
+        div5.appendChild( getCheckBox(data[i]));
+        div5.appendChild(getLabel(data[i]));
+    }
+
+    button1.id = 'retire';
+    button1.innerText = "Retire";
+    button1.onclick = ()=>{
+        alert('retire...');
+    }
+    button2.id = 'swap';
+    button2.innerText = "Swap Batsman";
+    button2.onclick = ()=>{
+        swapPlayer('odd');
+        createBattingPLayerTable();
+        console.log("Swap button work!!!")
+    }
+    div5.appendChild(button1);
+    div5.appendChild(button2);
+}
+
+
 function getScoreButton(value) {
     let input = document.createElement('input');
     input.type = 'button';
@@ -302,28 +352,88 @@ function getScoreButton(value) {
     input.value = value;
 
     input.onclick = () => {
+        document.getElementById('wide').checked = false;
+        document.getElementById('NoBall').checked = false;
+        document.getElementById('byes').checked = false;
+        document.getElementById('legByes').checked = false;
+        document.getElementById('wicket').checked = false;
+
         count++;
         console.log("c......"+count);
-        let span = document.createElement('span');
-        span.id = 'ball';
-        span.innerText = value;
-        document.getElementById('scoreTaken').appendChild(span);
+        let td1 = document.createElement('td'),td2 = document.createElement('td') ,span = document.createElement('span'),span2 = document.createElement('span');
+        span.id = 'ball'+value;
+        span2.id = 'type'
+
         if (value % 2 != 0) {
             swapPlayer('odd');
             console.log("Swapped");
         }
-        striker.batting.getRuns(value);
-        striker.batting.ballNo++;
+
+        if(byes==true || lB == true || wide ==true){
+            span.innerText = '0';
+            td1.appendChild(span);
+            scoreTR1.appendChild(td1);
+            battingTeam.addPartnershipScore(value);
+            if(byes==true){
+                span2.innerText = value+'BYE';
+                td2.appendChild(span2)
+                scoreTR2.appendChild(td2);
+                byes=false;
+            }
+            if(lB==true){
+
+                span2.innerText = value+'LB';
+                td2.appendChild(span2)
+                scoreTR2.appendChild(td2);
+                console.log(span2);
+                lB = false;
+            }
+            if(wide==true){
+                let score = value+1;
+                span2.innerText = score+'WD';
+                td2.appendChild(span2)
+                scoreTR2.appendChild(td2);
+
+            }
+
+        }
+        else{
+            span.innerText = value;
+            td1.appendChild(span);
+            scoreTR1.appendChild(td1);
+            span2.innerText = '';
+            td2.appendChild(span2)
+            scoreTR2.appendChild(td2);
+            striker.batting.getRuns(value);
+            bowler.bowling.getRuns(value);
+        }
+
+        if(NB==true){
+            let score = value+1;
+            span2.innerText = 'NB';
+            td2.appendChild(span2)
+            scoreTR2.appendChild(td2);
+        }
+
+        if( wide!=true){
+            striker.batting.ballNo++;
+            if(NB!=true){
+             bowler.bowling.ballNo++;
+            }
+
+        }
         striker.batting.sR();
-        bowler.bowling.ballNo++;
+
         bowler.bowling.getOver();
-        bowler.bowling.getRuns(value);
+
         document.getElementById('runScore').innerText = battingTeam.totalScore();
         console.log("player's SR: "+striker.batting.sR());
-        if(value ==4){
+        if(value ==4 && byes!=true && lB != true &&wide !=true){
+            // document.getElementById('ball'+value).style.backgroundColor = 'chocolate';
             striker.batting.fours++;
         }
-        if(value==6){
+        if(value==6&& byes!=true && lB != true &&wide !=true){
+            // document.getElementById('ball'+value).style.backgroundColor = 'darkgreen';
             striker.batting.sixs++;
         }
         table.innerHTML = '';
@@ -333,21 +443,52 @@ function getScoreButton(value) {
             document.getElementById('scoreTaken').innerHTML = '';
             document.getElementById('scoreTaken').innerText = "This over";
             alert("one over is done!")
-            count==0;
+            count=0;
             console.log("c"+count);
         }
         console.log('table recreated');
         console.log(value);
+        wide = false;
+        NB=false;
     }
     return input;
 }
 
 function createFifthRow(){
-    let table = document.createElement('table');
-    for(let i=1;i<=6;i++){
-        div6.appendChild(getScoreButton(i));
+    let button1 = document.createElement('button'),
+        button2 = document.createElement('button'),
+        button3 = document.createElement('button'),
+        br = document.createElement('br'),
+        br2 = document.createElement('br'),
+        table = document.createElement('table'),
+        tr = document.createElement('tr'),
+        td1 = document.createElement('td'),
+        td2 = document.createElement('td');
+        td1.id = 'leftSide'
+
+    button1.id = 'undo';
+    button1.innerText = 'Undo';
+    button1.onclick=()=>{};
+    button2.id = 'partnership';
+    button2.innerText = 'Partnership';
+    button2.onclick=()=>{};
+    button3.id = 'extras';
+    button3.innerText = "Extras";
+    button3.onclick=()=>{}
+
+    td1.appendChild(button1);
+    td1.appendChild(br);
+    td1.appendChild(button2);
+    td1.appendChild(br2);
+    td1.appendChild(button3);
+    for(let i=0;i<=6;i++){
+        td2.appendChild(getScoreButton(i));
     }
 
+    tr.appendChild(td1);
+    tr.appendChild(td2);
+    table.appendChild(tr);
+    div6.appendChild(table);
 }
 
 export function createBody(){

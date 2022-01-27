@@ -1,15 +1,16 @@
 #center {
     position: absolute;
     left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    /*height: 650px;*/
-    width: 500px;
+    transform: translate(-50%);
+    width: 600px;
     background-color: #f3f3f3;
     align-items: center;
     padding-top: 10px;
     padding-left: 15px;
     padding-right: 15px;
+}
+#innings,#teamName{
+    font-size: larger;
 }
 #strikerDetails{
     /*background-color: chartreuse;*/
@@ -17,7 +18,11 @@
 #playerName{
     color: darkgreen;
 }
-
+label{
+    margin-right: 8%;
+    margin-bottom: 2%;
+    font-size: larger;
+}
 
 hr{
     height: 2%;
@@ -32,6 +37,11 @@ hr{
     background-color: darkgreen;
     padding: 1.5% 1.5% 1.5% 20%;
 }
+
+#leftSide{
+    width: 25%;
+}
+
 #firstRow,#secondRow, #thirdRow,#fourthRow,#fifthRow{
     font-size: larger;
     background-color: white;
@@ -44,43 +54,81 @@ hr{
 #heading{
     background-color: darkgreen;
 }
-h2{
+h1{
     color: white;
+    margin-left: 30%;
 }
 .button{
+    border: 2px solid darkgreen;
     border-radius: 50%;
-    margin-right: 2%;
+    padding: 2% 3% 2%;
+    margin-right: 3%;
+    font-size: 20px;
+    cursor: pointer;
 }
-#fourthRow,#fifthRow{
+/*#scoreTaken{*/
+/*    margin-right: 5%;*/
+/*}*/
+#fourthRow{
+    padding: 4%;
+}
+#thirdRow{
+    padding: 1%;
+}
+
+#fifthRow,#sixthRow{
     padding: 2%;
 }
-#teamName{
-    font-size: large;
+#type{
+    font-size: small;
 }
 #runScore,#scoreP,#wicket{
     font-size: xxx-large;
 }
-#ball1,#ball2,#ball3,#ball4,#ball5,#ball6,#ball{
-    border: 1px solid;
+#ball0,#ball1,#ball2,#ball3,#ball4,#ball5,#ball6,#out{
+
+    border: 2px solid grey;
     border-radius: 50%;
-    margin-right: 3%;
+    height: 30px;
+    width: 30px;
+    padding: 22%;
+    align-items: center;
+    text-align: center;
+    /*margin-right: 3%;*/
+    font-size: 24px;
+    cursor: pointer;
+    display: inline-block;
+    /*background-color: lightgray;*/
 }
-#wide,#noBall,#byes,#legByes,#wicket{
-    width: 12%;
-    /*text-align: left;*/
+
+#ball4{
+    background-color: darkorange;
+    border-color: chocolate;
+}
+#ball6{
+    background-color: green;
+    border-color: darkgreen;
+}
+
+
+#out{
+    color: white;
+    background-color: brown;
+    border-color: darkred;
 }
 #leftTd,#firstData{
     width: 80%;
     text-align: left;
 }
 th, td {
-    padding-top: 10px;
-    padding-bottom: 5px;
-    /*padding-left: 20px;*/
-    padding-right: 20px;
+    padding: 10px 20px 5px;
 }
 th {
     border-bottom:  solid;
+}
+
+input{
+    margin: 2%;
 }
 
 
@@ -93,12 +141,12 @@ button,#retire{
     text-decoration: none;
     margin: 5px;
     width: 30%;
-    font-size: 12px;
+    font-size: 18px;
     cursor: pointer;
     float: right;
     border-radius: 10px;
 }
-#undo,#Partnerships,#Extras{
+#undo,#partnership,#extras{
     background-color: darkgreen;
     border: 1px solid dimgray;
     color: white;
@@ -106,8 +154,8 @@ button,#retire{
     text-align: center;
     text-decoration: none;
     margin: 5px;
-    width: 90%;
-    font-size: 12px;
+    width: 124%;
+    font-size: 19px;
     cursor: pointer;
     float: left;
     border-radius: 10px;
