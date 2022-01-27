@@ -7,10 +7,10 @@ export function Batting(){
         this.run+=run;
     };
     this.sR=()=>{
-        let sr=0.0;
+        let sr=0.00;
         if(this.ballNo!=0){
             sr = (this.run/this.ballNo)*100;
-            return sr;
+            return sr.toPrecision(5);
         }
 
         return ''+sr;
@@ -26,7 +26,19 @@ export function Bowling(){
     this.getRuns=(run)=>{
         this.run+=run;
     };
-    function eR(){
+    this.getOver=()=>{
+        if(this.ballNo<6){
+            this.overs = "0."+this.ballNo;
+        }
+        else{
+            let over = Math.floor( this.ballNo/6),
+                ball = this.ballNo%6;
+            this.overs = over +'.'+ball;
+        }
+    }
+    this.eR=()=>{
+        let er=0.00;
+        return ''+er;
 
     }
 }

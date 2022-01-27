@@ -3,13 +3,30 @@
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    height: 650px;
+    /*height: 650px;*/
     width: 500px;
     background-color: #f3f3f3;
     align-items: center;
     padding-top: 10px;
     padding-left: 15px;
     padding-right: 15px;
+}
+#strikerDetails{
+    /*background-color: chartreuse;*/
+}
+#playerName{
+    color: darkgreen;
+}
+
+
+hr{
+    height: 2%;
+    width: 100%;
+    color: black;
+}
+#tableHead{
+    color: black;
+    font-size: larger;
 }
 #title{
     background-color: darkgreen;
@@ -32,6 +49,10 @@ h2{
 }
 .button{
     border-radius: 50%;
+    margin-right: 2%;
+}
+#fourthRow,#fifthRow{
+    padding: 2%;
 }
 #teamName{
     font-size: large;
@@ -39,9 +60,13 @@ h2{
 #runScore,#scoreP,#wicket{
     font-size: xxx-large;
 }
-
-#wide,#noBall,#byes,#legByes,#wicketChecked{
-    width: 10%;
+#ball1,#ball2,#ball3,#ball4,#ball5,#ball6,#ball{
+    border: 1px solid;
+    border-radius: 50%;
+    margin-right: 3%;
+}
+#wide,#noBall,#byes,#legByes,#wicket{
+    width: 12%;
     /*text-align: left;*/
 }
 #leftTd,#firstData{
