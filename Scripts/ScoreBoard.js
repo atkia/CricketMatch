@@ -344,6 +344,13 @@ function createFourthRow(){
     div5.appendChild(button2);
 }
 
+function checkOver(){
+        scoreTR1.innerHTML='';
+        scoreTR2.innerHTML='';
+        count=0;
+        alert("one over is done");
+        console.log("c"+count);
+}
 
 function getScoreButton(value) {
     let input = document.createElement('input');
@@ -352,105 +359,101 @@ function getScoreButton(value) {
     input.value = value;
 
     input.onclick = () => {
+
         document.getElementById('wide').checked = false;
         document.getElementById('NoBall').checked = false;
         document.getElementById('byes').checked = false;
         document.getElementById('legByes').checked = false;
         document.getElementById('wicket').checked = false;
 
-        count++;
-        console.log("c......"+count);
-        let td1 = document.createElement('td'),td2 = document.createElement('td') ,span = document.createElement('span'),span2 = document.createElement('span');
-        span.id = 'ball'+value;
-        span2.id = 'type'
+            count++;
 
-        if (value % 2 != 0) {
-            swapPlayer('odd');
-            console.log("Swapped");
-        }
+            console.log("c......"+count);
+            let td1 = document.createElement('td'),td2 = document.createElement('td') ,span = document.createElement('span'),span2 = document.createElement('span');
+            span.id = 'ball'+value;
+            span2.id = 'type'
 
-        if(byes==true || lB == true || wide ==true){
-            span.innerText = '0';
-            td1.appendChild(span);
-            scoreTR1.appendChild(td1);
-            battingTeam.addPartnershipScore(value);
-            if(byes==true){
-                span2.innerText = value+'BYE';
+            if (value % 2 != 0) {
+                swapPlayer('odd');
+                console.log("Swapped");
+            }
+
+            if(byes==true || lB == true || wide ==true){
+                span.innerText = '0';
+                td1.appendChild(span);
+                scoreTR1.appendChild(td1);
+                battingTeam.addPartnershipScore(value);
+                if(byes==true){
+                    span2.innerText = value+'BYE';
+                    td2.appendChild(span2)
+                    scoreTR2.appendChild(td2);
+                    byes=false;
+                }
+                if(lB==true){
+
+                    span2.innerText = value+'LB';
+                    td2.appendChild(span2)
+                    scoreTR2.appendChild(td2);
+                    console.log(span2);
+                    lB = false;
+                }
+                if(wide==true){
+                    let score = value+1;
+                    span2.innerText = score+'WD';
+                    td2.appendChild(span2)
+                    scoreTR2.appendChild(td2);
+
+                }
+
+            }
+            else{
+                span.innerText = value;
+                td1.appendChild(span);
+                scoreTR1.appendChild(td1);
+                span2.innerText = '';
                 td2.appendChild(span2)
                 scoreTR2.appendChild(td2);
-                byes=false;
+                striker.batting.getRuns(value);
+                bowler.bowling.getRuns(value);
             }
-            if(lB==true){
 
-                span2.innerText = value+'LB';
-                td2.appendChild(span2)
-                scoreTR2.appendChild(td2);
-                console.log(span2);
-                lB = false;
-            }
-            if(wide==true){
+            if(NB==true){
                 let score = value+1;
-                span2.innerText = score+'WD';
+                span2.innerText = 'NB';
                 td2.appendChild(span2)
                 scoreTR2.appendChild(td2);
-
             }
 
-        }
-        else{
-            span.innerText = value;
-            td1.appendChild(span);
-            scoreTR1.appendChild(td1);
-            span2.innerText = '';
-            td2.appendChild(span2)
-            scoreTR2.appendChild(td2);
-            striker.batting.getRuns(value);
-            bowler.bowling.getRuns(value);
-        }
+            if( wide!=true){
+                striker.batting.ballNo++;
+                if(NB!=true){
+                    bowler.bowling.ballNo++;
+                }
 
-        if(NB==true){
-            let score = value+1;
-            span2.innerText = 'NB';
-            td2.appendChild(span2)
-            scoreTR2.appendChild(td2);
-        }
-
-        if( wide!=true){
-            striker.batting.ballNo++;
-            if(NB!=true){
-             bowler.bowling.ballNo++;
             }
+            striker.batting.sR();
 
-        }
-        striker.batting.sR();
+            bowler.bowling.getOver();
 
-        bowler.bowling.getOver();
-
-        document.getElementById('runScore').innerText = battingTeam.totalScore();
-        console.log("player's SR: "+striker.batting.sR());
-        if(value ==4 && byes!=true && lB != true &&wide !=true){
-            // document.getElementById('ball'+value).style.backgroundColor = 'chocolate';
-            striker.batting.fours++;
+            document.getElementById('runScore').innerText = battingTeam.totalScore();
+            console.log("player's SR: "+striker.batting.sR());
+            if(value ==4 && byes!=true && lB != true &&wide !=true){
+                striker.batting.fours++;
+            }
+            if(value==6&& byes!=true && lB != true &&wide !=true){
+                striker.batting.sixs++;
+            }
+            table.innerHTML = '';
+            createBattingPLayerTable();
+            createBowlerTable();
+            if(count==6){
+                setTimeout(checkOver,2000);
+            }
+            console.log('table recreated');
+            console.log(value);
+            wide = false;
+            NB=false;
         }
-        if(value==6&& byes!=true && lB != true &&wide !=true){
-            // document.getElementById('ball'+value).style.backgroundColor = 'darkgreen';
-            striker.batting.sixs++;
-        }
-        table.innerHTML = '';
-        createBattingPLayerTable();
-        createBowlerTable();
-        if(count==6){
-            document.getElementById('scoreTaken').innerHTML = '';
-            document.getElementById('scoreTaken').innerText = "This over";
-            alert("one over is done!")
-            count=0;
-            console.log("c"+count);
-        }
-        console.log('table recreated');
-        console.log(value);
-        wide = false;
-        NB=false;
-    }
     return input;
 }
 
