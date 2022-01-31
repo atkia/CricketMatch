@@ -464,9 +464,6 @@ function getScoreButton(value) {
              console.log(value);
             wide = false;
             NB=false;
-        // utils.setItem(players.MatchNo,players.match);
-       // let matchIndex=  game.matches.length-1;
-       //  utils.setItem(players.game.id,players.game.matches[matchIndex]);
         utils.setItem(players.game.id,players.game);
         }
     return input;

@@ -1,6 +1,5 @@
 import * as object from "./PlayerData.js";
 import * as utils from './LocalStorageUtils.js';
-import {Games} from "./PlayerData.js";
 
 let headingTitle = "Select Opening Players",
     titleOfInputFields = ["Striker","Non Striker","Bowler"],
@@ -72,9 +71,8 @@ export function createObjects(){
     hostTeam = new object.team(hostTeamName);
     visitorTeam = new object.team(visitorTeamName);
     match = new object.match();
-    match.addMatchNo();
-  //  MatchNo = utils.getItem('MatchNo');
-    game = new object.Games();
+   // match.addMatchNo();
+    game = utils.getItem('gameId');
 
     let tossWonBy = localStorage.getItem('tossWonBy');
     let optedTo = localStorage.getItem('optTo');

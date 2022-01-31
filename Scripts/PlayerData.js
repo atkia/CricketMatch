@@ -85,10 +85,10 @@ export function team (name) {
 
 }
 export function match(){
-    this.matchNo = 0;
-    this.addMatchNo=()=>{
-        this.matchNo++;
-    };
+    // this.matchNo = 0;
+    // this.addMatchNo=()=>{
+    //     this.matchNo++;
+    // };
     this.hostTeam = new team();
     this.visitorTeam = new team();
 }
