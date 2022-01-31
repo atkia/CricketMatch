@@ -86,7 +86,7 @@ let headingTitle = "Cricket Scorer",
     for(let heading of headings){
         h2 = document.createElement('h2');
         h2.innerText=heading;
-        h2.style = "color: darkgreen";
+
         form.appendChild(h2);
         if(heading == "Teams") {
             input1 = inputField("text", "t1Name", "Host Name");
@@ -159,7 +159,6 @@ let headingTitle = "Cricket Scorer",
     let all = document.querySelectorAll("input");
     for(let field of all){
         if (field.type != "submit" && field.type!='button') {
-            // if( field.type!='button') {
             if (field.type == "radio") {
                 if (field.checked) {
                     data.append(field.name, field.value);
@@ -168,11 +167,11 @@ let headingTitle = "Cricket Scorer",
                 data.append(field.name, field.value);
             }
         }
-        // }
     }
     for (let [k, v] of data.entries()) {
         localStorage.setItem(k,v);
-        console.log(k, v); }
+        // console.log(k, v);
+    }
     return false;
 
 }

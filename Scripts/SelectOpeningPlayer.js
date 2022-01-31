@@ -1,4 +1,6 @@
 import * as object from "./PlayerData.js";
+import * as utils from './LocalStorageUtils.js';
+
 let headingTitle = "Select Opening Players",
     titleOfInputFields = ["Striker","Non Striker","Bowler"],
     body = document.getElementsByTagName('body')[0],
@@ -8,7 +10,7 @@ let headingTitle = "Select Opening Players",
     form = document.createElement('form'),
     hostTeamName,visitorTeamName;
 
-export let  hostTeam,visitorTeam;
+export let  game,match,MatchNo,hostTeam,visitorTeam;
 
 function addLink(){
     let head = document.getElementsByTagName('head')[0],
@@ -57,6 +59,7 @@ function createSubmitButton(){
     div3.appendChild(input);
 }
 export function createObjects(){
+
     hostTeamName = localStorage.getItem('Host Name');
     visitorTeamName = localStorage.getItem('Visitor Name');
     let player1Name = localStorage.getItem('Striker'),
@@ -67,7 +70,9 @@ export function createObjects(){
         player3 = new object.player(player3Name,'bowling');
     hostTeam = new object.team(hostTeamName);
     visitorTeam = new object.team(visitorTeamName);
-
+    match = new object.match();
+   // match.addMatchNo();
+    game = utils.getItem('gameId');
 
     let tossWonBy = localStorage.getItem('tossWonBy');
     let optedTo = localStorage.getItem('optTo');
@@ -104,9 +109,10 @@ export function createObjects(){
 
     }
 
-    console.log(hostTeam);
-    console.log(visitorTeam);
-
+    match.hostTeam = hostTeam;
+    match.visitorTeam = visitorTeam;
+    game.matches.push(match);
+    utils.setItem(game.id,game);
 }
 
 export function createDivs(){

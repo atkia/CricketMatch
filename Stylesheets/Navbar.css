@@ -15,6 +15,9 @@ h1{
     font-size: xxx-large ;
 
 }
+h2{
+    color: darkgreen;
+}
 ul {
     list-style-type: none;
     margin: 0;

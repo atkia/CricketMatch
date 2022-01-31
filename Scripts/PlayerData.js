@@ -41,17 +41,23 @@ export function Batting(){
     this.ballNo=0;
     this.fours=0;
     this.sixs=0;
+    this.sr = 0.00;
+    this.retire = false;
+    this.status = 'Not Out';
+    this.changeStatus=()=>{
+        this.status = 'Out';
+    }
     this.getRuns=(run)=>{
         this.run+=run;
     };
     this.sR=()=>{
-        let sr=0.00;
         if(this.ballNo!=0){
-            sr = (this.run/this.ballNo)*100;
-            return sr.toPrecision(5);
+            this.sr = (this.run/this.ballNo)*100;
+            this.sr = this.sr.toPrecision(5);
+            return this.sr;
         }
 
-        return ''+sr;
+        return '' +this.sr;
     }
 
 }
@@ -61,6 +67,7 @@ export function Bowling(){
     this.ballNo= 0;
     this.overs=0.0;
     this.maiden=0;
+    this.er = 0.00;
     this.getRuns=(run)=>{
         this.run+=run;
     };
@@ -81,13 +88,13 @@ export function Bowling(){
         }
     }
     this.eR=()=>{
-        let er=0.00;
         if(this.ballNo!=0){
-            er = this.run/this.ballNo;
-            er=er*6;
-            return er.toPrecision(5);
+            this.er= this.run/this.ballNo;
+            this.er=this.er*6;
+            this.er = this.er.toPrecision(5);
+            return this.er;
         }
-        return ''+er;
+        return ''+this.er;
 
     }
 }
@@ -97,7 +104,6 @@ export function player (name,type) {
     this.batting = new Batting();
     this.bowling = new Bowling();
 };
-
 export function team (name) {
     this.teamName = name;
     this.type;
@@ -125,4 +131,16 @@ export function team (name) {
     this.extras = new Extras();
 
 }
+export function match(){
+    // this.matchNo = 0;
+    // this.addMatchNo=()=>{
+    //     this.matchNo++;
+    // };
+    this.hostTeam = new team();
+    this.visitorTeam = new team();
+}
 
+export  function Games(){
+    this.id = 'gameId';
+    this.matches = [];
+}
