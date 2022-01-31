@@ -1,5 +1,6 @@
 import * as players from './SelectOpeningPlayer.js' ;
-
+import {addExtra, addModal, addPartnership} from './Extras.js';
+import{getPartnershipTable} from './partnership.js';
 let body = document.getElementsByTagName('body')[0],
     div1 = document.createElement('div'),
     div2 = document.createElement('div'),
@@ -16,13 +17,14 @@ let body = document.getElementsByTagName('body')[0],
     BattingTeamName,BowlingTeamName,
     tr = document.createElement('tr'),
     tr1 = document.createElement('tr'),
-    tr2 = document.createElement('tr'),striker,nonStriker,bowler,battingTeam,bowlingTeam,
+    tr2 = document.createElement('tr'),bowler,bowlingTeam,
     count = 0,byes,lB,NB,wide;
+export let battingTeam,striker,nonStriker;
 
 function addLink(){
     let head = document.getElementsByTagName('head')[0],
         link = document.createElement('link');
-    head.innerHTML = '';
+  //  head.innerHTML = '';
     link.rel = 'stylesheet';
     link.href = "./Stylesheets/ScoreBoard.css";
     head.appendChild(link);
@@ -260,7 +262,7 @@ function calculate(value){
         NB=true;
         bowler.bowling.getRuns(1);
         battingTeam.addPartnershipScore(1);
-        console.log("NB:   "+NB);
+        // console.log("NB:   "+NB);
         // let span = document.getElementById()
         // document.getElementById('scoreTaken').appendChild(span);
     }
@@ -385,13 +387,14 @@ function getScoreButton(value) {
                 battingTeam.addPartnershipScore(value);
                 if(byes==true){
                     span2.innerText = value+'BYE';
+                    battingTeam.extras.addByes(value);
                     td2.appendChild(span2)
                     scoreTR2.appendChild(td2);
                     byes=false;
                 }
                 if(lB==true){
-
                     span2.innerText = value+'LB';
+                    battingTeam.extras.addLB(value);
                     td2.appendChild(span2)
                     scoreTR2.appendChild(td2);
                     console.log(span2);
@@ -400,6 +403,8 @@ function getScoreButton(value) {
                 if(wide==true){
                     let score = value+1;
                     span2.innerText = score+'WD';
+                    battingTeam.extras.addWB(score);
+                    // battingTeam.addPartnershipScore(1);
                     td2.appendChild(span2)
                     scoreTR2.appendChild(td2);
 
@@ -419,6 +424,8 @@ function getScoreButton(value) {
 
             if(NB==true){
                 let score = value+1;
+                battingTeam.extras.addNB(1);
+             //   battingTeam.addPartnershipScore(1);
                 span2.innerText = 'NB';
                 td2.appendChild(span2)
                 scoreTR2.appendChild(td2);
@@ -449,8 +456,8 @@ function getScoreButton(value) {
             if(count==6){
                 setTimeout(checkOver,2000);
             }
-            console.log('table recreated');
-            console.log(value);
+            // console.log('table recreated');
+            // console.log(value);
             wide = false;
             NB=false;
         }
@@ -464,20 +471,38 @@ function createFifthRow(){
         br = document.createElement('br'),
         br2 = document.createElement('br'),
         table = document.createElement('table'),
+        table2 = document.createElement('table'),
         tr = document.createElement('tr'),
         td1 = document.createElement('td'),
-        td2 = document.createElement('td');
-        td1.id = 'leftSide'
+        td2 = document.createElement('td'),
+        div= document.createElement('div');
+     //   div1 = document.createElement('div'),
+     //   div2 = document.createElement('div');
+        td1.id = 'leftSide';
 
     button1.id = 'undo';
     button1.innerText = 'Undo';
     button1.onclick=()=>{};
     button2.id = 'partnership';
     button2.innerText = 'Partnership';
-    button2.onclick=()=>{};
+    div = addModal();
+    button2.onclick = ()=>{
+        addPartnership();
+        div.style.display = "block";
+    }
     button3.id = 'extras';
     button3.innerText = "Extras";
-    button3.onclick=()=>{}
+ //   div2 = addModal();
+     button3.onclick=()=>{
+         addExtra();
+         div.style.display = "block";
+     }
+
+    window.onclick = function(event) {
+            if (event.target == div) {
+                div.style.display = "none";
+            }
+        }
 
     td1.appendChild(button1);
     td1.appendChild(br);
@@ -492,6 +517,7 @@ function createFifthRow(){
     tr.appendChild(td2);
     table.appendChild(tr);
     div6.appendChild(table);
+    div6.appendChild(div);
 }
 
 export function createBody(){

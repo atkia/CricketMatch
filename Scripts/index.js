@@ -1,7 +1,7 @@
 import * as elem from "./firstPage.js";
 import * as players from "./SelectOpeningPlayer.js";
 import * as scores from "./ScoreBoard.js";
-
+// import{addExtras} from './Extras.js';
 elem.createDivs();
 let submitButton = document.getElementById("Submit");
 submitButton.onclick = function (){
@@ -12,7 +12,7 @@ submitButton.onclick = function (){
         elem.storeInputData();
         players.createObjects();
          scores.createBody();
-
+     //   addExtras();
     }
 }
 

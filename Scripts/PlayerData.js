@@ -1,3 +1,41 @@
+export function Extras(){
+    this.byes=0;
+    this.lByes =0;
+    this.wB = 0;
+    this.noBall = 0;
+    this.penalty = 0;
+    this.addByes = (value)=>{
+        this.byes = this.byes+value;
+
+    }
+    this.getByes = ()=>{
+        return this.byes+'B';
+    }
+    this.addLB = (value)=>{
+        this.lByes = this.lByes+value;
+    }
+    this.getLB=()=>{
+        return this.lByes+'LB';
+    }
+    this.addWB = (value)=>{
+        this.wB = this.wB+value;
+    }
+    this.getWB=()=>{
+        return this.wB+'WB';
+    }
+    this.addNB = (value)=>{
+        this.noBall = this.noBall+value;
+    }
+    this.getNB=()=>{
+        return this.noBall+'NB';
+    }
+    this.addPenalty = (value)=>{
+        this.penalty = this.penalty+value;
+    }
+    this.getPenalty=()=>{
+        return this.penalty+'P';
+    }
+}
 export function Batting(){
     this.run=0;
     this.ballNo=0;
@@ -66,16 +104,25 @@ export function team (name) {
     this.players=[];
     this.partnershipScore=0;
     this.addPartnershipScore=(score)=>{
-        this.partnershipScore+=score;
-    };
+        console.log("add Partnership function called")
+        this.partnershipScore=this.partnershipScore+score;
+    }
+    // this.totalBall=()=>{
+    //     let ball = 0;
+    //     for(let player of this.players){
+    //         total = total+player.batting.run;
+    //     }
+    // }
     this.totalScore=()=>{
         let total=0;
         for(let player of this.players){
             total = total+player.batting.run;
         }
         total = total+this.partnershipScore;
+        console.log("PartnershipScore..."+this.partnershipScore);
         return total;
     }
+    this.extras = new Extras();
 
 }
 
