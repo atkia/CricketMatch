@@ -19,7 +19,7 @@ submitButton.onclick = function (){
     submitButton.onclick = function (){
         elem.storeInputData();
         players.createObjects();
-         scores.createBody();
+        scores.createBody();
 
     }
 }

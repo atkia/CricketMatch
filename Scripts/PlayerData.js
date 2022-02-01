@@ -1,3 +1,5 @@
+// import {hostTeam, visitorTeam} from "./SelectOpeningPlayer";
+
 export function Extras(){
     this.byes=0;
     this.lByes =0;
@@ -106,40 +108,47 @@ export function player (name,type) {
 };
 export function team (name) {
     this.teamName = name;
-    this.type;
+  //  this.type;
     this.players=[];
     this.partnershipScore=0;
     this.addPartnershipScore=(score)=>{
         console.log("add Partnership function called")
         this.partnershipScore=this.partnershipScore+score;
     }
-    // this.totalBall=()=>{
-    //     let ball = 0;
-    //     for(let player of this.players){
-    //         total = total+player.batting.run;
-    //     }
-    // }
-    this.totalScore=()=>{
-        let total=0;
+    this.totalScore = 0;
+    this.getTotalScore=()=>{
+      //  let total=0;
         for(let player of this.players){
-            total = total+player.batting.run;
+            this.totalScore =  this.totalScore+player.batting.run;
         }
-        total = total+this.partnershipScore;
+        this.totalScore =  this.totalScore+this.partnershipScore;
         console.log("PartnershipScore..."+this.partnershipScore);
-        return total;
+      //  return  this.totalScore;
     }
     this.extras = new Extras();
 
 }
-export function match(){
-    // this.matchNo = 0;
-    // this.addMatchNo=()=>{
-    //     this.matchNo++;
-    // };
-    this.hostTeam = new team();
-    this.visitorTeam = new team();
+
+export function Inning(){
+    this.battingTeam = new team();
+    this.bowlingTeam = new team();
+
+    // this.hostTeam = new team();
+    // this.visitorTeam = new team();
 }
 
+export function match(){
+    this.index =0;
+    this.innings=[];
+   // this.hostTeam = new team();
+   // this.visitorTeam = new team();
+
+    //this.innings2 = new Inning();
+
+    //this.innings1.push(hostTeam,visitorTeam);
+   // this.innings2 = [];
+   // this.innings2.push(hostTeam,visitorTeam);
+}
 export  function Games(){
     this.id = 'gameId';
     this.matches = [];

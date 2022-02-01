@@ -10,7 +10,8 @@ let headingTitle = "Select Opening Players",
     form = document.createElement('form'),
     hostTeamName,visitorTeamName;
 
-export let  game,match,MatchNo,hostTeam,visitorTeam;
+export let  game,match,index;
+    //hostTeam,visitorTeam;
 
 function addLink(){
     let head = document.getElementsByTagName('head')[0],
@@ -58,18 +59,33 @@ function createSubmitButton(){
     input.id='Submit';
     div3.appendChild(input);
 }
+//
+// function changeType(hT){
+//     if(hT.type =='batting'){
+//         hT.type = 'bowling';
+//         return hT;
+//     }
+//     else {
+//         hT.type = 'batting';
+//         return hT;
+//     }
+//
+// }
 export function createObjects(){
 
     hostTeamName = localStorage.getItem('Host Name');
     visitorTeamName = localStorage.getItem('Visitor Name');
     let player1Name = localStorage.getItem('Striker'),
         player2Name = localStorage.getItem('Non Striker')
-        ,player3Name = localStorage.getItem('Bowler');
+        ,player3Name = localStorage.getItem('Bowler'),
+        inning1,inning2;
     let player1 = new object.player(player1Name,'batting'),
         player2 = new object.player(player2Name,'batting'),
-        player3 = new object.player(player3Name,'bowling');
-    hostTeam = new object.team(hostTeamName);
+        player3 = new object.player(player3Name,'bowling'),
+        hostTeam = new object.team(hostTeamName),
     visitorTeam = new object.team(visitorTeamName);
+    inning1 = new object.Inning();
+    inning2 = new object.Inning();
     match = new object.match();
    // match.addMatchNo();
     game = utils.getItem('gameId');
@@ -80,37 +96,76 @@ export function createObjects(){
     if(tossWonBy == 'HostTeam') {
 
         if(optedTo === 'Bat'){
-            hostTeam.type = 'batting'
+           // hostTeam.type = 'batting';
+            inning1.battingTeam = hostTeam;
+            inning2.bowlingTeam = hostTeam;
+          //  inning2.hostTeam.type = 'bowling';
+          //  visitorTeam.type = 'bowling';
+            inning1.bowlingTeam = visitorTeam;
+            inning2.battingTeam = visitorTeam;
+         //   inning2.visitorTeam.type = 'batting'
             hostTeam.players.push(player1);
             hostTeam.players.push(player2);
             visitorTeam.players.push(player3)
         }
         else {
-            hostTeam.type = 'bowling';
+        //    hostTeam.type = 'bowling';
+            inning1.battingTeam = visitorTeam;
+            inning2.bowlingTeam = visitorTeam;
+            inning1.bowlingTeam = hostTeam;
+            inning2.battingTeam = hostTeam;
+          //  inning2.hostTeam.type = 'batting';
+          //  visitorTeam.type = 'batting';
+         //   inning2.visitorTeam.type = 'bowling';
             visitorTeam.players.push(player1);
             visitorTeam.players.push(player2);
             hostTeam.players.push(player3)
         }
 
     }
-    else {
-        if(optedTo === 'Bat'){
-            visitorTeam.type = 'batting';
-            visitorTeam.players.push(player1);
-            visitorTeam.players.push(player2);
-            hostTeam.players.push(player3);
-        }
-        else {
-            visitorTeam.type = 'bowling';
-            hostTeam.players.push(player1);
-            hostTeam.players.push(player2);
-            visitorTeam.players.push(player3)
-        }
+    // else {
+    //     if(optedTo === 'Bat'){
+    //         visitorTeam.type = 'batting';
+    //
+    //         inning1.battingTeam = visitorTeam;
+    //         inning2.bowlingTeam = visitorTeam;
+    //         inning1.bowlingTeam = hostTeam;
+    //         inning2.battingTeam = hostTeam;
+    //
+    //      //   inning2.visitorTeam.type = 'bowling';
+    //         hostTeam.type = 'bowling';
+    //      //   inning2.hostTeam.type = 'batting'
+    //         visitorTeam.players.push(player1);
+    //         visitorTeam.players.push(player2);
+    //         hostTeam.players.push(player3);
+    //     }
+    //     else {
+    //         visitorTeam.type = 'bowling';
+    //     //    inning2.visitorTeam.type = 'batting';
+    //         hostTeam.type = 'batting';
+    //     //    inning2.hostTeam.type = 'bowling'
+    //         hostTeam.players.push(player1);
+    //         hostTeam.players.push(player2);
+    //         visitorTeam.players.push(player3)
+    //     }
+    //
+    // }
 
-    }
+   // match.hostTeam = hostTeam;
+   // match.visitorTeam = visitorTeam;
+   // console.log("hostTeam:  "+ match.hostTeam);
+  //  console.log("visitor Team:   "+match.visitorTeam);
 
-    match.hostTeam = hostTeam;
-    match.visitorTeam = visitorTeam;
+   // inning1.hostTeam = hostTeam;
+   //  inning1.visitorTeam = visitorTeam;
+   //  // match.innings1 = inning1;
+   //  inning2.hostTeam = changeType(hostTeam);
+   //  inning2.visitorTeam = changeType(visitorTeam);
+    index = match.index;
+    match.innings.push(inning1);
+    match.innings.push(inning2);
+   // match.innings.push(hostTeam);
+    console.log(match.innings);
     game.matches.push(match);
     utils.setItem(game.id,game);
 }

@@ -1,6 +1,3 @@
-// export function partnership(){
-//     this.
-// }
 import{battingTeam,striker,nonStriker}from './ScoreBoard.js';
 let table = document.createElement('table'),
     tr1 = document.createElement('tr'),
@@ -25,7 +22,7 @@ export function getPartnershipTable(){
     td3.innerText = nonStriker.playerName;
 
     td4.innerText = striker.batting.run;
-    td5.innerText = battingTeam.totalScore();
+    td5.innerText = battingTeam.totalScore;
     td6.innerText = nonStriker.batting.run;
     td7.colSpan = 3;
     td7.id = 'ballNo'

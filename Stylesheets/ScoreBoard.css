@@ -104,10 +104,12 @@ h1{
 #ball4{
     background-color: darkorange;
     border-color: chocolate;
+    color: white;
 }
 #ball6{
     background-color: green;
     border-color: darkgreen;
+    color: white;
 }
 
 
