@@ -130,6 +130,8 @@ export function team (name) {
 }
 
 export function Inning(){
+    this.winnerTeamName = '';
+    this.losserTeamName ='';
     this.battingTeam = new team();
     this.bowlingTeam = new team();
 

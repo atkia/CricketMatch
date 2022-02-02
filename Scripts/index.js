@@ -3,6 +3,7 @@ import * as players from "./SelectOpeningPlayer.js";
 import * as scores from "./ScoreBoard.js";
 import * as utils from './LocalStorageUtils.js';
 import * as object from "./PlayerData.js";
+import * as getTeam from './Teams.js';
  if(utils.getItem('gameId')===null){
   let game = new object.Games();
     console.log('got null!!!!!!!!!!')
@@ -11,6 +12,12 @@ import * as object from "./PlayerData.js";
  }
 // import{addExtras} from './Extras.js';
 elem.createDivs();
+ let teamButton = document.getElementById('teams');
+ teamButton.onclick = function (){
+   //  console.log('teams....');
+   // let game = utils.getItem('gameId');
+     getTeam.teamName();
+ }
 let submitButton = document.getElementById("Submit");
 submitButton.onclick = function (){
     elem.storeInputData();

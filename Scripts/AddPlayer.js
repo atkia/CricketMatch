@@ -2,9 +2,10 @@ let input= document.createElement('input'),h2 = document.createElement('h2'),
     div = document.createElement('div'),
     body = document.getElementsByTagName('body')[0];
    // export let newBatsman;
-import {createBody} from './ScoreBoard.js'
+import {changePLayer, createBattingPLayerTable, createBody, createBowlerTable} from './ScoreBoard.js'
 import {storeInputData} from './firstPage.js'
 function createSubmitButton() {
+    console.log("create button function called...")
     let input = document.createElement('input');
 
     input.type = "button";
@@ -12,10 +13,13 @@ function createSubmitButton() {
     input.className = "PlayerEntry";
     input.id = 'Submit';
     input.onclick = ()=>{
+        storeInputData();
 
         console.log("1....");
-      //  body.innerHTML='';
+        changePLayer();
         createBody();
+        createBattingPLayerTable();
+        createBowlerTable();
     }
     return input;
 }
@@ -26,10 +30,9 @@ export function createInputField(){
     input.id = 'newBatsman';
     input.type = "text";
     input.name = "NewPlayerName";
+
     let button = createSubmitButton();
-    storeInputData();
-  // newBatsman = input.value;
-   // console.log("new Batsman Name: "+newBatsman);
+
 
     div.id = 'center';
     div.innerHTML = '';

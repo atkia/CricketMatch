@@ -7,3 +7,7 @@ export function getItem(key){
     let value = JSON.parse( localStorage.getItem(key));
     return value;
 }
+//
+// export function remove(){
+//     let
+// }

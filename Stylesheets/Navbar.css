@@ -30,31 +30,46 @@ ul {
 li {
     float: left;
     /*font-size: medium;*/
-    font-size: large;
+    font-size: xx-large;
     display: block;
-    color: #666;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-}
-
-li a {
-    display: block;
-    color: #666;
     text-align: center;
     /*padding: 14px 16px;*/
     text-decoration: none;
+
 }
+
+/*li a {*/
+/*    display: block;*/
+/*    color: #666;*/
+/*    text-align: center;*/
+/*    !*padding: 14px 16px;*!*/
+/*    text-decoration: none;*/
+/*}*/
 
 li :hover {
     background-color: #ddd;
-}
 
- .active {
-    color: white;
-    /*background-color: #04AA6D;*/
+}
+.Disabled{
+    pointer-events: none;
+}
+#menu :hover{
     background-color: darkgreen;
 }
+ .active {
+    color: white;
+     /*font-size: larger;*/
+    /*background-color: #04AA6D;*/
+    background-color: darkgreen;
+     /*padding: 14px 16px;*/
+}
+ #newMatch,#teams,#history,#menu{
+     border: 0;
+     font-size: large;
+     padding: 14px 16px;
+     cursor: pointer;
+
+ }
 #user_form{
     background-color: #f3f3f3;
     padding-top: 1%;
