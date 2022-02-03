@@ -15,8 +15,8 @@ elem.createDivs();
  let teamButton = document.getElementById('teams');
  teamButton.onclick = function (){
    //  console.log('teams....');
-   // let game = utils.getItem('gameId');
-     getTeam.teamName();
+    let game = utils.getItem('gameId');
+     getTeam.teamName(game);
  }
 let submitButton = document.getElementById("Submit");
 submitButton.onclick = function (){

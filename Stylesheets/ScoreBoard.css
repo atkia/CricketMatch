@@ -9,6 +9,48 @@
     padding-left: 15px;
     padding-right: 15px;
 }
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid #e7e7e7;
+    background-color: #f3f3f3;
+}
+
+li {
+    width:25%;
+    float: left;
+    /*font-size: medium;*/
+    font-size: xx-large;
+    display: block;
+    text-align: center;
+    /*padding: 14px 16px;*/
+    text-decoration: none;
+
+}
+li :hover {
+    background-color: black;
+
+}
+.Disabled{
+    pointer-events: none;
+}
+
+#newMatch,#teams,#history,#menu{
+    background-color: #88888863;
+    width: 100%;
+    border: 0;
+    font-size: large;
+    padding: 14px 16px;
+    cursor: pointer;
+
+}
+#menu{
+    color: white;
+    background-color: darkgreen;
+}
+
 #innings,#teamName{
     font-size: larger;
 }
@@ -56,7 +98,7 @@ hr{
 }
 h1{
     color: white;
-    margin-left: 30%;
+    margin-left: 18%;
 }
 .button{
     border: 2px solid darkgreen;
@@ -134,7 +176,7 @@ input{
 }
 
 
-button,#retire{
+#swap,#retire{
     background-color: darkgreen;
     border: 1px solid dimgray;
     color: white;

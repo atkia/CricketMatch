@@ -30,7 +30,7 @@ let headingTitle = "Cricket Scorer",
     div2.appendChild(br2);
 }
 
- function createMenuItems() {
+export function createMenuItems() {
     let menuItems = ['Menu','New Match', 'Teams', 'History'],
         ul = document.createElement('ul'),
         li2,li1,li3,li4,
@@ -39,17 +39,16 @@ let headingTitle = "Cricket Scorer",
         button2 = document.createElement('button'),
         button3 = document.createElement('button');
 
-    div3.appendChild(ul);
+  //  div3.appendChild(ul);
 
    li1 = document.createElement('li');
+    li2 = document.createElement('li');
+    li3 = document.createElement('li');
+    li4 = document.createElement('li');
    button.className ="active";
    li1.className="Disabled";
    button.id = 'menu';
    button.innerText="Menu";
-    li1.appendChild(button);
-     li2 = document.createElement('li');
-     li3 = document.createElement('li');
-     li4 = document.createElement('li');
 
 
      button1.id= "newMatch";
@@ -58,6 +57,7 @@ let headingTitle = "Cricket Scorer",
      button1.innerText = menuItems[1];
      button2.innerText = menuItems[2];
      button3.innerText = menuItems[3];
+    li1.appendChild(button);
      li2.appendChild(button1);
      li3.appendChild(button2);
      li4.appendChild(button3);
@@ -65,26 +65,8 @@ let headingTitle = "Cricket Scorer",
      ul.appendChild(li2);
      ul.appendChild(li3);
      ul.appendChild(li4);
-
-    // for (let i = 0; i < menuItems.length; i++) {
-    //     li = document.createElement('li');
-    //     button=document.createElement('button')
-    //     if(i==0){
-    //         button.className ="active";
-    //     }
-    //
-    //
-    //         //a.href = menuItemsLinks[i];
-    //     // a.className = "active";
-    //     button.id = 'firstPageButton'
-    //     button.innerText = menuItems[i];
-    //     li.appendChild(button);
-    //     ul.appendChild(li);
-    // }
+     return ul;
 }
-
-
-
 
  function inputField(type,id,name){
     let input = document.createElement('input');
@@ -216,7 +198,7 @@ let headingTitle = "Cricket Scorer",
 
     // createDivs();
     createTitle();
-    createMenuItems();
+    div3.appendChild(createMenuItems());
     createForm();
     createSubmitButton();
     body.appendChild(div1);

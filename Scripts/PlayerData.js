@@ -140,7 +140,11 @@ export function Inning(){
 }
 
 export function match(){
+    this.date = 0;
+    this.time =0;
     this.index =0;
+    this.tossWonBy = '';
+    this.optedTo = '';
     this.innings=[];
    // this.hostTeam = new team();
    // this.visitorTeam = new team();

@@ -59,18 +59,6 @@ function createSubmitButton(){
     input.id='Submit';
     div3.appendChild(input);
 }
-//
-// function changeType(hT){
-//     if(hT.type =='batting'){
-//         hT.type = 'bowling';
-//         return hT;
-//     }
-//     else {
-//         hT.type = 'batting';
-//         return hT;
-//     }
-//
-// }
 export function createObjects(){
 
     hostTeamName = localStorage.getItem('Host Name');
@@ -87,15 +75,21 @@ export function createObjects(){
     inning1 = new object.Inning();
     inning2 = new object.Inning();
     match = new object.match();
+    let currentDate = new Date(),
+    month = currentDate.getMonth()+1;
+    match.date = currentDate.getDate()+"/" + month+ "/" + currentDate.getFullYear() ;
+    match.time =  currentDate.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
    // match.addMatchNo();
+    console.log("match time and date:..."+match.date+"...."+match.time);
     game = utils.getItem('gameId');
 
     let tossWonBy = localStorage.getItem('tossWonBy');
     let optedTo = localStorage.getItem('optTo');
 
     if(tossWonBy == 'HostTeam') {
-
+        match.tossWonBy = hostTeamName;
         if(optedTo === 'Bat'){
+            match.optedTo = 'bat';
            // hostTeam.type = 'batting';
             inning1.battingTeam = hostTeam;
             inning2.bowlingTeam = hostTeam;
@@ -109,6 +103,7 @@ export function createObjects(){
             visitorTeam.players.push(player3)
         }
         else {
+            match.optedTo = 'bowl';
         //    hostTeam.type = 'bowling';
             inning1.battingTeam = visitorTeam;
             inning2.bowlingTeam = visitorTeam;
@@ -121,7 +116,15 @@ export function createObjects(){
             visitorTeam.players.push(player2);
             hostTeam.players.push(player3)
         }
-
+    }
+    else{
+        match.tossWonBy = visitorTeamName;
+        if(optedTo=='Bat'){
+            match.optedTo='bat';
+        }
+        else {
+            match.optedTo = 'bowl';
+        }
     }
     // else {
     //     if(optedTo === 'Bat'){
@@ -150,7 +153,6 @@ export function createObjects(){
     //     }
     //
     // }
-
    // match.hostTeam = hostTeam;
    // match.visitorTeam = visitorTeam;
    // console.log("hostTeam:  "+ match.hostTeam);

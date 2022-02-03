@@ -133,7 +133,9 @@ function createDiv(i,name){
 }
 
 
-export function teamName(){
+export function teamName(game){
+    console.log("taken game:...."+ game);
+    games = game;
     addLink();
     body.innerHTML='';
     if(div.hasChildNodes()==true){
@@ -145,7 +147,7 @@ export function teamName(){
     body.appendChild(div);
     let teamsName = [];
   //  console.log(game.matches[0].innings[0].battingTeam);
-//console.log(game.matches.length);
+console.log(games.matches.length);
     for(let i=0;i<games.matches.length;i++){
 
       //  console.log('for loop a dhukce')
