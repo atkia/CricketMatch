@@ -67,7 +67,7 @@ export function Bowling(){
     this.wickets=0;
     this.run = 0;
     this.ballNo= 0;
-    this.overs=0.0;
+    this.overs='0.0';
     this.maiden=0;
     this.er = 0.00;
     this.getRuns=(run)=>{
@@ -86,7 +86,7 @@ export function Bowling(){
         else{
             let over = Math.floor( this.ballNo/6),
                 ball = this.ballNo%6;
-            this.overs = over +'.'+ball;
+            this.overs =''+ over +'.'+ball;
         }
     }
     this.eR=()=>{
@@ -107,6 +107,8 @@ export function player (name,type) {
     this.bowling = new Bowling();
 };
 export function team (name) {
+    this.wicket = 0;
+    this.totalOver = '0.0';
     this.teamName = name;
   //  this.type;
     this.players=[];
@@ -115,6 +117,15 @@ export function team (name) {
         console.log("add Partnership function called")
         this.partnershipScore=this.partnershipScore+score;
     }
+
+    this.getTotalOver=()=>{
+        for(let player of this.players){
+            if(player.type=='bowling'){
+                this.totalOver = player.bowling.overs;
+            }
+        }
+    }
+
     this.totalScore = 0;
     this.getTotalScore=()=>{
       //  let total=0;

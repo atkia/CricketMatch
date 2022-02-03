@@ -1,0 +1,48 @@
+/*tr{*/
+/*    padding: 2%;*/
+/*    margin: 2%;*/
+/*}*/
+table{
+    padding: 2%;
+}
+#teamDiv{
+    padding: 0%;
+    border-radius: 2%;
+}
+
+td{
+    padding-left: 0%;
+    padding-bottom: 1%;
+    width: 0%;
+}
+#remove,#archive{
+    align-items: end;
+    /*background-color: black;*/
+    /*width: 20%;*/
+}
+#circleData{
+    align-items: end;
+    /*width: 3%;*/
+    text-align: left;
+    padding: 0%;
+
+}
+button{
+    width: 100%;
+    border:0px;
+    background-color: white;
+    font-size: large;
+}
+#name{
+    padding: 2%;
+    width: 0%;
+    align-items: end;
+    text-align: left;
+}
+#teamName{
+    /*padding-left: 2% ;*/
+    width:7%;
+}
+#runWicket{
+   text-align: end;
+}

@@ -5,6 +5,7 @@ import * as addPlayer from './AddPlayer.js';
 import * as object from "./PlayerData.js";
 import {createMenuItems} from "./firstPage.js";
 import * as getTeam from "./Teams.js";
+import {history} from "./history.js";
 
 let body = document.getElementsByTagName('body')[0],
     div0 = document.createElement('div'),
@@ -27,6 +28,7 @@ let body = document.getElementsByTagName('body')[0],
     count = 0,byes,lB,NB,wide,inning,wicket;
 
 export let bowlingTeam,battingTeam,striker,nonStriker;
+let gameObject = utils.getItem('gameId');
 
 function addLink(){
     let head = document.getElementsByTagName('head')[0],
@@ -303,9 +305,11 @@ export function changePLayer(){
 function calculate(value){
     if(value=="wicket"){
         wicket = true;
+        battingTeam.wicket++;
          bowler.bowling.wickets++;
         striker.batting.changeStatus();
         utils.setItem('gameId',players.game);
+        document.getElementById('wicket').innerText = battingTeam.wicket;
         let td = document.createElement('td'),td2 = document.createElement('td');
         console.log("create Input field function called...")
         addPlayer.createInputField();
@@ -505,7 +509,8 @@ function getScoreButton(value) {
             striker.batting.sR();
 
             bowler.bowling.getOver();
-            document.getElementById('over').innerText = bowler.bowling.overs;
+            battingTeam.getTotalOver();
+            document.getElementById('over').innerText =battingTeam.totalOver;
             battingTeam.getTotalScore();
             document.getElementById('runScore').innerText = battingTeam.totalScore;
         if (value % 2 != 0) {
@@ -598,12 +603,21 @@ function createFifthRow(){
 }
 function menuButtonOnClick(){
     let game = utils.getItem('gameId');
+    let newMatch = document.getElementById('newMatch');
+    newMatch.onclick = function (){
+
+    }
     let teamButton = document.getElementById('teams');
     teamButton.onclick = function (){
         //  console.log('teams....');
         // let game = utils.getItem('gameId');
         getTeam.teamName(game);
     }
+    let historyButton = document.getElementById('history');
+    historyButton.onclick = function (){
+        history(game);
+    }
+
 
 
 }
