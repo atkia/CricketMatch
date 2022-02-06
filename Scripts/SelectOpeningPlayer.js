@@ -10,9 +10,9 @@ let headingTitle = "Select Opening Players",
     form = document.createElement('form'),
     hostTeamName,visitorTeamName;
 
-export let  game,match,index;
+export let  matchIndex,inningIndex;
     //hostTeam,visitorTeam;
-
+let game,match;
 function addLink(){
     let head = document.getElementsByTagName('head')[0],
         link = document.createElement('link');
@@ -56,7 +56,7 @@ function createSubmitButton(){
     input.type="button";
     input.value="Start match";
     input.className="centerSubmit";
-    input.id='Submit';
+    input.id='startMatch';
     div3.appendChild(input);
 }
 export function createObjects(){
@@ -109,9 +109,6 @@ export function createObjects(){
             inning2.bowlingTeam = visitorTeam;
             inning1.bowlingTeam = hostTeam;
             inning2.battingTeam = hostTeam;
-          //  inning2.hostTeam.type = 'batting';
-          //  visitorTeam.type = 'batting';
-         //   inning2.visitorTeam.type = 'bowling';
             visitorTeam.players.push(player1);
             visitorTeam.players.push(player2);
             hostTeam.players.push(player3)
@@ -157,17 +154,27 @@ export function createObjects(){
    // match.visitorTeam = visitorTeam;
    // console.log("hostTeam:  "+ match.hostTeam);
   //  console.log("visitor Team:   "+match.visitorTeam);
-
+    let previousMatchIndex = 0;
    // inning1.hostTeam = hostTeam;
    //  inning1.visitorTeam = visitorTeam;
    //  // match.innings1 = inning1;
    //  inning2.hostTeam = changeType(hostTeam);
    //  inning2.visitorTeam = changeType(visitorTeam);
-    index = match.index;
+    if(game.matches.length!=0){
+        console.log('game match:...',game.matches.length);
+        let index = game.matches.length-1;
+        previousMatchIndex = game.matches[index].matchIndex;
+        console.log('previousMatchIndex',previousMatchIndex);
+        match.matchIndex = match.matchIndex+previousMatchIndex+1;
+        matchIndex = match.matchIndex;
+    }
+    else{
+        matchIndex= match.matchIndex++;
+    }
+    match.inningIndex++;
+    inningIndex = match.inningIndex;
     match.innings.push(inning1);
     match.innings.push(inning2);
-   // match.innings.push(hostTeam);
-    console.log(match.innings);
     game.matches.push(match);
     utils.setItem(game.id,game);
 }

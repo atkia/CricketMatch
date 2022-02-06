@@ -2,7 +2,7 @@ let input= document.createElement('input'),h2 = document.createElement('h2'),
     div = document.createElement('div'),
     body = document.getElementsByTagName('body')[0];
    // export let newBatsman;
-import {changePLayer, createBattingPLayerTable, createBody, createBowlerTable} from './ScoreBoard.js'
+import {changePLayer, createBattingPLayerTable, createBody, createBowlerTable,matchIndex} from './ScoreBoard.js'
 import {storeInputData} from './firstPage.js'
 function createSubmitButton() {
     console.log("create button function called...")
@@ -17,7 +17,7 @@ function createSubmitButton() {
 
         console.log("1....");
         changePLayer();
-        createBody();
+        createBody(matchIndex);
         createBattingPLayerTable();
         createBowlerTable();
     }

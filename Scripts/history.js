@@ -158,7 +158,8 @@ function createDiv(i,match){
     button1.id = 'resume';
     button1.innerText = 'Resume';
     button1.onclick=()=>{
-        scoreBoard.createBody();
+        console.log(match.matchIndex);
+        scoreBoard.createBody(match.matchIndex);
     }
     td9.colSpan=2;
     td9.appendChild(button1);

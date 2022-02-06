@@ -33,11 +33,12 @@ let body = document.getElementsByTagName('body')[0];
      submitButton.onclick = function (){
          elem.storeInputData();
          players.createDivs();
-         let submitButton = document.getElementById("Submit");
+         let submitButton = document.getElementById("startMatch");
          submitButton.onclick = function (){
              elem.storeInputData();
              players.createObjects();
-             scores.createBody();
+             console.log('match Index:  '+players.matchIndex);
+             scores.createBody(players.matchIndex);
 
          }
      }
