@@ -4,15 +4,18 @@
     transform: translate(-50%);
     padding: 8px;
     /*height: 850px;*/
-    width: 700px;
+    width: 800px;
 }
-#firstRow{
+#fixedTitleDiv{
     background-color: darkgreen;
+
 }
-h1{
+#fixedTitle{
+
     color: whitesmoke;
     text-align: center;
     font-size: xxx-large ;
+    margin-left: 0%;
 
 }
 h2{
@@ -70,20 +73,29 @@ li :hover {
      cursor: pointer;
 
  }
+ div #form{
+     background-color:#aaaaaa1a;
+     padding: .5%;
+ }
 #user_form{
     background-color: #f3f3f3;
     padding-top: 1%;
     padding-left: 2%;
     padding-bottom: 2%;
 }
-form input#t1Name,#t2Name,#over{
+input[type=text]{
     /*margin-left: 2%;*/
     border: 0px;
     /*border-radius: 25px;*/
-    border-bottom: 1px solid;
+    border-bottom: 1px solid ;
     margin-bottom: 2%;
     height: 25px;
     width: 98%;
+     outline: none;
+}
+input[type=text]:focus{
+    border-bottom: 3px solid darkgreen;
+
 }
 #Submit{
     background-color: darkgreen;

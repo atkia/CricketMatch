@@ -5,68 +5,68 @@ let headingTitle = "Cricket Scorer",
     div3 = document.createElement('div'),
     div4 = document.createElement('div'),
     headings = ['Teams','Toss By Won', 'Opted to?','Overs?'];
-
- function addLink(){
-    let head = document.getElementsByTagName('head')[0],
-        link = document.createElement('link');
-
-    link.rel = 'stylesheet';
-    link.href = "./Stylesheets/Navbar.css";
-    head.appendChild(link);
-    return head
-}
-
- function createTitle(){
-    let h1 = document.createElement('h1'),
-        b = document.createElement('b'),
-        br1 = document.createElement('br'),
-        br2 = document.createElement('br'),title;
-    // title = document.getElementById("firstRow");
-    div2.appendChild(br1);
-    div2.appendChild(h1);
-    h1.appendChild(b);
-    b.innerText = headingTitle;
-
-    div2.appendChild(br2);
-}
-
-export function createMenuItems() {
-    let menuItems = ['Menu','New Match', 'Teams', 'History'],
-        ul = document.createElement('ul'),
-        li2,li1,li3,li4,
-        button = document.createElement('button'),
-        button1 = document.createElement('button'),
-        button2 = document.createElement('button'),
-        button3 = document.createElement('button');
-
-  //  div3.appendChild(ul);
-
-   li1 = document.createElement('li');
-    li2 = document.createElement('li');
-    li3 = document.createElement('li');
-    li4 = document.createElement('li');
-   button.className ="active";
-   li1.className="Disabled";
-   button.id = 'menu';
-   button.innerText="Menu";
-
-
-     button1.id= "newMatch";
-     button2.id = 'teams';
-     button3.id = 'history';
-     button1.innerText = menuItems[1];
-     button2.innerText = menuItems[2];
-     button3.innerText = menuItems[3];
-    li1.appendChild(button);
-     li2.appendChild(button1);
-     li3.appendChild(button2);
-     li4.appendChild(button3);
-     ul.appendChild(li1);
-     ul.appendChild(li2);
-     ul.appendChild(li3);
-     ul.appendChild(li4);
-     return ul;
-}
+//
+//  function addLink(){
+//     let head = document.getElementsByTagName('head')[0],
+//         link = document.createElement('link');
+//
+//     link.rel = 'stylesheet';
+//     link.href = "./Stylesheets/Navbar.css";
+//     head.appendChild(link);
+//     return head
+// }
+//
+//  function createTitle(){
+//     let h1 = document.createElement('h1'),
+//         b = document.createElement('b'),
+//         br1 = document.createElement('br'),
+//         br2 = document.createElement('br'),title;
+//     // title = document.getElementById("firstRow");
+//     div2.appendChild(br1);
+//     div2.appendChild(h1);
+//     h1.appendChild(b);
+//     b.innerText = headingTitle;
+//
+//     div2.appendChild(br2);
+// }
+//
+// export function createMenuItems() {
+//     let menuItems = ['Menu','New Match', 'Teams', 'History'],
+//         ul = document.createElement('ul'),
+//         li2,li1,li3,li4,
+//         button = document.createElement('button'),
+//         button1 = document.createElement('button'),
+//         button2 = document.createElement('button'),
+//         button3 = document.createElement('button');
+//
+//   //  div3.appendChild(ul);
+//
+//    li1 = document.createElement('li');
+//     li2 = document.createElement('li');
+//     li3 = document.createElement('li');
+//     li4 = document.createElement('li');
+//    button.className ="active";
+//    li1.className="Disabled";
+//    button.id = 'menu';
+//    button.innerText="Menu";
+//
+//
+//      button1.id= "newMatch";
+//      button2.id = 'teams';
+//      button3.id = 'history';
+//      button1.innerText = menuItems[1];
+//      button2.innerText = menuItems[2];
+//      button3.innerText = menuItems[3];
+//     li1.appendChild(button);
+//      li2.appendChild(button1);
+//      li3.appendChild(button2);
+//      li4.appendChild(button3);
+//      ul.appendChild(li1);
+//      ul.appendChild(li2);
+//      ul.appendChild(li3);
+//      ul.appendChild(li4);
+//      return ul;
+// }
 
  function inputField(type,id,name){
     let input = document.createElement('input');
@@ -87,7 +87,7 @@ export function createMenuItems() {
 
 }
 
- function createForm(){
+export function createForm(){
     let  form = document.createElement('form'),h2,
         input1 = document.createElement('input'),
         label1 = document.createElement('label') ,
@@ -102,10 +102,10 @@ export function createMenuItems() {
         form.appendChild(h2);
         if(heading == "Teams") {
             input1 = inputField("text", "t1Name", "Host Name");
-            input1.placeholder = "hostTName";
+            input1.placeholder = "Host Name";
             form.appendChild(input1);
             input2 = inputField("text", "t2Name", "Visitor Name" );
-            input2.placeholder = "visitorTName";
+            input2.placeholder = "Visitor Name";
             form.appendChild(input2)
             // storeInputData();
 
@@ -141,17 +141,17 @@ export function createMenuItems() {
         }
 
         if(heading == "Overs?") {
-            input1 = inputField("text", "over", "over");
+            input1 = inputField("text", "overs", "over");
             input1.placeholder = "16";
             form.appendChild(input1);
         }
 
     }
-
-    div4.appendChild(form);
+    return form;
+   // div4.appendChild(form);
 }
 
- function createSubmitButton(){
+ export function createSubmitButton(){
     // let a = document.createElement('a'),
     let input = document.createElement('input');
 
@@ -160,8 +160,11 @@ export function createMenuItems() {
     input.value="Start match";
     input.className="centerSubmit";
     input.id='Submit';
+    console.log('2');
+   // console.log(document.getElementById('Submit'));
     // a.appendChild(input);
-    div4.appendChild(input);
+     return input;
+   // div4.appendChild(input);
 }
 
  export function storeInputData(){
@@ -187,23 +190,23 @@ export function createMenuItems() {
     return false;
 
 }
-
- export function createDivs(){
-     body.innerHTML = '';
-     addLink();
-    div1.className="center";
-    div2.id = "firstRow";
-    div3.id="menuItems";
-    div4.id = "form";
-
-    // createDivs();
-    createTitle();
-    div3.appendChild(createMenuItems());
-    createForm();
-    createSubmitButton();
-    body.appendChild(div1);
-    div1.appendChild(div2);
-    div1.appendChild(div3);
-    div1.appendChild(div4);
-    return body;
-}
+//
+//  export function createDivs(){
+//      body.innerHTML = '';
+//      addLink();
+//     div1.className="center";
+//     div2.id = "firstRow";
+//     div3.id="menuItems";
+//     div4.id = "form";
+//
+//     // createDivs();
+//   //  createTitle();
+//   //  div3.appendChild(createMenuItems());
+//     createForm();
+//     createSubmitButton();
+//     body.appendChild(div1);
+//     div1.appendChild(div2);
+//     div1.appendChild(div3);
+//     div1.appendChild(div4);
+//     return body;
+// }

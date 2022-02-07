@@ -169,7 +169,9 @@ export function createObjects(){
         matchIndex = match.matchIndex;
     }
     else{
-        matchIndex= match.matchIndex++;
+        match.matchIndex = match.matchIndex+1;
+        matchIndex= match.matchIndex;
+        console.log("match index increased: "+matchIndex);
     }
     match.inningIndex++;
     inningIndex = match.inningIndex;
@@ -180,9 +182,9 @@ export function createObjects(){
 }
 
 export function createDivs(){
-    body.innerHTML = '';
+ //   body.innerHTML = '';
     console.log("createdDivs");
-    div1.className = "center";
+ //   div1.className = "center";
     addLink();
     form.id = "player_form";
     createTitle();
@@ -191,8 +193,8 @@ export function createDivs(){
     div1.appendChild(div3);
     div3.appendChild(form);
     createSubmitButton();
-    body.appendChild(div1);
-    return body;
+//    body.appendChild(div1);
+    return div1;
 }
 
 

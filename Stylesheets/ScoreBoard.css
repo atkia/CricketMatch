@@ -1,14 +1,14 @@
-#center {
-    position: absolute;
-    left: 50%;
-    transform: translate(-50%);
-    width: 600px;
-    background-color: #f3f3f3;
-    align-items: center;
-    padding-top: 10px;
-    padding-left: 15px;
-    padding-right: 15px;
-}
+/*#center {*/
+/*    position: absolute;*/
+/*    left: 50%;*/
+/*    transform: translate(-50%);*/
+/*    width: 600px;*/
+/*    background-color: #f3f3f3;*/
+/*    align-items: center;*/
+/*    padding-top: 10px;*/
+/*    padding-left: 15px;*/
+/*    padding-right: 15px;*/
+/*}*/
 ul {
     list-style-type: none;
     margin: 0;
@@ -17,7 +17,9 @@ ul {
     border: 1px solid #e7e7e7;
     background-color: #f3f3f3;
 }
-
+td{
+    word-wrap: break-word;
+}
 li {
     width:25%;
     float: left;
@@ -29,10 +31,10 @@ li {
     text-decoration: none;
 
 }
-li :hover {
-    background-color: black;
+/*li :hover {*/
+/*    background-color: black;*/
 
-}
+/*}*/
 .Disabled{
     pointer-events: none;
 }
@@ -46,6 +48,9 @@ li :hover {
     cursor: pointer;
 
 }
+#scoreTag{
+    font-size: x-small;
+}
 #menu{
     color: white;
     background-color: darkgreen;
@@ -53,15 +58,28 @@ li :hover {
 
 #innings,#teamName{
     font-size: larger;
+    color: black;
 }
 #strikerDetails{
     /*background-color: chartreuse;*/
+}
+#thisOver{
+    position: sticky;
+    width: 14%;
+    font-size: larger;
+    margin: 0%;
+    padding: 5% 0% 0%;
+}
+#scoreButton{
+    width: 11%;
+    padding: 0%;
+    margin: 0%;
 }
 #playerName{
     color: darkgreen;
 }
 label{
-    margin-right: 8%;
+    margin-right: 10%;
     margin-bottom: 2%;
     font-size: larger;
 }
@@ -79,9 +97,12 @@ hr{
     background-color: darkgreen;
     padding: 1.5% 1.5% 1.5% 20%;
 }
-
+#scoreButtonColumn{
+    width: 27%;
+    padding-left: 7% ;
+}
 #leftSide{
-    width: 25%;
+    width: 5%;
 }
 
 #firstRow,#secondRow, #thirdRow,#fourthRow,#fifthRow{
@@ -111,6 +132,9 @@ h1{
 /*#scoreTaken{*/
 /*    margin-right: 5%;*/
 /*}*/
+#scoreTaken{
+    color: black;
+}
 #fourthRow{
     padding: 4%;
 }
@@ -127,13 +151,16 @@ h1{
 #runScore,#scoreP,#wicket{
     font-size: xxx-large;
 }
+#scoreDetails{
+    padding-top: 2%;
+}
 #ball0,#ball1,#ball2,#ball3,#ball4,#ball5,#ball6,#out{
 
     border: 2px solid grey;
     border-radius: 50%;
     height: 30px;
     width: 30px;
-    padding: 22%;
+    padding: 12%;
     align-items: center;
     text-align: center;
     /*margin-right: 3%;*/
@@ -171,7 +198,7 @@ th {
     border-bottom:  solid;
 }
 
-input{
+input[type=checkbox]{
     margin: 2%;
 }
 

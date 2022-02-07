@@ -10,7 +10,7 @@ function addLink(){
     let head = document.getElementsByTagName('head')[0],
         link1 = document.createElement('link'),
         link2 = document.createElement('link');
-    head.innerHTML = '';
+  //  head.innerHTML = '';
     link1.rel = 'stylesheet';
     link1.href = "./Stylesheets/teamList.css";
     link2.rel = 'stylesheet';
@@ -19,18 +19,18 @@ function addLink(){
     head.appendChild(link2)
 }
 
-function createTitle(){
-    let h1 = document.createElement('h1'),
-        h3 = document.createElement('h3'),
-        sub = document.createElement('sub'),
-        div1 = document.createElement('div');
-    h1.innerText = 'Cricket scorer';
-    // h3.innerText = 'scorer';
-    div1.id = 'title';
-    //h2.appendChild(h3);
-    div1.appendChild(h1);
-    div.appendChild(div1);
-}
+// function createTitle(){
+//     let h1 = document.createElement('h1'),
+//         h3 = document.createElement('h3'),
+//         sub = document.createElement('sub'),
+//         div1 = document.createElement('div');
+//     h1.innerText = 'Cricket scorer';
+//     // h3.innerText = 'scorer';
+//     div1.id = 'title';
+//     //h2.appendChild(h3);
+//     div1.appendChild(h1);
+//     div.appendChild(div1);
+// }
 
 const getRandomNumber = (maxNum) => {
     return Math.floor(Math.random() * maxNum);
@@ -57,6 +57,7 @@ function removeTeam(){
 // }
 
 function createDiv(i,match){
+    console.log(match.innings[0].battingTeam.totalScore);
     let div = document.createElement('div'),
         table = document.createElement('table'),
         tr1 = document.createElement('tr'),
@@ -158,8 +159,12 @@ function createDiv(i,match){
     button1.id = 'resume';
     button1.innerText = 'Resume';
     button1.onclick=()=>{
+        let div = document.getElementById('fixedTitleDiv'),
+            div2 = document.getElementById('form');
+        div.style.display = 'none';
         console.log(match.matchIndex);
-        scoreBoard.createBody(match.matchIndex);
+        div2.innerHTML = '';
+        div2.appendChild(scoreBoard.createBody(match.matchIndex));
     }
     td9.colSpan=2;
     td9.appendChild(button1);
@@ -185,24 +190,25 @@ function createDiv(i,match){
 }
 
 
-export function history(game){
-    console.log("taken game:...."+ game);
+export function history(){
+ //   console.log("taken game:...."+ game);
 
-    if(game==null ){
+   // if(game==null ){
         games = utils.getItem('gameId');
-    }else{
-        games = game;
-    }
+   // }else{
+   //     games = game;
+   // }
 
     addLink();
-    body.innerHTML='';
-    if(div.hasChildNodes()==true){
-        div.innerHTML = '';
-    }
-    createTitle();
+    div.innerHTML = '';
+  //  body.innerHTML='';
+  //   if(div.hasChildNodes()==true){
+  //       div.innerHTML = '';
+  //   }
+  //   createTitle();
 
-    div.className= 'center';
-    body.appendChild(div);
+  //  div.className= 'center';
+  //  body.appendChild(div);
     let teamsName = [];
     //  console.log(game.matches[0].innings[0].battingTeam);
     console.log(games.matches.length);
@@ -212,5 +218,6 @@ export function history(game){
             div.appendChild(div1);
 
     }
+    return div;
 
 }

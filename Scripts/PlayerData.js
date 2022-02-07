@@ -245,7 +245,8 @@ export function getTotalOver(players,totalOver){
     }
     return totalOver;
 }
-export function getTotalScore(players,totalScore,partnershipScore){
+export function getTotalScore(players,partnershipScore){
+    let totalScore = 0;
     for(let player of players){
         totalScore =  totalScore+player.batting.run;
     }

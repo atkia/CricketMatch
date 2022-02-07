@@ -7,7 +7,7 @@ let body = document.getElementsByTagName('body')[0],
 function addLink(){
     let head = document.getElementsByTagName('head')[0],
         link = document.createElement('link');
-    head.innerHTML = '';
+    //head.innerHTML = '';
     link.rel = 'stylesheet';
     link.href = "./Stylesheets/teamList.css";
     head.appendChild(link);
@@ -137,14 +137,14 @@ export function teamName(game){
     console.log("taken game:...."+ game);
     games = game;
     addLink();
-    body.innerHTML='';
-    if(div.hasChildNodes()==true){
-        div.innerHTML = '';
-    }
-    createTitle();
+ //   body.innerHTML='';
+ //    if(div.hasChildNodes()==true){
+ //        div.innerHTML = '';
+ //    }
+ //   createTitle();
 
-    div.className= 'center';
-    body.appendChild(div);
+//    div.className= 'center';
+//    body.appendChild(div);
     let teamsName = [];
   //  console.log(game.matches[0].innings[0].battingTeam);
 console.log(games.matches.length);
@@ -159,12 +159,6 @@ console.log(games.matches.length);
                 div.appendChild(div1);
           //  }
         }
-
-
-        // if(removeTeam!=true){
-        //     div.appendChild(div1);
-        // }
-
     }
-
+    return div;
 }
