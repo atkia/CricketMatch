@@ -1,5 +1,6 @@
 import * as object from "./PlayerData.js";
 import * as utils from './LocalStorageUtils.js';
+import {getItem} from "./LocalStorageUtils.js";
 
 let headingTitle = "Select Opening Players",
     titleOfInputFields = ["Striker","Non Striker","Bowler"],
@@ -66,6 +67,7 @@ export function createObjects(){
     let player1Name = localStorage.getItem('Striker'),
         player2Name = localStorage.getItem('Non Striker')
         ,player3Name = localStorage.getItem('Bowler'),
+        over = localStorage.getItem('over'),
         inning1,inning2;
     let player1 = new object.player(player1Name,'batting'),
         player2 = new object.player(player2Name,'batting'),
@@ -81,8 +83,9 @@ export function createObjects(){
     match.time =  currentDate.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
    // match.addMatchNo();
     console.log("match time and date:..."+match.date+"...."+match.time);
+    console.log('This match will be of '+over);
     game = utils.getItem('gameId');
-
+    match.matchOvers = over;
     let tossWonBy = localStorage.getItem('tossWonBy');
     let optedTo = localStorage.getItem('optTo');
 
@@ -98,9 +101,9 @@ export function createObjects(){
             inning1.bowlingTeam = visitorTeam;
             inning2.battingTeam = visitorTeam;
          //   inning2.visitorTeam.type = 'batting'
-            hostTeam.players.push(player1);
-            hostTeam.players.push(player2);
-            visitorTeam.players.push(player3)
+         //    hostTeam.players.push(player1);
+         //    hostTeam.players.push(player2);
+         //    visitorTeam.players.push(player3)
         }
         else {
             match.optedTo = 'bowl';
@@ -109,9 +112,9 @@ export function createObjects(){
             inning2.bowlingTeam = visitorTeam;
             inning1.bowlingTeam = hostTeam;
             inning2.battingTeam = hostTeam;
-            visitorTeam.players.push(player1);
-            visitorTeam.players.push(player2);
-            hostTeam.players.push(player3)
+            // visitorTeam.players.push(player1);
+            // visitorTeam.players.push(player2);
+            // hostTeam.players.push(player3)
         }
     }
     else{
@@ -178,10 +181,14 @@ export function createObjects(){
     match.innings.push(inning1);
     match.innings.push(inning2);
     game.matches.push(match);
-    utils.setItem(game.id,game);
+    utils.setItem('gameId',game);
 }
 
 export function createDivs(){
+    div1.innerHTML = '';
+    div2.innerHTML = '';
+    div3.innerHTML = '';
+    form.innerHTML = '';
  //   body.innerHTML = '';
     console.log("createdDivs");
  //   div1.className = "center";

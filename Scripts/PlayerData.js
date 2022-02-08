@@ -238,12 +238,13 @@ export function addPartnershipScore(partnershipScore,score){
 }
 
 export function getTotalOver(players,totalOver){
+    let over = 0.0;
     for(let player of players){
         if(player.type=='bowling'){
-            totalOver = player.bowling.overs;
+            over =over+ +player.bowling.overs;
         }
     }
-    return totalOver;
+    return over;
 }
 export function getTotalScore(players,partnershipScore){
     let totalScore = 0;
@@ -266,6 +267,7 @@ export function match(){
     this.time =0;
     this.matchIndex =0;
     this.inningIndex = 0;
+    this.matchOvers = 0;
     this.tossWonBy = '';
     this.optedTo = '';
     this.innings=[];

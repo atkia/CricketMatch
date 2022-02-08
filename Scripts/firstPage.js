@@ -185,7 +185,7 @@ export function createForm(){
     }
     for (let [k, v] of data.entries()) {
         localStorage.setItem(k,v);
-        // console.log(k, v);
+         console.log(k, v);
     }
     return false;
 

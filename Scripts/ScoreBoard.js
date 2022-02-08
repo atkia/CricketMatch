@@ -1,16 +1,12 @@
-// import * as players from './SelectOpeningPlayer.js' ;
+import * as players from './SelectOpeningPlayer.js' ;
 import {addExtra, addModal, addPartnership} from './Extras.js';
 import * as utils from './LocalStorageUtils.js';
 import * as addPlayer from './AddPlayer.js';
 import * as object from "./PlayerData.js";
-// import {createMenuItems} from "./firstPage.js";
-import * as getTeam from "./Teams.js";
-import {history} from "./history.js";
-import {match} from "./PlayerData.js";
+import {addBowlerDiv} from "./AddBowler.js";
+import * as elem from "./firstPage.js";
 
-let body = document.getElementsByTagName('body')[0],
-    div0 = document.createElement('div'),
-    div1 = document.createElement('div'),
+let div1 = document.createElement('div'),
     div2 = document.createElement('div'),
     div3 = document.createElement('div'),
     div4 = document.createElement('div'),
@@ -43,43 +39,16 @@ function addLink(){
 }
 
 function setInnings(){
-    console.log(runningMatch.innings[0]);
+    console.log(runningMatch.inningIndex);
     inning = runningMatch.innings[runningMatch.inningIndex-1];
    // battingTeam = new object.team();
     battingTeam = inning.battingTeam;
   //  console.log(battingTeam.getTotalOver());
     BattingTeamName = battingTeam.teamName;
-    // bowlingTeam = new object.team();
     bowlingTeam = inning.bowlingTeam;
-    console.log(battingTeam.players[0].playerName);
-    console.log(bowlingTeam.players[0].playerName);
     BowlingTeamName = bowlingTeam.teamName;
     console.log(BowlingTeamName);
 }
-//
-// function getBattingName(){
-//     let tossWonBy = localStorage.getItem('tossWonBy');
-//
-//     if(tossWonBy == 'HostTeam'){
-//         BattingTeamName = localStorage.getItem('Host Name');
-//         battingTeam = inning.hostTeam;
-//         BowlingTeamName = localStorage.getItem('Visitor Name');
-//         bowlingTeam = inning.visitorTeam;
-//     }
-//     else{
-//         BowlingTeamName = localStorage.getItem('Host Name');
-//        bowlingTeam = inning.hostTeam;
-//         BattingTeamName = localStorage.getItem('Visitor Name');
-//         battingTeam = inning.visitorTeam;
-//     }
-//
-// }
-
-// function setMenuItems(){
-//     if(div0.hasChildNodes()==false) {
-//         div0.appendChild(createMenuItems());
-//     }
-// }
 
 function createSpan(id,innerText){
     let span = document.createElement('span');
@@ -88,7 +57,6 @@ function createSpan(id,innerText){
     span.innerText = innerText;
     div2.appendChild(span);
 }
-
 
 function createFirstRow(){
 
@@ -103,7 +71,12 @@ function createFirstRow(){
     console.log('after resume call: '+BowlingTeamName);
     createSpan("teamName", BattingTeamName);
     createSpan("",',');
-    createSpan('innings','1st inning');
+    if(runningMatch.inningIndex==2){
+        createSpan('innings','2nd inning');
+    }
+    else{
+        createSpan('innings','1st inning');
+    }
     div2.appendChild(br);
     createSpan("runScore",battingTeam.totalScore);
     createSpan("scoreP","-");
@@ -117,15 +90,9 @@ function createFirstRow(){
 function createTitle(){
     headingDiv.innerHTML = '';
     let h1 = document.createElement('h1');
-
-    //getBattingName();
-    //if(headingDiv.hasChildNodes()==false){
         h1.innerText = BattingTeamName+" v/s "+BowlingTeamName;
         headingDiv.id = "title";
         headingDiv.appendChild(h1);
-   // }
-
-
 }
 
 function createTableData(id,data){
@@ -167,7 +134,7 @@ function createTableHead(string){
     return tr;
 }
 
- function changeBattingTableData(player,string,type){
+function changeBattingTableData(player,string,type){
     console.log("table data: "+ player);
     let tr = document.createElement('tr'),
         td1=document.createElement('td'),
@@ -206,23 +173,42 @@ function createTableHead(string){
 
 function createStrikerDetailRow() {
     //if(inning.hostTeam.type == 'batting'){
-  //  if (striker == null && nonStriker == null) {
-  //      console.log('striker is null.....');
+    if (battingTeam.players.length==0) {
+        console.log('striker is null.....');
+        striker = new object.player(localStorage.getItem('Striker'),'batting');
+        battingTeam.players.push(striker);
+        nonStriker = new object.player(localStorage.getItem('Non Striker'),'batting');
+        battingTeam.players.push(nonStriker);
+        console.log("NonStrikerDetails:  " + nonStriker);
+        utils.setItem('gameId',gameObject);
+    }
+    if(striker == '' && nonStriker == '' ){
         let playerNo = battingTeam.players.length - 1;
         striker = battingTeam.players[playerNo - 1];
-        console.log("strikerDetails:  " + striker);
+        console.log("strikerDetails:  " + striker.playerName);
         nonStriker = battingTeam.players[playerNo];
-        console.log("NonStrikerDetails:  " + nonStriker);
+        console.log("NonStrikerDetails:  " + nonStriker.playerName);
+    }
+
 
   //  }
- //   console.log("striker details:   " + striker.playerName);
+    console.log("striker details:   " + striker.playerName);
     tr1 = changeBattingTableData(striker, '*', 'bat');
     tr2 = changeBattingTableData(nonStriker, '', 'bat');
 }
+
 function createBowlerDetailRow(){
   //  if(inning.hostTeam.type == 'bowling'){
+    if(bowler == '' || bowlingTeam.players.length ==0){
+        bowler = new object.player(localStorage.getItem('Bowler'),'bowling');
+        bowlingTeam.players.push(bowler);
+        utils.setItem('gameId',gameObject);
+    }
+    else{
         let playerNo = bowlingTeam.players.length-1;
         bowler = bowlingTeam.players[playerNo];
+    }
+
         tr = changeBattingTableData(bowler,'','bowler')
 }
 
@@ -259,25 +245,19 @@ function createSecondRow(){
 }
 
 function createThirdRow(){
-    //if(div4.hasChildNodes()==false) {
         div4.innerHTML = '';
 
         let ul = document.createElement('ul'),
             li1 = document.createElement('li'),
             li2 = document.createElement('li');
 
+        ul.className = 'grid-container'
+        ul.id = 'scoreList';
         li1.id = 'thisOver';
         li1.innerText = 'This over: ';
         ul.appendChild(li1);
         li2.id = 'scoreDetails';
-        // let h3 = document.createElement('h3'),
-        //     div1 = document.createElement('div'),
-        //     div2 = document.createElement('div'),
-        //     div3 = document.createElement('div');
-
-       // h3.id = "scoreTaken";
-       // h3.innerText = "This over:  ";
-       //div1.appendChild(h3);
+        li2.className = 'Disabled';
         if(scoreTable.hasChildNodes()==true){
             scoreTable.innerHTML ='';
             if(scoreTR1.hasChildNodes()==true ){
@@ -285,61 +265,83 @@ function createThirdRow(){
                 scoreTR2.innerHTML = '';
             }
         }
-    // let td = document.createElement('td');
-    // td.id = 'thisOver';
-    // td.rowSpan = 2;
-    // td.innerText = "This over:  ";
-    // scoreTR1.appendChild(td);
         if(bowler.bowling.ballDetails.length!=0){
-            for(let i=0;i<bowler.bowling.ballDetails.length;i++){
-                let td1 = document.createElement('td'),td2 = document.createElement('td') ,span = document.createElement('span'),span2 = document.createElement('span');
-                 let button = document.createElement('button'),label = document.createElement('label');
-                 let li = document.createElement('li');
-                // button.id = 'ball'+bowler.bowling.ballDetails[i].ballValue;
-                 label.id = 'scoreTag';
-                // button.innerText = bowler.bowling.ballDetails[i].ballValue;
-                // label.innerText = bowler.bowling.ballDetails[i].type;
-                td1.id = 'scoreButton';
-                td2.id = 'scoreButton';
-
-                span.id = 'ball'+bowler.bowling.ballDetails[i].ballValue;
-               // span2.id = 'type';
-                span.innerText = bowler.bowling.ballDetails[i].ballValue;
-                label.htmlFor = 'ball'+bowler.bowling.ballDetails[i].ballValue;
-                label.innerText =bowler.bowling.ballDetails[i].type;
-               // span2.innerText = bowler.bowling.ballDetails[i].type;
-                td1.appendChild(span);
-                td2.appendChild(label);
-                scoreTR1.appendChild(td1);
-                scoreTR2.appendChild(td2);
-                // div2.appendChild(button);
-                // div2.appendChild()
+            if(bowler.bowling.ballDetails.length==6){
+                let div = addBowlerDiv();
+                document.getElementById('menuItems').appendChild(div);
+                document.getElementById('form').style.display = 'none';
+                let submit = document.getElementById('addBowlerButton');
+                submit.onclick = ()=>{
+                    elem.storeInputData();
+                    changeBowler();
+                    createBowlerTable();
+                    document.getElementById('form').style.display = 'block';
+                    div.remove();
+                }
             }
-        }
+            else{
+                for(let i=0;i<bowler.bowling.ballDetails.length;i++){
+                    let td1 = document.createElement('td'),td2 = document.createElement('td') ,span = document.createElement('span'),span2 = document.createElement('span');
+                    let button = document.createElement('button'),label = document.createElement('label');
+                    let li = document.createElement('li');
+                    label.id = 'scoreTag';
+                    td1.id = 'scoreButton';
+                    td2.id = 'scoreButton';
+                    span.id = 'ball'+bowler.bowling.ballDetails[i].ballValue;
+                    span.innerText = bowler.bowling.ballDetails[i].ballValue;
+                    label.htmlFor = 'ball'+bowler.bowling.ballDetails[i].ballValue;
+                    label.innerText =bowler.bowling.ballDetails[i].type;
+                    td1.appendChild(span);
+                    td2.appendChild(label);
+                    scoreTR1.appendChild(td1);
+                    scoreTR2.appendChild(td2);
+                }
+            }
 
+        }
         scoreTable.appendChild(scoreTR1);
         scoreTable.appendChild(scoreTR2);
-       // h3.appendChild(scoreTable);
         li2.appendChild(scoreTable);
         ul.appendChild(li2);
         div4.appendChild(ul);
- //   }
 }
+
 export function changePLayer(){
     console.log("2....")
-    let name = localStorage.getItem('NewPlayerName');
+    let name = localStorage.getItem('newBatsmanName');
     console.log(name);
     striker = '';
     striker = new object.player(name,'batting');
+  //  runningMatch.innings[1].bowlingTeam.players.push(striker)
     battingTeam.players.push(striker);
     utils.setItem('gameId',gameObject);
      //= newPlayer;
     console.log('new Added Striker:   '+striker.playerName);
-   // table.removeChild(document.getElementById('strikerDetails'));
+}
+function addNewBatsMan(){
+    let div = addPlayer.addBatsManDiv();
+    headingDiv.style.display = 'none';
+    div2.style.display = 'none';
+    div3.style.display = 'none';
+    div4.style.display = 'none';
+    div5.style.display = 'none';
+    div6.style.display = 'none';
+    div1.appendChild(div);
+    let submit = document.getElementById('addBatsmanButton');
+    submit.onclick = ()=>{
+        elem.storeInputData();
+        changePLayer();
+        createBattingPLayerTable();
+        createBowlerTable();
+        headingDiv.style.display = 'block';
+        div2.style.display = 'block';
+        div3.style.display = 'block';
+        div4.style.display = 'block';
+        div5.style.display = 'block';
+        div6.style.display = 'block';
+        div.remove();
+    }
 
- //   document.getElementById('strikerDetails').innerHTML   = changeBattingTableData(striker,'*','bat');
-  //  table.appendChild(tr);
-//    console.log(tr);
 }
 function calculate(value){
     if(value=="wicket"){
@@ -353,7 +355,8 @@ function calculate(value){
         document.getElementById('wicket').innerText = battingTeam.wicket;
         let td = document.createElement('td'),td2 = document.createElement('td');
         console.log("create Input field function called...")
-        addPlayer.createInputField();
+        //addPlayer.createInputField();
+        addNewBatsMan();
 
         let span = document.createElement('span'),span2 = document.createElement('span');
         span.id = 'out';
@@ -460,17 +463,42 @@ function createFourthRow(){
    // }
 }
 
+function changeBowler(){
+    let name = localStorage.getItem('newBowlerName');
+    console.log(name);
+    bowler = '';
+    bowler = new object.player(name,'bowling');
+    //runningMatch.innings[1].battingTeam.players.push(bowler);
+    bowlingTeam.players.push(bowler);
+    utils.setItem('gameId',gameObject);
+    //= newPlayer;
+    console.log('new Added Striker:   '+bowler.playerName);
+}
+
 function checkOver(){
-        scoreTR1.innerHTML='';
-    let td = document.createElement('td');
-    td.id = 'thisOver';
-    td.rowSpan = 2;
-    td.innerText = "This over:  ";
-    scoreTR1.appendChild(td);
-        scoreTR2.innerHTML='';
-        // count=0;
-        // alert("one over is done");
-        // console.log("c"+count);
+    let div = addBowlerDiv();
+    headingDiv.style.display = 'none';
+    div2.style.display = 'none';
+    div3.style.display = 'none';
+    div4.style.display = 'none';
+    div5.style.display = 'none';
+    div6.style.display = 'none';
+    div1.appendChild(div);
+    let submit = document.getElementById('addBowlerButton');
+    submit.onclick = ()=>{
+        elem.storeInputData();
+        changeBowler();
+        createBowlerTable();
+        headingDiv.style.display = 'block';
+        div2.style.display = 'block';
+        div3.style.display = 'block';
+        div4.style.display = 'block';
+        div5.style.display = 'block';
+        div6.style.display = 'block';
+        div.remove();
+    }
+    scoreTR1.innerHTML='';
+    scoreTR2.innerHTML='';
 }
 
 function getScoreButton(value) {
@@ -480,38 +508,55 @@ function getScoreButton(value) {
     input.value = value;
 
     input.onclick = () => {
-
+        if(runningMatch.matchOvers == battingTeam.totalOver){
+            console.log('2nd innings....');
+            runningMatch.inningIndex = 2;
+            utils.setItem('gameId',gameObject);
+            striker = '';
+            nonStriker = '';
+            bowler = '';
+            setInnings();
+            document.getElementById('form').style.display = 'none';
+            let tempDiv = players.createDivs();
+            document.getElementById('menuItems').appendChild(tempDiv);
+            let submitButton = document.getElementById("startMatch");
+            submitButton.onclick = function (){
+                tempDiv.remove();
+                document.getElementById('form').style.display = 'block';
+                elem.storeInputData();
+               // players.createObjects();
+            }
+            createTitle();
+            createFirstRow();
+            console.log(striker);
+            console.log(nonStriker);
+            console.log(bowler);
+            createSecondRow();
+            createThirdRow();
+            createFourthRow();
+            createFifthRow();
+        }
         document.getElementById('wide').checked = false;
         document.getElementById('NoBall').checked = false;
         document.getElementById('byes').checked = false;
         document.getElementById('legByes').checked = false;
         document.getElementById('wicket').checked = false;
-
-            //count++;
-
-           // console.log("c......"+count);
-            let td1 = document.createElement('td'),td2 = document.createElement('td') ,span = document.createElement('span'),span2 = document.createElement('span');
+        let td1 = document.createElement('td'),td2 = document.createElement('td') ,span = document.createElement('span'),span2 = document.createElement('span');
         td1.id = 'scoreButton';
         td2.id = 'scoreButton';
-            span.id = 'ball'+value;
-            span2.id = 'type'
-let label = document.createElement('label');
-label.id = 'scoreTag';
-
+        span.id = 'ball'+value;
+        span2.id = 'type'
+        let label = document.createElement('label');
+        label.id = 'scoreTag';
             if(byes==true || lB == true || wide ==true){
                 span.innerText = '0';
-
                 td1.appendChild(span);
                 scoreTR1.appendChild(td1);
-               // battingTeam.addPartnershipScore(value);
                 battingTeam.partnershipScore = object.addPartnershipScore(battingTeam.partnershipScore,value);
                 if(byes==true){
                     label.htmlFor = 'ball'+value;
                     label.innerText = value+'BYE';
-                  //  span2.innerText = value+'BYE';
-                    //battingTeam.extras.addByes(value);
                     battingTeam.extras.byes = object.addByes(battingTeam.extras.byes,value);
-                   // td2.appendChild(span2)
                     td2.appendChild(label)
                     scoreTR2.appendChild(td2);
                     byes=false;
@@ -521,11 +566,8 @@ label.id = 'scoreTag';
                 if(lB==true){
                     label.htmlFor = 'ball'+value;
                     label.innerText = value+'LB';
-                 //   span2.innerText = value+'LB';
-                   // battingTeam.extras.addLB(value);
                     battingTeam.extras.lByes = object.addLB(value,battingTeam.extras.lByes);
                     td2.appendChild(label);
-                  //  td2.appendChild(span2)
                     scoreTR2.appendChild(td2);
                     console.log(span2);
                     lB = false;
@@ -536,22 +578,15 @@ label.id = 'scoreTag';
                     let score = value+1;
                     label.htmlFor = 'ball'+value;
                     label.innerText = score+'WD';
-                 //   span2.innerText = score+'WD';
-                    // battingTeam.extras.addWB(score);
                     battingTeam.extras.wB = object.addWB(battingTeam.extras.wB,score);
-                    // battingTeam.addPartnershipScore(1);
-                  //  td2.appendChild(span2)
                     td2.appendChild(label)
                     scoreTR2.appendChild(td2);
                     let ball = new object.ballDetail(0,score+'WD');
                     bowler.bowling.ballDetails.push(ball);
-
                 }
-
             }
             else{
                 console.log(value);
-                //let ballNo = bowler.bowling.ballDetails.length-1;
                 span.innerText = value;
                 td1.appendChild(span);
                 scoreTR1.appendChild(td1);
@@ -562,7 +597,6 @@ label.id = 'scoreTag';
                     //   battingTeam.addPartnershipScore(1);
                     label.htmlFor = 'ball'+value;
                     label.innerText = 'NB';
-                    //span2.innerText = 'NB';
                     td2.appendChild(label)
                     scoreTR2.appendChild(td2);
                     let ball = new object.ballDetail(value,'NB');
@@ -570,22 +604,14 @@ label.id = 'scoreTag';
                 }else{
                     label.htmlFor = 'ball'+value;
                     label.innerText = '';
-                   // span2.innerText ='';
                     td2.appendChild(label)
                     scoreTR2.appendChild(td2);
                     let ball = new object.ballDetail(value,'');
                     bowler.bowling.ballDetails.push(ball);
                 }
-
-                // striker.batting.getRuns(value);
                 striker.batting.run = object.getRuns(striker.batting.run,value);
                 bowler.bowling.run = object.getRuns(bowler.bowling.run,value);
-
-                // bowler.bowling.getRuns(value);
             }
-
-
-
             if( wide!=true){
                 striker.batting.ballNo++;
                 if(NB!=true){
@@ -595,24 +621,17 @@ label.id = 'scoreTag';
                 }
 
             }
-            // striker.batting.sR();
             striker.batting.sr = object.sR(striker.batting.ballNo,striker.batting.sr,striker.batting.run);
             console.log(striker.batting.sr);
             bowler.bowling.overs = object.getOver(bowler.bowling.ballNo,bowler.bowling.overs);
-            // bowler.bowling.getOver();
             battingTeam.totalOver = object.getTotalOver(bowlingTeam.players,battingTeam.totalOver);
-            //battingTeam.getTotalOver();
-            document.getElementById('over').innerText =battingTeam.totalOver;
-            //battingTeam.getTotalScore();
-       // console.log('previous Total Score: '+ battingTeam.totalScore);
+            document.getElementById('over').innerText =''+battingTeam.totalOver;
             battingTeam.totalScore = object.getTotalScore(battingTeam.players,battingTeam.partnershipScore);
-        //console.log('after Total Score: '+ battingTeam.totalScore);
-            document.getElementById('runScore').innerText = battingTeam.totalScore;
-        if (value % 2 != 0) {
-            swapPlayer('odd');
-            console.log("Swapped");
-        }
-          //  console.log("player's SR: "+striker.batting.sR());
+            document.getElementById('runScore').innerText =''+ battingTeam.totalScore;
+            if (value % 2 != 0) {
+                swapPlayer('odd');
+                console.log("Swapped");
+            }
             if(value ==4 && byes!=true && lB != true &&wide !=true){
                 striker.batting.fours++;
             }
@@ -623,7 +642,7 @@ label.id = 'scoreTag';
             createBattingPLayerTable();
             createBowlerTable();
             if(bowler.bowling.ballNo==6){
-                setTimeout(checkOver,2000);
+                setTimeout(checkOver,500);
             }
              console.log('after clicking run button:....'+gameObject);
              console.log(value);
@@ -636,7 +655,6 @@ label.id = 'scoreTag';
 
 function createFifthRow(){
     div6.innerHTML = '';
-   // if(div6.hasChildNodes()==false) {
         let button1 = document.createElement('button'),
             button2 = document.createElement('button'),
             button3 = document.createElement('button'),
@@ -647,10 +665,8 @@ function createFifthRow(){
             tr = document.createElement('tr'),
             td1 = document.createElement('td'),
             td2 = document.createElement('td'),
-            div = document.createElement('div');
-        // div2= document.createElement('div');
+            div = document.createElement('div');;
         td1.id = 'leftSide';
-
         button1.id = 'undo';
         button1.innerText = 'Undo';
         button1.onclick = () => {
@@ -676,7 +692,6 @@ function createFifthRow(){
         window.onclick = function (event) {
             if (event.target == div) {
                 div.style.display = "none";
-                // div2.style.display = 'none';
             }
         }
 
@@ -696,41 +711,14 @@ function createFifthRow(){
         div6.appendChild(table);
         div6.appendChild(div);
         div6.appendChild(div2);
- //   }
 }
-function menuButtonOnClick(){
-    let game = utils.getItem('gameId');
-    let newMatch = document.getElementById('newMatch');
-    newMatch.onclick = function (){
-
-    }
-    let teamButton = document.getElementById('teams');
-    teamButton.onclick = function (){
-        //  console.log('teams....');
-        // let game = utils.getItem('gameId');
-        getTeam.teamName(game);
-    }
-    let historyButton = document.getElementById('history');
-    historyButton.onclick = function (){
-        history(game);
-    }
-
-
-
-}
-//
-// function createObject(){
-//
-//     //match = runningMatch;
-//
-//
-// }
 
 export function createBody(matchIndex){
-    battingTeam = '';
-    bowlingTeam = '';
-    striker = '';
-    nonStriker = '';
+    // battingTeam = '';
+    // bowlingTeam = '';
+    // striker = '';
+    // nonStriker = '';
+    // bowler = '';
     matchIndex = matchIndex;
     gameObject = utils.getItem('gameId');
     console.log('matchIndex got:  '+matchIndex+'game object er length:'+gameObject.matches.length);
@@ -743,33 +731,25 @@ export function createBody(matchIndex){
             console.log(runningMatch.innings[0]);
         }
     }
-//    gameObject = game;
     console.log("create body function called....")
     setInnings();
-   // body.innerHTML = '';
     addLink();
-    div0.id = 'menuItem';
- //   div1.id = "center";
     div2.id = "firstRow";
     div3.id = "secondRow";
     div4.id = "thirdRow";
     div5.id = "fourthRow";
     div6.id = "fifthRow";
-   // setMenuItems();
     createTitle();
     createFirstRow();
     createSecondRow();
     createThirdRow();
     createFourthRow();
     createFifthRow();
-    div1.appendChild(div0);
     div1.appendChild(headingDiv);
     div1.appendChild(div2);
     div1.appendChild(div3);
     div1.appendChild(div4);
     div1.appendChild(div5);
     div1.appendChild(div6);
- //   body.appendChild(div1);
-  //  menuButtonOnClick();
     return div1;
 }

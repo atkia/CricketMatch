@@ -9,52 +9,89 @@
 /*    padding-left: 15px;*/
 /*    padding-right: 15px;*/
 /*}*/
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    border: 1px solid #e7e7e7;
-    background-color: #f3f3f3;
+#chooseBowlerDiv{
+    padding: 2%;
+    padding-left: 17%;
+    margin-bottom: 2%;
+    background-color: darkgreen;
 }
+#newBowlerName{
+    margin: 2%;
+}
+#addBowlerButton{
+    border-radius: 4%;
+    height: 45px;
+    width:537px;
+    background-color: darkgreen;
+    color:white;
+    margin-left: 12%;
+}
+#chooseBowler{
+    color: white;
+}
+div #form{
+    padding: 0%;
+}
+#scoreList{
+    background-color: white;
+    border-color: white;
+}
+Table{
+    padding: 0%;
+}
+#firstRow{
+    padding: 2%;
+}
+/*#scoreDetails :hover{*/
+/*    background-color: transparent;*/
+/*}*/
+/*ul {*/
+/*    list-style-type: none;*/
+/*    margin: 0;*/
+/*    padding: 0;*/
+/*    overflow: hidden;*/
+/*    border: 1px solid #e7e7e7;*/
+/*    background-color: #f3f3f3;*/
+/*}*/
 td{
     word-wrap: break-word;
 }
-li {
-    width:25%;
-    float: left;
-    /*font-size: medium;*/
-    font-size: xx-large;
-    display: block;
-    text-align: center;
-    /*padding: 14px 16px;*/
-    text-decoration: none;
-
-}
-/*li :hover {*/
-/*    background-color: black;*/
+/*li {*/
+/*    width:25%;*/
+/*    float: left;*/
+/*    !*font-size: medium;*!*/
+/*    font-size: xx-large;*/
+/*    display: block;*/
+/*    text-align: center;*/
+/*    !*padding: 14px 16px;*!*/
+/*    text-decoration: none;*/
 
 /*}*/
-.Disabled{
-    pointer-events: none;
-}
+/*.Disabled{*/
+/*    pointer-events: none;*/
+/*}*/
 
-#newMatch,#teams,#history,#menu{
-    background-color: #88888863;
-    width: 100%;
-    border: 0;
-    font-size: large;
-    padding: 14px 16px;
-    cursor: pointer;
+/*#newMatch,#teams,#history,#menu{*/
+/*    background-color: #88888863;*/
+/*    width: 100%;*/
+/*    border: 0;*/
+/*    font-size: large;*/
+/*    padding: 14px 16px;*/
+/*    cursor: pointer;*/
 
+/*}*/
+.grid-container {
+    display: grid;
+    grid-template-columns: 49px 30px;
+    padding-right: 2%;
 }
 #scoreTag{
     font-size: x-small;
 }
-#menu{
-    color: white;
-    background-color: darkgreen;
-}
+/*#menu{*/
+/*    color: white;*/
+/*    background-color: darkgreen;*/
+/*}*/
 
 #innings,#teamName{
     font-size: larger;
@@ -64,15 +101,14 @@ li {
     /*background-color: chartreuse;*/
 }
 #thisOver{
-    position: sticky;
-    width: 14%;
+    /*width: 14%;*/
     font-size: larger;
     margin: 0%;
-    padding: 5% 0% 0%;
+    padding: 57% 0% 0%;
 }
 #scoreButton{
-    width: 11%;
-    padding: 0%;
+    /*width: 32%;*/
+    padding: 4px 8px 0px;
     margin: 0%;
 }
 #playerName{
@@ -109,10 +145,7 @@ hr{
     font-size: larger;
     background-color: white;
     border-radius: 10px;
-    padding-top: 10px;
-    padding-left: 15px;
-    padding-right: 15px;
-    margin-bottom: 10px;
+    margin: 1%;
 }
 #heading{
     background-color: darkgreen;
@@ -158,8 +191,8 @@ h1{
 
     border: 2px solid grey;
     border-radius: 50%;
-    height: 30px;
-    width: 30px;
+    height: 31px;
+    width: 31px;
     padding: 12%;
     align-items: center;
     text-align: center;
