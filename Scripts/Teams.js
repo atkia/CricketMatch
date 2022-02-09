@@ -59,7 +59,7 @@ function editTeamName(name){
 }
 
 
-function createDiv(i,name){
+function createDiv(team){
     let div = document.createElement('div'),
     table = document.createElement('table'),
     tr1 = document.createElement('tr'),
@@ -77,8 +77,16 @@ function createDiv(i,name){
     img.id = 'editIcon';
     img.onclick=()=>{
         changedName = editTeamName(name);
-        games.matches[i].innings[0].battingTeam.teamName = changedName;
-        games.matches[i].innings[1].bowlingTeam.teamName = changedName;
+        for(let i=0;i<team.matchNo.length;i++){
+            if(team.tName ==  games.matches[team.matchNo[i]].innings[0].battingTeam.teamName){
+                games.matches[team.matchNo[i]].innings[0].battingTeam.teamName = changedName;
+                games.matches[team.matchNo[i]].innings[1].bowlingTeam.teamName = changedName;
+            }
+            else{
+                games.matches[team.matchNo[i]].innings[0].bowlingTeam.teamName = changedName;
+                games.matches[team.matchNo[i]].innings[1].battingTeam.teamName = changedName;
+            }
+        }
         utils.setItem('gameId',games);
         td2.innerText = changedName;
     }
@@ -90,8 +98,30 @@ function createDiv(i,name){
     img2.onclick=()=>{
         let confirmation =removeTeam();
         if(confirmation==true){
-            games.matches[i].innings[0].battingTeam = '';
-            games.matches[i].innings[1].bowlingTeam = '';
+            for(let i=0;i<team.matchNo.length;i++){
+                if(team.tName ==  games.matches[team.matchNo[i]].innings[0].battingTeam.teamName){
+                    games.matches[team.matchNo[i]].innings[0].battingTeam.teamName = 'Unknown';
+                    games.matches[team.matchNo[i]].innings[1].bowlingTeam.teamName = 'Unknown';
+                    for(let j=0;j<games.matches[team.matchNo[i]].innings[0].battingTeam.players.length;j++){
+                        games.matches[team.matchNo[i]].innings[0].battingTeam.players[j].playerName = 'Unknown';
+                    }
+                    for(let j=0;j<games.matches[team.matchNo[i]].innings[1].bowlingTeam.players.length;j++){
+                        games.matches[team.matchNo[i]].innings[1].bowlingTeam.players[j].playerName = 'Unknown';
+                    }
+
+
+                }
+                else{
+                    games.matches[team.matchNo[i]].innings[0].bowlingTeam.teamName = 'Unknown';
+                    games.matches[team.matchNo[i]].innings[1].battingTeam.teamName = 'Unknown';
+                    for(let j=0;j<games.matches[team.matchNo[i]].innings[1].battingTeam.players.length;j++){
+                        games.matches[team.matchNo[i]].innings[1].battingTeam.players[j].playerName = 'Unknown';
+                    }
+                    for(let j=0;j<games.matches[team.matchNo[i]].innings[0].bowlingTeam.players.length;j++){
+                        games.matches[team.matchNo[i]].innings[0].bowlingTeam.players[j].playerName = 'Unknown';
+                    }
+                }
+            }
             utils.setItem('gameId',games);
             removeItem=true;
             teamName();
@@ -101,10 +131,10 @@ function createDiv(i,name){
     td1.id = 'teamName';
     td1.rowSpan = 2;
 
-    td1.innerText = name.charAt(0).toUpperCase();
+    td1.innerText = team.tName.charAt(0).toUpperCase();
     td1.style.backgroundColor = getRandomColor();
     td2.colSpan = 3;
-    td2.innerText = name;
+    td2.innerText = team.tName;
     td6.id = 'editTeamName';
     td6.rowSpan = 2;
     td6.appendChild(img);
@@ -116,7 +146,7 @@ function createDiv(i,name){
     tr1.appendChild(td6);
     tr1.appendChild(td7);
     td3.id = 'totalMatch';
-    td3.innerText="Matches:  0";
+    td3.innerText="Matches: "+team.matchCount;
     td4.id = 'totalWon';
     td4.innerText = "Won:  0";
     td5.id = 'totalLost';
@@ -132,33 +162,96 @@ function createDiv(i,name){
     return div;
 }
 
-
+function teamInfo(){
+    this.matchNo  = [];
+    this.tName = '';
+    this.matchCount = 0;
+}
 export function teamName(game){
+    div.innerHTML = '';
     console.log("taken game:...."+ game);
-    games = game;
+
+    if(game == null){
+        games = utils.getItem('gameId');
+    }
+    else{
+        games = game;
+    }
     addLink();
- //   body.innerHTML='';
- //    if(div.hasChildNodes()==true){
- //        div.innerHTML = '';
- //    }
- //   createTitle();
-
-//    div.className= 'center';
-//    body.appendChild(div);
-    let teamsName = [];
-  //  console.log(game.matches[0].innings[0].battingTeam);
-console.log(games.matches.length);
+    let match = [],teamsName = [],teamInfos = [];
+console.log(games.matches.length,match.length);
     for(let i=0;i<games.matches.length;i++){
-
-      //  console.log('for loop a dhukce')
-        if(teamsName[i] = games.matches[i].innings[0].battingTeam!=''){
-            teamsName[i] = games.matches[i].innings[0].battingTeam.teamName;
-            console.log('TeamsName: '+i+'   '+teamsName[i]);
-         //   if(teamsName[i]!=''){
-                let div1 = createDiv(i,teamsName[i]);
-                div.appendChild(div1);
-          //  }
+       // if(games.matches[i].innings[0].battingTeam!=''){
+            match[i] = games.matches[i].innings[0];
+          console.log('TeamsName: '+i+'   '+match[i].battingTeam);
+       // }
+    }
+console.log(match.length);
+    for(let i=0;i<match.length;i++){
+        if(match[i].battingTeam.teamName=='Unknown'){
+            let team1 = new teamInfo();
+            team1.matchNo.push(i);
+            team1.tName = match[i].bowlingTeam.teamName;
+            console.log(team1.tName);
+            team1.matchCount ++;
+            teamInfos.push(team1);
+        }
+        if(match[i].bowlingTeam.teamName=='Unknown'){
+            let team1 = new teamInfo();
+            team1.matchNo.push(i);
+            team1.tName = match[i].battingTeam.teamName;
+            console.log(team1.tName);
+            team1.matchCount ++;
+            teamInfos.push(team1);
+        }
+        if(match[i].battingTeam.teamName!='Unknown'&match[i].bowlingTeam.teamName!='Unknown'){
+            let team1 = new teamInfo(),
+                team2 = new teamInfo();
+            team1.matchNo.push(i);
+            team1.tName = match[i].battingTeam.teamName;
+            console.log(team1.tName);
+            team1.matchCount ++;
+            teamInfos.push(team1);
+            team2.matchNo.push(i);
+            team2.tName = match[i].bowlingTeam.teamName;
+            team2.matchCount ++;
+            console.log(team2.tName);
+            teamInfos.push(team2);
         }
     }
+    for(let i=0;i<teamInfos.length;i++){
+        console.log(teamInfos[i]);
+    }
+
+    for(let i=0;i<teamInfos.length;i++){
+        console.log(teamInfos.length);
+        console.log(teamInfos[i].tName);
+        for(let j=0;j<teamInfos.length;j++){
+            console.log(teamInfos.length,j,i);
+            console.log(teamInfos[j].tName);
+            if(i==j){
+                continue;
+            }
+            if(teamInfos.length ==i){
+                break;
+            }
+            if(teamInfos[i].tName == teamInfos[j].tName){
+                console.log('match Found '+teamInfos[j].tName);
+                console.log(teamInfos[i].matchCount);
+                teamInfos[i].matchCount++;
+                console.log(teamInfos[i].matchCount);
+                teamInfos[i].matchNo.push(teamInfos[j].matchNo);
+                teamInfos.splice(j,1);
+                console.log(teamInfos);
+                j=0;
+            }
+        }
+    }
+    for(let i=0;i<teamInfos.length;i++){
+        console.log(teamInfos[i].tName,teamInfos[i].matchNo,teamInfos[i].matchCount);
+        div.appendChild(createDiv(teamInfos[i]));
+    }
+
+
     return div;
 }

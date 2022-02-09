@@ -205,30 +205,6 @@ export function team (name) {
     this.partnershipScore=0;
     this.totalScore = 0;
     this.extras = new Extras();
-    // this.addPartnershipScore=(score)=>{
-    //     console.log("add Partnership function called")
-    //     this.partnershipScore=this.partnershipScore+score;
-    // }
-    //
-    // this.getTotalOver=()=>{
-    //     for(let player of this.players){
-    //         if(player.type=='bowling'){
-    //             this.totalOver = player.bowling.overs;
-    //         }
-    //     }
-    // }
-
-    // this.getTotalScore=()=>{
-    //   //  let total=0;
-    //     for(let player of this.players){
-    //         this.totalScore =  this.totalScore+player.batting.run;
-    //     }
-    //     this.totalScore =  this.totalScore+this.partnershipScore;
-    //     console.log("PartnershipScore..."+this.partnershipScore);
-    //   //  return  this.totalScore;
-    // }
-
-
 }
 
 export function addPartnershipScore(partnershipScore,score){
@@ -256,8 +232,7 @@ export function getTotalScore(players,partnershipScore){
 }
 
 export function Inning(){
-    this.winnerTeamName = '';
-    this.losserTeamName ='';
+
     this.battingTeam = new team();
     this.bowlingTeam = new team();
 }
@@ -271,6 +246,9 @@ export function match(){
     this.tossWonBy = '';
     this.optedTo = '';
     this.innings=[];
+    this.matchStatus = 'running';
+    this.winnerTeamName = '';
+    this.losserTeamName ='';
 }
 export  function Games(){
     this.id = 'gameId';

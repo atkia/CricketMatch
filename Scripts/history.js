@@ -107,25 +107,20 @@ function createDiv(i,match){
    // td2.id= 'circleData';
     td2.id = 'teamName';
     td2.style.backgroundColor = getRandomColor();
-    td2.innerText = match.innings[0].battingTeam.teamName.charAt(0).toUpperCase();
-    // let span1 = document.createElement('span');
-    // span1.id = 'teamName';
-    // span1.style.backgroundColor = getRandomColor();
-    // span1.innerText = match.innings[0].battingTeam.teamName.charAt(0).toUpperCase();
-    //td2.appendChild(span1);
-   // td6.id = 'editTeamName';
-  //  td6.rowSpan = 2;
- //   td6.appendChild(img);
- //   td7.rowSpan = 2;
- //   td7.id = 'remove';
- //   td7.appendChild(img2);
+    if(match.innings[0].battingTeam==''){
+        td2.innerText = 'UN';
+    }else{
+        td2.innerText = match.innings[0].battingTeam.teamName.charAt(0).toUpperCase();
+    }
     tr1.appendChild(td1);
-    // tr1.appendChild(td2);
-    // tr1.appendChild(td6);
-    // tr1.appendChild(td7);
     td3.id = 'name';
     td3.colSpan = 3;
-    td3.innerText=match.innings[0].battingTeam.teamName;
+    if(match.innings[0].battingTeam==''){
+        td3.innerText='Unknown';
+    }else{
+        td3.innerText=match.innings[0].battingTeam.teamName;
+    }
+
     td4.id = 'runWicket';
     td4.colSpan=2;
     td4.innerText = match.innings[0].battingTeam.totalScore +"/"+match.innings[0].battingTeam.wicket+'('+match.innings[0].battingTeam.totalOver+')';
@@ -135,15 +130,17 @@ function createDiv(i,match){
 
     td5.id = 'teamName';
     td5.style.backgroundColor = getRandomColor();
-    td5.innerText = match.innings[0].bowlingTeam.teamName.charAt(0).toUpperCase();
-    //let span = document.createElement('span');
-    // span.id = 'teamName';
-    // span.style.backgroundColor = getRandomColor();
-    // span.innerText = match.innings[0].bowlingTeam.teamName.charAt(0).toUpperCase();
-   // td5.appendChild(span);
-
+    if(match.innings[0].bowlingTeam==''){
+        td5.innerText = 'UN';
+    }else{
+        td5.innerText = match.innings[0].bowlingTeam.teamName.charAt(0).toUpperCase();
+    }
     td6.id = 'name';
-    td6.innerText=match.innings[0].bowlingTeam.teamName;
+    if(match.innings[0].bowlingTeam==''){
+        td6.innerText = 'Unknown';
+    }else{
+        td6.innerText = match.innings[0].bowlingTeam.teamName;
+    }
     td6.colSpan=3;
     td7.id = 'runWicket';
     td7.colSpan = 2;
@@ -191,26 +188,10 @@ function createDiv(i,match){
 
 
 export function history(){
- //   console.log("taken game:...."+ game);
-
-   // if(game==null ){
-        games = utils.getItem('gameId');
-   // }else{
-   //     games = game;
-   // }
-
+    games = utils.getItem('gameId');
     addLink();
     div.innerHTML = '';
-  //  body.innerHTML='';
-  //   if(div.hasChildNodes()==true){
-  //       div.innerHTML = '';
-  //   }
-  //   createTitle();
-
-  //  div.className= 'center';
-  //  body.appendChild(div);
     let teamsName = [];
-    //  console.log(game.matches[0].innings[0].battingTeam);
     console.log(games.matches.length);
     for(let i=0;i<games.matches.length;i++){
           console.log('for loop a dhukce')

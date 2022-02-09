@@ -167,11 +167,18 @@ export function createForm(){
    // div4.appendChild(input);
 }
 
- export function storeInputData(){
+ export function storeInputData(form){
     console.log("Stored...")
+     console.log(form)
     let data = new FormData();
+    let all;
+    if(form!=null){
+         all = form.querySelectorAll("input");
+    }
+    else{
+         all = document.querySelectorAll("input");
+    }
 
-    let all = document.querySelectorAll("input");
     for(let field of all){
         if (field.type != "submit" && field.type!='button') {
             if (field.type == "radio") {

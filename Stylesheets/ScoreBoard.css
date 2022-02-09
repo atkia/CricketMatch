@@ -202,7 +202,27 @@ h1{
     display: inline-block;
     /*background-color: lightgray;*/
 }
-
+#congo{
+    color: black;
+}
+#trophy{
+    width: 100%;
+}
+#trophyDiv{
+    background-color: green;
+    border-radius: 50%;
+    width: 17%;
+    padding: 2%;
+    margin-left:20%
+}
+#winnerTeamName{
+    margin-left: 27%;
+    color: black;
+}
+#winnerTeamDetails{
+    margin-left: 18%;
+    color: black;
+}
 #ball4{
     background-color: darkorange;
     border-color: chocolate;
