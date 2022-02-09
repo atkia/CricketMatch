@@ -1,0 +1,61 @@
+#title{
+    padding: 2%;
+    background-color: darkgreen;
+}
+h1{
+    padding-left: 44%;
+    color: white;
+}
+#extraUl{
+    padding: 1%;
+    border: none;
+    background-color: unset;
+}
+#extraDetails{
+    padding-left: 68%;
+}
+#extraTitle,#extraDetails{
+    font-size: larger;
+}
+h2{
+    padding-left: 5%;
+    color: black;
+}
+table{
+    padding: 1%;
+    border-collapse: collapse;
+}
+
+td{
+    text-align: right;
+    padding-left: 1%;
+}
+#leftTd,#playerName{
+    text-align: left;
+}
+#tableHead{
+    padding: 2%;
+    background-color: #8fbc8f8f;
+}
+#teamHeading{
+    background-color: darkgreen;
+}
+#listOfTeamHeading{
+    background-color: unset;
+}
+#upImg{
+    transform: rotate(180deg);
+    padding-right: 46%;
+    padding-top: 18%;
+}
+img{
+    padding-left: 46%;
+    padding-top: 18%;
+}
+#teamName{
+    font-size: xx-large;
+}
+#scoreWicketOver{
+    color: white;
+    padding-left: 70%;
+}

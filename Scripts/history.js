@@ -1,7 +1,7 @@
 import {addModal} from "./Extras.js";
 import * as utils from './LocalStorageUtils.js';
 import * as scoreBoard from "./ScoreBoard.js";
-
+import {createScoreBoardDiv} from './scoreBoardOfMatch.js';
 let body = document.getElementsByTagName('body')[0],
     div = document.createElement('div'),changedName,games=utils.getItem('gameId'),
     removeItem;
@@ -167,6 +167,15 @@ function createDiv(i,match){
     td9.appendChild(button1);
     button2.id = 'scoreboard';
     button2.innerText = 'Scoreboard';
+    button2.onclick=()=>{
+        let div = document.getElementById('fixedTitleDiv'),
+            div2 = document.getElementById('form');
+        div.style.display = 'none';
+        document.getElementById('menuItems').style.display = 'none';
+        console.log(match.matchIndex);
+        div2.innerHTML = '';
+        div2.appendChild(createScoreBoardDiv(match.matchIndex));
+    }
     td10.colSpan=2;
     td10.appendChild(button2);
     td11.id = 'archive';
