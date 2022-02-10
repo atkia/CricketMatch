@@ -12,14 +12,13 @@ function addLink(){
 }
 function createTitle(){
     headingDiv.innerHTML = '';
-    let h1 = document.createElement('h1'),img = document.createElement('img');
-    // img.src = 'https://www.freepnglogos.com/uploads/arrow/outline-arrow-left-transparent-png-22.png';
-    // img.id = 'backButton';
-
-    h1.innerText = runningMatch.innings[0].battingTeam.teamName+" v/s "+runningMatch.innings[0].bowlingTeam.teamName;
+    let span = document.createElement('span'),img = document.createElement('img');
+    img.src = 'https://pixabay.com/static/uploads/photo/2012/04/15/21/34/arrow-35386_960_720.png';
+    img.id = 'backArrow';
+    span.innerText = runningMatch.innings[0].battingTeam.teamName+" v/s "+runningMatch.innings[0].bowlingTeam.teamName;
     headingDiv.id = "title";
-    // headingDiv.appendChild(img);
-    headingDiv.appendChild(h1);
+    headingDiv.appendChild(img);
+    headingDiv.appendChild(span);
 }
 
 function createTableData(id,data){

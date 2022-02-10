@@ -86,3 +86,14 @@ img{
     color: white;
     padding-left: 70%;
 }
+
+img#backArrow {
+    width: 5%;
+    padding: 0% 0% 0% 1%;
+    /*transform: rotate(180deg);*/
+}
+span {
+    font-size: xxx-large;
+    padding: 10%;
+    color: white;
+}

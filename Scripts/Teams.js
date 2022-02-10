@@ -3,28 +3,26 @@ import * as utils from './LocalStorageUtils.js';
 let body = document.getElementsByTagName('body')[0],
     div = document.createElement('div'),changedName,games=utils.getItem('gameId'),
     removeItem;
-
 function addLink(){
     let head = document.getElementsByTagName('head')[0],
         link = document.createElement('link');
-    //head.innerHTML = '';
     link.rel = 'stylesheet';
     link.href = "./Stylesheets/teamList.css";
     head.appendChild(link);
 }
-
-function createTitle(){
-    let h1 = document.createElement('h1'),
-        h3 = document.createElement('h3'),
-        sub = document.createElement('sub'),
-        div1 = document.createElement('div');
-    h1.innerText = 'Cricket scorer';
-    // h3.innerText = 'scorer';
-    div1.id = 'title';
-    //h2.appendChild(h3);
-    div1.appendChild(h1);
-    div.appendChild(div1);
-}
+//
+// function createTitle(){
+//     let h1 = document.createElement('h1'),
+//         h3 = document.createElement('h3'),
+//         sub = document.createElement('sub'),
+//         div1 = document.createElement('div');
+//     h1.innerText = 'Cricket scorer';
+//     // h3.innerText = 'scorer';
+//     div1.id = 'title';
+//     //h2.appendChild(h3);
+//     div1.appendChild(h1);
+//     div.appendChild(div1);
+// }
 
 const getRandomNumber = (maxNum) => {
     return Math.floor(Math.random() * maxNum);
@@ -47,18 +45,223 @@ function removeTeam(){
 function editTeamName(name){
    // div=addModal();
     let teamName = prompt("Update Team",name);
-    // if(teamName!=null){
-    //     name = teamName;
-    // }
-    // let h3 = document.createElement('h3'),
-    // input = document.createElement('input');
-    // h3.innerText = 'Update Team';
-
     return teamName;
-
 }
 
+function createPlayerDiv(team,player){
+    let div1 = document.createElement('div'),
+        ul = document.createElement('ul'),
+        li1 = document.createElement('li'),
+        li2 = document.createElement('li'),
+        li3 = document.createElement('li'),
+        li4 = document.createElement('li'),
+        li5 = document.createElement('li'),
+        img = document.createElement('img'),
+        img1 = document.createElement('img'),
+        img2 = document.createElement('img'),
+        img3 = document.createElement('img');
+    ul.id = 'playerDetails';
+    li1.id = 'personIconLi';
+    li3.id = 'editIconLi';
+    li4.id = 'editIconLi';
+    li5.id = 'editIconLi';
+    li2.innerText = player.playerName;
+    li2.id = 'playerName';
+    img3.id = 'scroll';
+    img3.src = 'https://www.shareicon.net/data/256x256/2016/04/03/743930_button_512x512.png';
+    img1.id = 'personIcon';
+    img1.src = 'https://www.pngkit.com/png/full/14-141902_person-icon-png.png';
+    img1.onclick = ()=>{}
+    img.id = 'editIcon';
+    img.onclick=()=>{
+        changedName = editTeamName(name);
+        for (let i=0;i<team.matchNo.length;i++){
+            console.log(team.tName);
+            console.log(team.matchNo[i]);
+            console.log(games.matches[team.matchNo[i]].innings[0].battingTeam.teamName);
+            console.log(games.matches[0].innings[1].battingTeam.teamName);
+            if(games.matches[team.matchNo[i]].innings[0].battingTeam.players.length!==0){
+                let playerNo  = games.matches[team.matchNo[i]].innings[0].battingTeam.players.length;
+                let tempTeam = games.matches[team.matchNo[i]].innings[0].battingTeam;
+                console.log(games.matches[team.matchNo[i]].innings[0].battingTeam.players.length);
+                for(let i=0;i<playerNo;i++){
+                    if(tempTeam.players[i].playerName ==player.playerName){
+                        console.log(changedName);
+                        tempTeam.players[i].playerName = changedName;
+                    }
+                }
+            }
+            if(games.matches[team.matchNo[i]].innings[0].bowlingTeam.players.length!=0){
+                let playerNo  = games.matches[team.matchNo[i]].innings[0].bowlingTeam.players.length;
+                let tempTeam = games.matches[team.matchNo[i]].innings[0].bowlingTeam;
+                console.log(games.matches[team.matchNo[i]].innings[0].battingTeam.players.length);
+                for(let i=0;i<playerNo;i++){
+                    if(tempTeam.players[i].playerName ==player.playerName){
+                        console.log(changedName);
+                        tempTeam.players[i].playerName = changedName;
+                    }
+                }
+            }
+            if(games.matches[team.matchNo[i]].innings[1].battingTeam.players.length!=0){
+                let playerNo  = games.matches[team.matchNo[i]].innings[1].battingTeam.players.length;
+                let tempTeam = games.matches[team.matchNo[i]].innings[1].battingTeam;
+                console.log(games.matches[team.matchNo[i]].innings[1].battingTeam.players.length);
+                for(let i=0;i<playerNo;i++){
+                    if(tempTeam.players[i].playerName ==player.playerName){
+                        console.log(changedName);
+                        tempTeam.players[i].playerName = changedName;
+                    }
+                }
+            }
+            if(games.matches[team.matchNo[i]].innings[1].bowlingTeam.players.length!=0){
+                let playerNo  = games.matches[team.matchNo[i]].innings[1].bowlingTeam.players.length;
+                let tempTeam = games.matches[team.matchNo[i]].innings[1].bowlingTeam;
+                console.log(games.matches[team.matchNo[i]].innings[1].battingTeam.players.length);
+                for(let i=0;i<playerNo;i++){
+                    if(tempTeam.players[i].playerName ==player.playerName){
+                        console.log(changedName);
+                        tempTeam.players[i].playerName = changedName;
+                    }
+                }
+            }
+        }
+        utils.setItem('gameId',games);
+        li2.innerText = changedName;
+    }
+    img.src='https://cdn4.iconfinder.com/data/icons/software-menu-icons/256/SoftwareIcons-68-512.png';
+    img.alt = 'edit icon';
+    img2.id = 'removeIcon';
+    img2.src='https://cdn.onlinewebfonts.com/svg/img_304350.png';
+    img2.alt = 'remove icon';
+    img2.onclick=()=>{
+        // let confirmation =removeTeam();
+        // if(confirmation==true){
+        //     for(let i=0;i<team.matchNo.length;i++){
+        //         if(team.tName ==  games.matches[team.matchNo[i]].innings[0].battingTeam.teamName){
+        //             games.matches[team.matchNo[i]].innings[0].battingTeam.teamName = 'Unknown';
+        //             games.matches[team.matchNo[i]].innings[1].bowlingTeam.teamName = 'Unknown';
+        //             for(let j=0;j<games.matches[team.matchNo[i]].innings[0].battingTeam.players.length;j++){
+        //                 games.matches[team.matchNo[i]].innings[0].battingTeam.players[j].playerName = 'Unknown';
+        //             }
+        //             for(let j=0;j<games.matches[team.matchNo[i]].innings[1].bowlingTeam.players.length;j++){
+        //                 games.matches[team.matchNo[i]].innings[1].bowlingTeam.players[j].playerName = 'Unknown';
+        //             }
+        //
+        //
+        //         }
+        //         else{
+        //             games.matches[team.matchNo[i]].innings[0].bowlingTeam.teamName = 'Unknown';
+        //             games.matches[team.matchNo[i]].innings[1].battingTeam.teamName = 'Unknown';
+        //             for(let j=0;j<games.matches[team.matchNo[i]].innings[1].battingTeam.players.length;j++){
+        //                 games.matches[team.matchNo[i]].innings[1].battingTeam.players[j].playerName = 'Unknown';
+        //             }
+        //             for(let j=0;j<games.matches[team.matchNo[i]].innings[0].bowlingTeam.players.length;j++){
+        //                 games.matches[team.matchNo[i]].innings[0].bowlingTeam.players[j].playerName = 'Unknown';
+        //             }
+        //         }
+        //     }
+        //     utils.setItem('gameId',games);
+        //     removeItem=true;
+        //     teamName();
+        //}
+    }
+    li1.appendChild(img1);
+    li3.appendChild(img);
+    li4.appendChild(img2);
+    li5.appendChild(img3);
+    ul.appendChild(li1);
+    ul.appendChild(li2);
+    ul.appendChild(li3);
+    ul.appendChild(li4);
+    ul.appendChild(li5);
+    div1.appendChild(ul);
+    return div1;
+}
 
+function createPlayerDivList(team,players){
+    let div = document.createElement('div');
+    div.id = 'playerListDiv';
+    for(let i=0;i<players.length;i++){
+       div.appendChild( createPlayerDiv(team,players[i]));
+    }
+    return div;
+}
+
+function createPlayerList(team){
+    let playersOfTeam = [];
+    for (let i=0;i<team.matchNo.length;i++){
+        console.log(team.tName);
+        console.log(team.matchNo[i]);
+        console.log(games.matches[team.matchNo[i]].innings[0].battingTeam.teamName);
+        console.log(games.matches[0].innings[1].battingTeam.teamName);
+        if(games.matches[team.matchNo[i]].innings[0].battingTeam.teamName===team.tName){
+            if(games.matches[team.matchNo[i]].innings[0].battingTeam.players.length!==0){
+                let playerNo  = games.matches[team.matchNo[i]].innings[0].battingTeam.players.length;
+                let tempTeam = games.matches[team.matchNo[i]].innings[0].battingTeam;
+                console.log(games.matches[team.matchNo[i]].innings[0].battingTeam.players.length);
+                for(let i=0;i<playerNo;i++){
+                    console.log(tempTeam.players[i]);
+                    playersOfTeam.push(tempTeam.players[i]);
+                }
+            }
+        }
+        if(games.matches[team.matchNo[i]].innings[0].bowlingTeam.teamName==team.tName){
+            if(games.matches[team.matchNo[i]].innings[0].bowlingTeam.players.length!=0){
+                let playerNo  = games.matches[team.matchNo[i]].innings[0].bowlingTeam.players.length;
+                let tempTeam = games.matches[team.matchNo[i]].innings[0].bowlingTeam;
+                console.log(games.matches[team.matchNo[i]].innings[0].battingTeam.players.length);
+                for(let i=0;i<playerNo;i++){
+                    console.log(tempTeam.players[i]);
+                    playersOfTeam.push(tempTeam.players[i]);
+                }
+            }
+        }
+        if(games.matches[team.matchNo[i]].innings[1].battingTeam.teamName==team.tName){
+            if(games.matches[team.matchNo[i]].innings[1].battingTeam.players.length!=0){
+                let playerNo  = games.matches[team.matchNo[i]].innings[1].battingTeam.players.length;
+                let tempTeam = games.matches[team.matchNo[i]].innings[1].battingTeam;
+                console.log(games.matches[team.matchNo[i]].innings[1].battingTeam.players.length);
+                for(let i=0;i<playerNo;i++){
+                    console.log(tempTeam.players[i]);
+                    playersOfTeam.push(tempTeam.players[i]);
+                }
+            }
+        }
+        if(games.matches[team.matchNo[i]].innings[1].bowlingTeam.teamName==team.tName){
+            if(games.matches[team.matchNo[i]].innings[1].bowlingTeam.players.length!=0){
+                let playerNo  = games.matches[team.matchNo[i]].innings[1].bowlingTeam.players.length;
+                let tempTeam = games.matches[team.matchNo[i]].innings[1].bowlingTeam;
+                console.log(games.matches[team.matchNo[i]].innings[1].battingTeam.players.length);
+                for(let i=0;i<playerNo;i++){
+                    console.log(tempTeam.players[i]);
+                    playersOfTeam.push(tempTeam.players[i]);
+                }
+            }
+        }
+    }
+
+    for(let i=0;i<playersOfTeam.length;i++){
+        console.log(playersOfTeam[i]);
+    }
+    let div = createPlayerDivList(team,playersOfTeam);
+    return div;
+}
+
+function getRemoveEditIcon(){
+
+}
+function createTitleDiv(team){
+    let div = document.createElement('div'),
+        img = document.createElement('img'),
+        span = document.createElement('span');
+    div.id = 'teamTitle';
+    img.src = 'https://pixabay.com/static/uploads/photo/2012/04/15/21/34/arrow-35386_960_720.png';
+    img.id = 'backArrow';
+    span.innerText = team.tName;
+    div.appendChild(img);
+    div.appendChild(span);
+return div;
+}
 function createDiv(team){
     let div = document.createElement('div'),
     table = document.createElement('table'),
@@ -71,9 +274,8 @@ function createDiv(team){
         td5 = document.createElement('td'),
         td6 = document.createElement('td'),
         td7 = document.createElement('td'),
-    img = document.createElement('img'),
+        img = document.createElement('img'),
         img2 = document.createElement('img');
-    //<img src="img_girl.jpg" alt="Girl in a jacket" width="500" height="600">
     img.id = 'editIcon';
     img.onclick=()=>{
         changedName = editTeamName(name);
@@ -130,8 +332,28 @@ function createDiv(team){
     div.id = 'teamDiv'
     td1.id = 'teamName';
     td1.rowSpan = 2;
-
     td1.innerText = team.tName.charAt(0).toUpperCase();
+    td1.onclick=()=>{
+        console.log('teamNam clicked...');
+        // for(let i=0;i<document.getElementsByClassName('teamDiv').length;i++){
+            document.getElementById('teamListDiv').style.display = 'none';
+        document.getElementById('fixedTitleDiv').style.display = 'none';
+        document.getElementById('menuItems').style.display = 'none';
+        document.getElementById('center').appendChild(createTitleDiv(team));
+        document.getElementById('center').appendChild(createPlayerList(team));
+        if(document.getElementById('backArrow')!=null){
+            document.getElementById('backArrow').onclick=()=>{
+                document.getElementById('teamListDiv').style.display = 'block';
+                document.getElementById('fixedTitleDiv').style.display = 'block';
+                document.getElementById('menuItems').style.display = 'block';
+                document.getElementById('teamTitle').remove();
+                document.getElementById('playerListDiv').remove();
+
+            }
+        }
+       // document.getElementById('center').appendChild();
+      //  }
+    }
     td1.style.backgroundColor = getRandomColor();
     td2.colSpan = 3;
     td2.innerText = team.tName;

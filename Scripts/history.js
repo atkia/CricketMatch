@@ -178,6 +178,7 @@ function createDiv(i,match){
     }
     td9.colSpan=2;
     if(match.matchStatus=='running'){
+        td9.id = 'resumeTd';
         td9.appendChild(button1);
     }
 
@@ -200,8 +201,22 @@ function createDiv(i,match){
         div.id = 'historyScoreBoardDiv';
         div2.appendChild(div);
         document.getElementById('historyScoreBoardDiv').style.display = 'block';
+        if(document.getElementById('backArrow')!=null){
+            document.getElementById('backArrow').onclick=()=>{
+                document.getElementById('fixedTitleDiv').style.display = 'block';
+                document.getElementById('menuItems').style.display = 'block';
+                for(let i=0;i<document.getElementsByClassName('teamDiv').length;i++){
+                    document.getElementsByClassName('teamDiv').item(i).style.display = 'block';
+                }
+                if(document.getElementById('historyScoreBoardDiv')!=null){
+                    document.getElementById('historyScoreBoardDiv').remove();
+                }
+
+            }
+        }
     }
     td10.colSpan=2;
+    td10.id = 'scoreboardTd';
     td10.appendChild(button2);
     td11.id = 'archive';
     td11.appendChild(img);

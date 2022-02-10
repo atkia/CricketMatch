@@ -17,7 +17,57 @@
 /*    margin-left: 35%;*/
 /*    !*font: bold;*!*/
 /*}*/
+div#teamTitle {
+    padding: 4%;
+    background-color: darkgreen;
+}
+img#backArrow {
+    width: 5%;
+    /*transform: rotate(180deg);*/
+}
+span {
+    font-size: xxx-large;
+    padding: 10%;
+    color: white;
+}
 
+ul#playerDetails {
+    background-color: white;
+    border-radius: 20px;
+    margin-bottom: 1%;
+    padding: 1%;
+}
+li#editIconLi {
+    width: 10%;
+}
+img {
+    width: 38px;
+}
+img#scroll {
+    width: 49px;
+}
+li#playerName {
+    padding-top: 2%;
+    text-align: left;
+    width: 57%;
+}
+div#playerListDiv {
+    padding: 1%;
+    background-color: lightgray;
+}
+li#personIconLi {
+    width: 13%;
+}
+div#playerDetails {
+    background-color: white;
+    border-radius: 12px;
+    margin-bottom: 1%;
+}
+img#personIcon {
+    background-color: darkgreen;
+    border-radius: 50%;
+    width: 56%;
+}
 table{
     /*border:1px solid black;*/
     width: 100%;

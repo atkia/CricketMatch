@@ -2,6 +2,7 @@
 /*    padding: 2%;*/
 /*    margin: 2%;*/
 /*}*/
+
 #historyDiv{
     background-color: #80808017;
     padding: 1%;
@@ -10,9 +11,10 @@
     background-color: white;
     border-radius: 10px;
     margin-bottom: 1%;
+    padding: 1%;
 }
 table{
-    padding: 2%;
+    /*padding: 1%;*/
 }
 
 
@@ -51,4 +53,13 @@ td{
 }
 #runWicket{
    text-align: end;
+}
+td#dateTime {
+    text-align: left;
+}
+td#matchStatusDetails {
+    text-align: left;
+}
+td#scoreboardTd {
+    width: 0%;
 }
