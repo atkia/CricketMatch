@@ -12,9 +12,13 @@ function addLink(){
 }
 function createTitle(){
     headingDiv.innerHTML = '';
-    let h1 = document.createElement('h1');
+    let h1 = document.createElement('h1'),img = document.createElement('img');
+    // img.src = 'https://www.freepnglogos.com/uploads/arrow/outline-arrow-left-transparent-png-22.png';
+    // img.id = 'backButton';
+
     h1.innerText = runningMatch.innings[0].battingTeam.teamName+" v/s "+runningMatch.innings[0].bowlingTeam.teamName;
     headingDiv.id = "title";
+    // headingDiv.appendChild(img);
     headingDiv.appendChild(h1);
 }
 
@@ -94,17 +98,27 @@ function changeBattingTableData(player,string,type){
     return tr;
 }
 function createBatsmanStatusRow(batsman) {
-    let tr = document.createElement('tr');
-    tr.innerText = batsman.batting.status;
+    let tr = document.createElement('tr'),td = document.createElement('td');
+    td.innerText = batsman.batting.status;
+    td.id = 'batsmanStatus';
+    tr.appendChild(td);
     return tr;
 }
+
+function createHr(){
+    let hr = document.createElement('hr');
+    return hr;
+}
+
 function createStrikerDetailRow(index) {
         let playerNo = runningMatch.innings[index].battingTeam.players.length ;
     let trs = [];
+
     for(let i=0;i<playerNo;i++){
         let batsman = runningMatch.innings[index].battingTeam.players[i];
         trs.push(changeBattingTableData(batsman,'','bat'));
         trs.push(createBatsmanStatusRow(batsman));
+        trs.push(createHr());
     }
     return trs;
 }
@@ -115,36 +129,57 @@ function createBowlerDetailRow(index){
         for(let i=0;i<playerNo;i++){
             let bowler = runningMatch.innings[index].bowlingTeam.players[i];
             trs.push(changeBattingTableData(bowler,'','bowler'));
+            trs.push(createHr());
         }
    return trs;
 }
 
 function addExtra(index){
-    let ul = document.createElement('ul'),
+    let div = document.createElement('div'),
+        ul = document.createElement('ul'),
         li1 = document.createElement('li'),
         li2 = document.createElement('li');
     ul.id = 'extraUl';
     li1.innerText = 'Extras';
     li1.id = 'extraTitle';
     li2.id = 'extraDetails';
-    li2.innerText = runningMatch.innings[index].battingTeam.partnershipScore+' '+runningMatch.innings[index].battingTeam.extras.byes +' B'+runningMatch.innings[index].battingTeam.extras.lByes +' LB'+runningMatch.innings[index].battingTeam.extras.wB +' WB'+runningMatch.innings[index].battingTeam.extras.noBall +' NB'+runningMatch.innings[index].battingTeam.extras.penalty +' P';
+    li2.innerText = runningMatch.innings[index].battingTeam.partnershipScore+' '+runningMatch.innings[index].battingTeam.extras.byes +' B, '+runningMatch.innings[index].battingTeam.extras.lByes +' LB, '+runningMatch.innings[index].battingTeam.extras.wB +' WB, '+runningMatch.innings[index].battingTeam.extras.noBall +' NB, '+runningMatch.innings[index].battingTeam.extras.penalty +' P';
     ul.appendChild(li1);
     ul.appendChild(li2);
-    return ul;
+    div.appendChild(ul);
+    let hr = createHr();
+    hr.id = 'extrasHr';
+    div.appendChild(hr);
+    return div;
 }
 
-function addTotal(){}
+function addTotal(index){
+    let div = document.createElement('div'),
+        ul = document.createElement('ul'),
+        li1 = document.createElement('li'),
+        li2 = document.createElement('li');
+    ul.id = 'totalUl';
+    li1.innerText = 'Total';
+    li1.id = 'totalTitle';
+    li2.id = 'totalDetails';
+    li2.innerText = runningMatch.innings[index].battingTeam.totalScore+'-'+runningMatch.innings[index].battingTeam.wicket +' ('+runningMatch.innings[index].battingTeam.totalOver+')  '+runningMatch.innings[index].battingTeam.crr;
+    ul.appendChild(li1);
+    ul.appendChild(li2);
+    div.appendChild(ul);
+    let hr = createHr();
+    hr.id = 'totalsHr';
+    div.appendChild(hr);
+    return div;
+}
 
 export function createBattingPLayerTable(index,table){
     table.innerHTML = '';
+
     table.appendChild(createTableHead('batsman'));
     let trs = createStrikerDetailRow(index);
     for(let i=0;i<trs.length;i++){
         table.appendChild(trs[i]);
     }
-    let tr = document.createElement('tr');
-  //  tr.appendChild(addExtra(index));
-  //  table.appendChild(tr);
     return table;
 }
 
@@ -163,12 +198,12 @@ function createSecondRow(index){
         table = document.createElement('table'),
     table2 = document.createElement('table');
     console.log('secondRow create');
-    div3.id = 'scoreDetailsDiv';
+    div3.id = 'scoreDetailsDiv'+index;
     div3.innerHTML = '';
-    // if(div3.hasChildNodes()==false){
     table.id = 'battingPLayerTable';
     div3.appendChild(createBattingPLayerTable(index,table));
     div3.appendChild(addExtra(index));
+    div3.appendChild(addTotal(index));
     div3.appendChild(createBowlerTable(index,table2));
     div3.style.display = 'none';
     return div3;
@@ -192,17 +227,17 @@ function createTeamHeading(index){
     li2.innerText = inning.battingTeam.totalScore+'-'+inning.battingTeam.wicket +'('+inning.battingTeam.totalOver+')';
     upImg.src = 'https://www.freeiconspng.com/uploads/white-down-arrow-png-2.png';
     upImg.id = 'upImg';
+    downImg.id = 'downImg';
+    downImg.src = 'https://www.freeiconspng.com/uploads/white-down-arrow-png-2.png';
     upImg.onclick=()=>{
         li3.innerHTML = '';
         li3.appendChild(downImg);
-        document.getElementById('scoreDetailsDiv').style.display = 'none';
+        document.getElementById('scoreDetailsDiv'+index).style.display = 'none';
     }
-    downImg.id = 'downImg';
-    downImg.src = 'https://www.freeiconspng.com/uploads/white-down-arrow-png-2.png';
     downImg.onclick=()=>{
         li3.innerHTML = '';
         li3.appendChild(upImg);
-        document.getElementById('scoreDetailsDiv').style.display = 'block';
+        document.getElementById('scoreDetailsDiv'+index).style.display = 'block';
     }
     li3.appendChild(downImg);
     ul.appendChild(li1);
@@ -215,6 +250,7 @@ function createTeamHeading(index){
 function createFirstInningDiv(){
     div.appendChild(createTeamHeading(0));
     div.appendChild(createSecondRow(0));
+
 }
 
 function createSecondInningDiv(){
@@ -245,6 +281,27 @@ export function createScoreBoardDiv(matchIndex){
         createFirstInningDiv();
     }
     else{
+        let h2 = document.createElement('h2');
+        console.log('2nd innings is running');
+        if(runningMatch.matchStatus =='finished'){
+            if(runningMatch.winnerTeamName == runningMatch.innings[1].battingTeam.teamName){
+                let wicketSaved = 10- +runningMatch.innings[1].battingTeam.wicket;
+                h2.innerText = runningMatch.winnerTeamName + ' won by '+wicketSaved+' wickets.';
+            }
+            else{
+                let winRun = runningMatch.innings[0].battingTeam.totalScore-runningMatch.innings[1].battingTeam.totalScore;
+                h2.innerText = runningMatch.winnerTeamName + ' won by '+winRun+' runs.';
+            }
+        }
+        else{
+            console.log('match is running')
+            let winRun = runningMatch.innings[0].battingTeam.totalScore-runningMatch.innings[1].battingTeam.totalScore+1;
+            // let h2 = document.createElement('h2');
+            h2.innerText = runningMatch.innings[1].battingTeam.teamName + ' needs '+winRun+' to win.';
+
+        }
+
+        div.appendChild(h2);
         createFirstInningDiv();
         createSecondInningDiv();
     }

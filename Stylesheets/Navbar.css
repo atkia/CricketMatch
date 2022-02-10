@@ -1,4 +1,4 @@
-.center {
+#center {
     position: absolute;
     left: 50%;
     transform: translate(-50%);
@@ -27,7 +27,7 @@ ul {
     padding: 0;
     overflow: hidden;
     border: 1px solid #e7e7e7;
-    background-color: #f3f3f3;
+    background-color: #80808017;
 }
 
 li {
@@ -50,15 +50,13 @@ li {
 /*}*/
 
 li :hover {
-    background-color: #ddd;
+    background-color: darkgray;
 
 }
 .Disabled{
     pointer-events: none;
 }
-#menu :hover{
-    background-color: darkgreen;
-}
+
  .active {
     color: white;
      /*font-size: larger;*/
@@ -66,13 +64,21 @@ li :hover {
     background-color: darkgreen;
      /*padding: 14px 16px;*/
 }
- #newMatch,#teams,#history,#menu{
+ #newMatch,#teams,#history{
      border: 0;
      font-size: large;
      padding: 14px 16px;
      cursor: pointer;
+     /*background-color: lightgray;*/
 
  }
+#menu{
+    border: 0;
+    font-size: large;
+    padding: 14px 16px;
+    cursor: pointer;
+    background-color: darkgreen;
+}
  div #form{
      background-color:#aaaaaa1a;
      padding: .5%;

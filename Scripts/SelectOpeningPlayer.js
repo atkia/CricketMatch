@@ -61,7 +61,6 @@ function createSubmitButton(){
     div3.appendChild(input);
 }
 export function createObjects(){
-
     hostTeamName = localStorage.getItem('Host Name');
     visitorTeamName = localStorage.getItem('Visitor Name');
     let player1Name = localStorage.getItem('Striker'),
@@ -84,8 +83,10 @@ export function createObjects(){
    // match.addMatchNo();
     console.log("match time and date:..."+match.date+"...."+match.time);
     console.log('This match will be of '+over);
+    console.log(hostTeam.teamName);
+    console.log(visitorTeam);
     game = utils.getItem('gameId');
-    match.matchOvers = over;
+    match.matchOvers = over+'.0';
     let tossWonBy = localStorage.getItem('tossWonBy');
     let optedTo = localStorage.getItem('optTo');
 
@@ -93,76 +94,40 @@ export function createObjects(){
         match.tossWonBy = hostTeamName;
         if(optedTo === 'Bat'){
             match.optedTo = 'bat';
-           // hostTeam.type = 'batting';
             inning1.battingTeam = hostTeam;
             inning2.bowlingTeam = hostTeam;
-          //  inning2.hostTeam.type = 'bowling';
-          //  visitorTeam.type = 'bowling';
+            console.log(hostTeam.teamName);
             inning1.bowlingTeam = visitorTeam;
             inning2.battingTeam = visitorTeam;
-         //   inning2.visitorTeam.type = 'batting'
-         //    hostTeam.players.push(player1);
-         //    hostTeam.players.push(player2);
-         //    visitorTeam.players.push(player3)
         }
         else {
             match.optedTo = 'bowl';
-        //    hostTeam.type = 'bowling';
             inning1.battingTeam = visitorTeam;
             inning2.bowlingTeam = visitorTeam;
             inning1.bowlingTeam = hostTeam;
             inning2.battingTeam = hostTeam;
-            // visitorTeam.players.push(player1);
-            // visitorTeam.players.push(player2);
-            // hostTeam.players.push(player3)
         }
     }
     else{
         match.tossWonBy = visitorTeamName;
         if(optedTo=='Bat'){
-            match.optedTo='bat';
+            match.optedTo = 'bat';
+            inning1.battingTeam = visitorTeam;
+            inning2.bowlingTeam = visitorTeam;
+            console.log(hostTeam.teamName);
+            inning1.bowlingTeam = hostTeam;
+            inning2.battingTeam = hostTeam;
         }
         else {
             match.optedTo = 'bowl';
+            inning1.battingTeam = hostTeam;
+            inning2.bowlingTeam = hostTeam;
+            inning1.bowlingTeam = visitorTeam;
+            inning2.battingTeam = visitorTeam;
+
         }
     }
-    // else {
-    //     if(optedTo === 'Bat'){
-    //         visitorTeam.type = 'batting';
-    //
-    //         inning1.battingTeam = visitorTeam;
-    //         inning2.bowlingTeam = visitorTeam;
-    //         inning1.bowlingTeam = hostTeam;
-    //         inning2.battingTeam = hostTeam;
-    //
-    //      //   inning2.visitorTeam.type = 'bowling';
-    //         hostTeam.type = 'bowling';
-    //      //   inning2.hostTeam.type = 'batting'
-    //         visitorTeam.players.push(player1);
-    //         visitorTeam.players.push(player2);
-    //         hostTeam.players.push(player3);
-    //     }
-    //     else {
-    //         visitorTeam.type = 'bowling';
-    //     //    inning2.visitorTeam.type = 'batting';
-    //         hostTeam.type = 'batting';
-    //     //    inning2.hostTeam.type = 'bowling'
-    //         hostTeam.players.push(player1);
-    //         hostTeam.players.push(player2);
-    //         visitorTeam.players.push(player3)
-    //     }
-    //
-    // }
-   // match.hostTeam = hostTeam;
-   // match.visitorTeam = visitorTeam;
-   // console.log("hostTeam:  "+ match.hostTeam);
-  //  console.log("visitor Team:   "+match.visitorTeam);
     let previousMatchIndex = 0;
-   // inning1.hostTeam = hostTeam;
-   //  inning1.visitorTeam = visitorTeam;
-   //  // match.innings1 = inning1;
-   //  inning2.hostTeam = changeType(hostTeam);
-   //  inning2.visitorTeam = changeType(visitorTeam);
     if(game.matches.length!=0){
         console.log('game match:...',game.matches.length);
         let index = game.matches.length-1;

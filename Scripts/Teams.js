@@ -148,9 +148,23 @@ function createDiv(team){
     td3.id = 'totalMatch';
     td3.innerText="Matches: "+team.matchCount;
     td4.id = 'totalWon';
-    td4.innerText = "Won:  0";
+    let winCount = 0;
+    for (let i=0;i<team.matchNo.length;i++){
+        console.log(team.matchNo[i]);
+
+        if(games.matches[team.matchNo[i]].winnerTeamName==team.tName){
+            winCount++;
+        }
+    }
+    td4.innerText = "Won:  " + winCount;
     td5.id = 'totalLost';
-    td5.innerText ='Lost:  0';
+    let lostCount = 0;
+    for (let i=0;i<team.matchNo.length;i++){
+        if(games.matches[team.matchNo[i]].losserTeamName==team.tName){
+            lostCount++;
+        }
+    }
+    td5.innerText ='Lost:  '+lostCount;
 
     tr2.appendChild(td3);
     tr2.appendChild(td4);

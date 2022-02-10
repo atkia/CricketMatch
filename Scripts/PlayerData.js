@@ -6,37 +6,6 @@ export function Extras(){
     this.wB = 0;
     this.noBall = 0;
     this.penalty = 0;
-    // this.addByes = (value)=>{
-    //     this.byes = this.byes+value;
-    //
-    // }
-    // this.getByes = ()=>{
-    //     return this.byes+'B';
-    // }
-    // this.addLB = (value)=>{
-    //     this.lByes = this.lByes+value;
-    // }
-    // this.getLB=()=>{
-    //     return this.lByes+'LB';
-    // }
-    // this.addWB = (value)=>{
-    //     this.wB = this.wB+value;
-    // }
-    // this.getWB=()=>{
-    //     return this.wB+'WB';
-    // }
-    // this.addNB = (value)=>{
-    //     this.noBall = this.noBall+value;
-    // }
-    // this.getNB=()=>{
-    //     return this.noBall+'NB';
-    // }
-    // this.addPenalty = (value)=>{
-    //     this.penalty = this.penalty+value;
-    // }
-    // this.getPenalty=()=>{
-    //     return this.penalty+'P';
-    // }
 }
 
 export function addByes(byes,value){
@@ -82,22 +51,21 @@ export function Batting(){
     this.sr = 0.00;
     this.retire = false;
     this.status = 'Not Out';
-    // this.changeStatus=()=>{
-    //     this.status = 'Out';
-    // }
-    // this.getRuns=(run)=>{
-    //     this.run+=run;
-    // };
-    // this.sR=()=>{
-    //     if(this.ballNo!=0){
-    //         this.sr = (this.run/this.ballNo)*100;
-    //         this.sr = this.sr.toPrecision(5);
-    //         return this.sr;
-    //     }
-    //
-    //     return '' +this.sr;
-    // }
+}
 
+export function crr(players){
+    let crr=0;
+    for(let i=0;i<players.length;i++){
+        crr =crr+ +players[i].bowling.er ;
+        console.log(crr);
+    }
+    if(players.length==0){
+        return crr+'.00';
+    }
+    console.log(crr);
+    crr = crr/players.length;
+    console.log(crr);
+    return crr.toPrecision(4);
 }
 export function changeStatus(status){
     status = 'Out';
@@ -125,35 +93,6 @@ export function Bowling(){
     this.maiden=0;
     this.er = 0.00;
     this.ballDetails = [];
-    // this.getRuns=(run)=>{
-    //     this.run+=run;
-    // };
-    // this.getMaiden = ()=>{
-    //     if(this.run ==0){
-    //         this.maiden++;
-    //     }
-    //     return this.maiden;
-    // }
-    // this.getOver=()=>{
-    //     if(this.ballNo<6){
-    //         this.overs = "0."+this.ballNo;
-    //     }
-    //     else{
-    //         let over = Math.floor( this.ballNo/6),
-    //             ball = this.ballNo%6;
-    //         this.overs =''+ over +'.'+ball;
-    //     }
-    // }
-    // this.eR=()=>{
-    //     if(this.ballNo!=0){
-    //         this.er= this.run/this.ballNo;
-    //         this.er=this.er*6;
-    //         this.er = this.er.toPrecision(5);
-    //         return this.er;
-    //     }
-    //     return ''+this.er;
-    //
-    // }
 }
 export function getRuns(totalRun,run){
     totalRun = totalRun+run;
@@ -184,7 +123,7 @@ export function eR(er,ballNo,run){
     if(ballNo!=0){
         er= run/ballNo;
         er=er*6;
-        er = er.toPrecision(5);
+        er = er.toPrecision(4);
         return er;
     }
     return ''+er;
@@ -205,6 +144,7 @@ export function team (name) {
     this.partnershipScore=0;
     this.totalScore = 0;
     this.extras = new Extras();
+    this.crr = 0;
 }
 
 export function addPartnershipScore(partnershipScore,score){
@@ -213,12 +153,15 @@ export function addPartnershipScore(partnershipScore,score){
     return partnershipScore;
 }
 
-export function getTotalOver(players,totalOver){
-    let over = 0.0;
+export function getTotalOver(players){
+    let over = 0;
     for(let player of players){
         if(player.type=='bowling'){
             over =over+ +player.bowling.overs;
         }
+    }
+    if(Number.isInteger(over) ){
+        return over+'.0';
     }
     return over;
 }
@@ -249,6 +192,7 @@ export function match(){
     this.matchStatus = 'running';
     this.winnerTeamName = '';
     this.losserTeamName ='';
+    this.matchDetails = '';
 }
 export  function Games(){
     this.id = 'gameId';

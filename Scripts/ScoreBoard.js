@@ -40,6 +40,15 @@ function addLink(){
 
 function setInnings(){
     console.log(runningMatch.inningIndex);
+    if(runningMatch.inningIndex==1){
+        runningMatch.matchDetails = runningMatch.tossWonBy +' won the toss and opted to '+ runningMatch.optedTo + ' first.';
+        utils.setItem('gameId',gameObject);
+    }
+    else{
+        let winRun = runningMatch.innings[0].battingTeam.totalScore-runningMatch.innings[1].battingTeam.totalScore+1;
+        runningMatch.matchDetails = runningMatch.innings[1].battingTeam.teamName +' needs '+ winRun + ' run to win.';
+        utils.setItem('gameId',gameObject);
+    }
     inning = runningMatch.innings[runningMatch.inningIndex-1];
    // battingTeam = new object.team();
     if(inning.battingTeam.teamName && inning.bowlingTeam){}
@@ -48,6 +57,7 @@ function setInnings(){
     BattingTeamName = battingTeam.teamName;
     bowlingTeam = inning.bowlingTeam;
     BowlingTeamName = bowlingTeam.teamName;
+
     console.log(BowlingTeamName);
     striker = '';
     nonStriker = '';
@@ -76,6 +86,7 @@ function createFirstRow(){
     else{
         createSpan('innings','1st inning');
     }
+    createSpan('crr','CRR');
     div2.appendChild(br);
     createSpan("runScore",battingTeam.totalScore);
     createSpan("scoreP","-");
@@ -83,6 +94,7 @@ function createFirstRow(){
     createSpan('overB','(');
     createSpan('over',battingTeam.totalOver);
     createSpan('overB',')');
+    createSpan('crrValue',battingTeam.crr);
 
 }
 
@@ -188,17 +200,13 @@ function createStrikerDetailRow() {
         nonStriker = battingTeam.players[playerNo];
         console.log("NonStrikerDetails:  " + nonStriker.playerName);
     }
-
-
-  //  }
     console.log("striker details:   " + striker.playerName);
     tr1 = changeBattingTableData(striker, '*', 'bat');
     tr2 = changeBattingTableData(nonStriker, '', 'bat');
 }
 
 function createBowlerDetailRow(){
-  //  if(inning.hostTeam.type == 'bowling'){
-    if(bowler == '' || bowlingTeam.players.length ==0){
+    if(bowlingTeam.players.length ==0){
         bowler = new object.player(localStorage.getItem('Bowler'),'bowling');
         bowlingTeam.players.push(bowler);
         utils.setItem('gameId',gameObject);
@@ -480,28 +488,42 @@ function changeBowler(){
 function checkOver(){
     console.log('checkOver function called')
     let div = addBowlerDiv();
-    headingDiv.style.display = 'none';
-    div2.style.display = 'none';
-    div3.style.display = 'none';
-    div4.style.display = 'none';
-    div5.style.display = 'none';
-    div6.style.display = 'none';
-    div1.appendChild(div);
+    document.getElementById('scoreBoardDiv').style.display = 'none';
+    document.getElementById('center').appendChild(div);
     let submit = document.getElementById('addBowlerButton');
     submit.onclick = ()=>{
         elem.storeInputData();
         changeBowler();
         createBowlerTable();
-        headingDiv.style.display = 'block';
-        div2.style.display = 'block';
-        div3.style.display = 'block';
-        div4.style.display = 'block';
-        div5.style.display = 'block';
-        div6.style.display = 'block';
+        document.getElementById('scoreBoardDiv').style.display = 'block';
         div.remove();
+
     }
     scoreTR1.innerHTML='';
     scoreTR2.innerHTML='';
+}
+
+function createCongoDiv(){
+    let div = document.createElement('div'),
+        div1 = document.createElement('div'),
+        h1 = document.createElement('h1'),
+        h2 = document.createElement('h1'),
+        h3 = document.createElement('h3'),
+        img = document.createElement('img');
+    h1.id = 'congo';
+    h1.innerText = 'Congratulations!';
+    img.id = 'trophy';
+    img.src = 'https://gclipart.com/wp-content/uploads/2017/02/Transparent-gold-cup-trophy-clipart-graphic-design-inspiration.png';
+    div1.id = 'trophyDiv';
+    div1.appendChild(img);
+    h2.id = 'winnerTeamName';
+    h3.id = 'winnerTeamDetails';
+    div.appendChild(h1);
+    div.appendChild(div1);
+    div.appendChild(h2);
+    div.appendChild(h3);
+    div.id = 'congoDiv';
+    return div;
 }
 
 function getScoreButton(value) {
@@ -511,41 +533,52 @@ function getScoreButton(value) {
     input.value = value;
 
     input.onclick = () => {
-        // if(runningMatch.matchOvers == battingTeam.totalOver){
-        //     console.log('2nd innings....');
-        //     runningMatch.inningIndex = 2;
-        //     utils.setItem('gameId',gameObject);
-        //     setInnings();
-        //     document.getElementById('form').style.display = 'none';
-        //     let tempDiv = players.createDivs();
-        //     document.getElementById('menuItems').appendChild(tempDiv);
-        //     let submitButton = document.getElementById("startMatch");
-        //     submitButton.onclick = function (){
-        //       //  console.log(document.getElementById('player_form'));
-        //         elem.storeInputData(document.getElementById('player_form'));
-        //         document.getElementById('form').style.display = 'block';
-        //         tempDiv.remove();
-        //         createTitle();
-        //         createFirstRow();
-        //         console.log(striker.playerName);
-        //         console.log(nonStriker.playerName);
-        //         console.log(bowler);
-        //         createSecondRow();
-        //         createThirdRow();
-        //         createFourthRow();
-        //         createFifthRow();
-        //        // players.createObjects();
-        //     }
-        //     // createTitle();
-        //     // createFirstRow();
-        //     // console.log(striker.playerName);
-        //     // console.log(nonStriker.playerName);
-        //     // console.log(bowler);
-        //     // createSecondRow();
-        //     // createThirdRow();
-        //     // createFourthRow();
-        //     // createFifthRow();
-        // }
+        if(runningMatch.inningIndex==2) {
+            let div = createCongoDiv();
+
+            if (runningMatch.matchOvers == battingTeam.totalOver) {
+                document.getElementById('center').appendChild(div);
+                let h2 = document.getElementById('winnerTeamName'),
+                    h3 = document.getElementById('winnerTeamDetails');
+                if(runningMatch.innings[runningMatch.inningIndex-1].battingTeam.totalScore>runningMatch.innings[runningMatch.inningIndex-2].battingTeam.totalScore){
+                    console.log('totalScore of running batting team: '+runningMatch.innings[runningMatch.inningIndex-1].battingTeam.totalScore);
+                    console.log('totalScore of previous batting team: '+runningMatch.innings[runningMatch.inningIndex-2].battingTeam.totalScore);
+                    runningMatch.winnerTeamName = battingTeam.teamName;
+                    runningMatch.losserTeamName = bowlingTeam.teamName;
+                    h2.innerText = battingTeam.teamName;
+                    let wicketSaved = 10- +runningMatch.innings[1].battingTeam.wicket;
+                    runningMatch.matchDetails = runningMatch.winnerTeamName + ' won by '+wicketSaved+' wickets.';
+                }
+                else{
+                    console.log('totalScore of running batting team: '+runningMatch.innings[runningMatch.inningIndex-1].battingTeam.totalScore);
+                    console.log('totalScore of previous batting team: '+runningMatch.innings[runningMatch.inningIndex-2].battingTeam.totalScore);
+                    runningMatch.winnerTeamName =  runningMatch.innings[runningMatch.inningIndex-2].battingTeam.teamName;
+                    runningMatch.losserTeamName = runningMatch.innings[runningMatch.inningIndex-2].bowlingTeam.teamName;
+                    h2.innerText = runningMatch.innings[runningMatch.inningIndex-2].battingTeam.teamName;
+                    let winRun = runningMatch.innings[0].battingTeam.totalScore-runningMatch.innings[1].battingTeam.totalScore;
+                    runningMatch.matchDetails = runningMatch.winnerTeamName + ' won by '+winRun+' runs.';
+                }
+                h3.innerText = runningMatch.matchDetails;
+
+                document.getElementById('scoreBoardDiv').style.display = 'none';
+                runningMatch.matchStatus = 'finished';
+                utils.setItem('gameId',gameObject);
+            }
+            else if(runningMatch.innings[1].battingTeam.totalScore==runningMatch.innings[0].battingTeam.totalScore+1){
+                document.getElementById('center').appendChild(div);
+                let h2 = document.getElementById('winnerTeamName'),
+                    h3 = document.getElementById('winnerTeamDetails');
+                runningMatch.winnerTeamName = battingTeam.teamName;
+                runningMatch.losserTeamName = bowlingTeam.teamName;
+                h2.innerText = battingTeam.teamName;
+                let wicketSaved = 10- +runningMatch.innings[1].battingTeam.wicket;
+                h3.innerText = runningMatch.winnerTeamName + ' won by '+wicketSaved+' wickets.';
+                // document.getElementById('center').appendChild(div);
+                document.getElementById('scoreBoardDiv').style.display = 'none';
+                runningMatch.matchStatus = 'finished';
+                utils.setItem('gameId',gameObject);
+            }
+        }
         document.getElementById('wide').checked = false;
         document.getElementById('NoBall').checked = false;
         document.getElementById('byes').checked = false;
@@ -630,6 +663,9 @@ function getScoreButton(value) {
                 if(NB!=true){
                     bowler.bowling.ballNo++;
                     bowler.bowling.er = object.eR(bowler.bowling.er,bowler.bowling.ballNo,bowler.bowling.run);
+                    console.log(bowlingTeam.players.length);
+                    battingTeam.crr = object.crr(bowlingTeam.players);
+                    console.log(battingTeam.crr);
                     count++;
                 }
 
@@ -637,7 +673,7 @@ function getScoreButton(value) {
             striker.batting.sr = object.sR(striker.batting.ballNo,striker.batting.sr,striker.batting.run);
             console.log(striker.batting.sr);
             bowler.bowling.overs = object.getOver(bowler.bowling.ballNo,bowler.bowling.overs);
-            battingTeam.totalOver = object.getTotalOver(bowlingTeam.players,battingTeam.totalOver);
+            battingTeam.totalOver = object.getTotalOver(bowlingTeam.players);
             document.getElementById('over').innerText =''+battingTeam.totalOver;
             battingTeam.totalScore = object.getTotalScore(battingTeam.players,battingTeam.partnershipScore);
             document.getElementById('runScore').innerText =''+ battingTeam.totalScore;
@@ -652,65 +688,61 @@ function getScoreButton(value) {
                 striker.batting.sixs++;
             }
             table.innerHTML = '';
+            createFirstRow();
             createBattingPLayerTable();
             createBowlerTable();
             if(bowler.bowling.ballNo==6){
+                console.log(bowler.bowling.ballNo);
                 if(runningMatch.inningIndex==2) {
+                    let div = createCongoDiv();
                     if (runningMatch.matchOvers == battingTeam.totalOver) {
-                        let div = document.createElement('div'),
-                            div1 = document.createElement('div'),
-                            h1 = document.createElement('h1'),
-                            h2 = document.createElement('h1'),
-                            h3 = document.createElement('h3'),
-                            img = document.createElement('img');
-                        if(runningMatch.innings[runningMatch.inningIndex].battingTeam.totalScore>runningMatch.innings[runningMatch.inningIndex-1].battingTeam.totalScore){
+                        document.getElementById('center').appendChild(div);
+                        let h2 = document.getElementById('winnerTeamName'),
+                            h3 = document.getElementById('winnerTeamDetails');
+                        if(runningMatch.innings[runningMatch.inningIndex-1].battingTeam.totalScore>runningMatch.innings[runningMatch.inningIndex-2].battingTeam.totalScore){
+                            console.log('totalScore of running batting team: '+runningMatch.innings[runningMatch.inningIndex-1].battingTeam.totalScore);
+                            console.log('totalScore of previous batting team: '+runningMatch.innings[runningMatch.inningIndex-2].battingTeam.totalScore);
                             runningMatch.winnerTeamName = battingTeam.teamName;
                             runningMatch.losserTeamName = bowlingTeam.teamName;
                             h2.innerText = battingTeam.teamName;
-                            h3.innerText = battingTeam.teamName+' won by '+battingTeam.wicket+" wickets.";
+                            let wicketSaved = 10- +runningMatch.innings[1].battingTeam.wicket;
+                            runningMatch.matchDetails = runningMatch.winnerTeamName + ' won by '+wicketSaved+' wickets.';
                         }
                         else{
-                            runningMatch.winnerTeamName =  runningMatch.innings[runningMatch.inningIndex-1].battingTeam.teamName;
-                            runningMatch.losserTeamName = runningMatch.innings[runningMatch.inningIndex-1].bowlingTeam.teamName;
-                            h2.innerText = runningMatch.innings[runningMatch.inningIndex-1].battingTeam.teamName;
-                            h3.innerText = runningMatch.innings[runningMatch.inningIndex-1].battingTeam.teamName+' won by '+runningMatch.innings[runningMatch.inningIndex-1].battingTeam.wicket+" wickets.";
+                            console.log('totalScore of running batting team: '+runningMatch.innings[runningMatch.inningIndex-1].battingTeam.totalScore);
+                            console.log('totalScore of previous batting team: '+runningMatch.innings[runningMatch.inningIndex-2].battingTeam.totalScore);
+                            runningMatch.winnerTeamName =  runningMatch.innings[runningMatch.inningIndex-2].battingTeam.teamName;
+                            runningMatch.losserTeamName = runningMatch.innings[runningMatch.inningIndex-2].bowlingTeam.teamName;
+                            h2.innerText = runningMatch.innings[runningMatch.inningIndex-2].battingTeam.teamName;
+                            let winRun = runningMatch.innings[0].battingTeam.totalScore-runningMatch.innings[1].battingTeam.totalScore;
+                            runningMatch.matchDetails = runningMatch.winnerTeamName + ' won by '+winRun+' runs.';
                         }
+                        h3.innerText = runningMatch.matchDetails;
 
-                        h1.id = 'congo';
-                        h1.innerText = 'Congratulations!';
-                        img.id = 'trophy';
-                        img.src = 'https://gclipart.com/wp-content/uploads/2017/02/Transparent-gold-cup-trophy-clipart-graphic-design-inspiration.png';
-                        div1.id = 'trophyDiv';
-                        div1.appendChild(img);
-                        h2.id = 'winnerTeamName';
-                        h3.id = 'winnerTeamDetails';
-                        // h2.innerText = battingTeam.teamName;
-                        // h3.innerText = battingTeam.teamName+' won by '+battingTeam.wicket+" wickets.";
-                        div.appendChild(h1);
-                        div.appendChild(div1);
-                        div.appendChild(h2);
-                        div.appendChild(h3);
-                      //  document.getElementById('form').style.display = 'none';
-                        document.getElementById('menuItems').appendChild(div);
-                        document.getElementById('form').style.display = 'none';
+                        document.getElementById('scoreBoardDiv').style.display = 'none';
                         runningMatch.matchStatus = 'finished';
                         utils.setItem('gameId',gameObject);
                     }
+                    else{
+                        setTimeout(checkOver,500);
+                    }
                 }
+
+
                 if(runningMatch.inningIndex==1){
                     if(runningMatch.matchOvers == battingTeam.totalOver){
                         console.log('2nd innings....');
                         runningMatch.inningIndex = 2;
                         utils.setItem('gameId',gameObject);
                         setInnings();
-                        document.getElementById('form').style.display = 'none';
+                        document.getElementById('scoreBoardDiv').style.display = 'none';
                         let tempDiv = players.createDivs();
                         document.getElementById('menuItems').appendChild(tempDiv);
                         let submitButton = document.getElementById("startMatch");
                         submitButton.onclick = function (){
                             elem.storeInputData(document.getElementById('player_form'));
                             tempDiv.remove();
-                            document.getElementById('form').style.display = 'block';
+                            document.getElementById('scoreBoardDiv').style.display = 'block';
                             createTitle();
                             createFirstRow();
                             createSecondRow();
@@ -719,9 +751,9 @@ function getScoreButton(value) {
                             createFifthRow();
                         }
                     }
-                }
-                else{
-                    setTimeout(checkOver,500);
+                    else{
+                        setTimeout(checkOver,500);
+                    }
                 }
 
             }

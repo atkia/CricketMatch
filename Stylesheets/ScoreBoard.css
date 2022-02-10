@@ -1,17 +1,8 @@
-/*#center {*/
-/*    position: absolute;*/
-/*    left: 50%;*/
-/*    transform: translate(-50%);*/
-/*    width: 600px;*/
-/*    background-color: #f3f3f3;*/
-/*    align-items: center;*/
-/*    padding-top: 10px;*/
-/*    padding-left: 15px;*/
-/*    padding-right: 15px;*/
-/*}*/
+#scoreBoardDiv {
+    background-color: #80808017;
+}
 #chooseBowlerDiv{
-    padding: 2%;
-    padding-left: 17%;
+    padding: 2% 2% 2% 17%;
     margin-bottom: 2%;
     background-color: darkgreen;
 }
@@ -42,44 +33,10 @@ Table{
 #firstRow{
     padding: 2%;
 }
-/*#scoreDetails :hover{*/
-/*    background-color: transparent;*/
-/*}*/
-/*ul {*/
-/*    list-style-type: none;*/
-/*    margin: 0;*/
-/*    padding: 0;*/
-/*    overflow: hidden;*/
-/*    border: 1px solid #e7e7e7;*/
-/*    background-color: #f3f3f3;*/
-/*}*/
 td{
     word-wrap: break-word;
 }
-/*li {*/
-/*    width:25%;*/
-/*    float: left;*/
-/*    !*font-size: medium;*!*/
-/*    font-size: xx-large;*/
-/*    display: block;*/
-/*    text-align: center;*/
-/*    !*padding: 14px 16px;*!*/
-/*    text-decoration: none;*/
 
-/*}*/
-/*.Disabled{*/
-/*    pointer-events: none;*/
-/*}*/
-
-/*#newMatch,#teams,#history,#menu{*/
-/*    background-color: #88888863;*/
-/*    width: 100%;*/
-/*    border: 0;*/
-/*    font-size: large;*/
-/*    padding: 14px 16px;*/
-/*    cursor: pointer;*/
-
-/*}*/
 .grid-container {
     display: grid;
     grid-template-columns: 49px 30px;
@@ -88,11 +45,6 @@ td{
 #scoreTag{
     font-size: x-small;
 }
-/*#menu{*/
-/*    color: white;*/
-/*    background-color: darkgreen;*/
-/*}*/
-
 #innings,#teamName{
     font-size: larger;
     color: black;
@@ -201,6 +153,13 @@ h1{
     cursor: pointer;
     display: inline-block;
     /*background-color: lightgray;*/
+}
+#crr {
+    padding-left: 71%;
+}
+#crrValue {
+    font-size: unset;
+    padding-left: 68%;
 }
 #congo{
     color: black;

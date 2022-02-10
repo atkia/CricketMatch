@@ -2,13 +2,19 @@
 /*    padding: 2%;*/
 /*    margin: 2%;*/
 /*}*/
+#historyDiv{
+    background-color: #80808017;
+    padding: 1%;
+}
+.teamDiv{
+    background-color: white;
+    border-radius: 10px;
+    margin-bottom: 1%;
+}
 table{
     padding: 2%;
 }
-#teamDiv{
-    padding: 0%;
-    border-radius: 2%;
-}
+
 
 td{
     padding-left: 0%;

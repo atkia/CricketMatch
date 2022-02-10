@@ -99,7 +99,7 @@ function createDiv(i,match){
             history();
         }
     }
-    div.id = 'teamDiv'
+    div.className = 'teamDiv'
     td1.id = 'dateTime';
     td1.colSpan = 6;
 
@@ -148,33 +148,58 @@ function createDiv(i,match){
     tr3.appendChild(td5);
     tr3.appendChild(td6);
     tr3.appendChild(td7);
-    td8.id = 'totalLost';
+    td8.id = 'matchStatusDetails';
     td8.colSpan = 4;
-    td8.innerText =match.tossWonBy +' won the toss and opted to '+match.optedTo+" first";
+    td8.innerText =match.matchDetails;
     tr4.appendChild(td8);
    // td9.id = 'resume';
+
     button1.id = 'resume';
     button1.innerText = 'Resume';
     button1.onclick=()=>{
-        let div = document.getElementById('fixedTitleDiv'),
-            div2 = document.getElementById('form');
-        div.style.display = 'none';
+        console.log('resume button clicked');
+        let div,
+            div2 = document.getElementById('historyDiv');
+        document.getElementById('fixedTitleDiv').style.display = 'none';
+        for(let i=0;i<document.getElementsByClassName('teamDiv').length;i++){
+            document.getElementsByClassName('teamDiv').item(i).style.display = 'none';
+        }
         console.log(match.matchIndex);
-        div2.innerHTML = '';
-        div2.appendChild(scoreBoard.createBody(match.matchIndex));
+        if(document.getElementById('scoreBoardDiv')!=null){
+            document.getElementById('scoreBoardDiv').remove();
+        }
+        div = scoreBoard.createBody(match.matchIndex);
+        div.id = 'scoreBoardDiv'
+        div2.appendChild(div);
+        document.getElementById('scoreBoardDiv').style.display = 'block';
+        if(document.getElementById('addBowlerDiv')!=null){
+            div.style.display = 'none';
+        }
     }
     td9.colSpan=2;
-    td9.appendChild(button1);
+    if(match.matchStatus=='running'){
+        td9.appendChild(button1);
+    }
+
     button2.id = 'scoreboard';
     button2.innerText = 'Scoreboard';
     button2.onclick=()=>{
-        let div = document.getElementById('fixedTitleDiv'),
-            div2 = document.getElementById('form');
-        div.style.display = 'none';
+        console.log('scoreboard button clicked');
+        let div,
+            div2 = document.getElementById('historyDiv');
+        document.getElementById('fixedTitleDiv').style.display = 'none';
         document.getElementById('menuItems').style.display = 'none';
         console.log(match.matchIndex);
-        div2.innerHTML = '';
-        div2.appendChild(createScoreBoardDiv(match.matchIndex));
+        for(let i=0;i<document.getElementsByClassName('teamDiv').length;i++){
+            document.getElementsByClassName('teamDiv').item(i).style.display = 'none';
+        }
+        if(document.getElementById('historyScoreBoardDiv')!=null){
+            document.getElementById('historyScoreBoardDiv').remove();
+        }
+        div = createScoreBoardDiv(match.matchIndex);
+        div.id = 'historyScoreBoardDiv';
+        div2.appendChild(div);
+        document.getElementById('historyScoreBoardDiv').style.display = 'block';
     }
     td10.colSpan=2;
     td10.appendChild(button2);

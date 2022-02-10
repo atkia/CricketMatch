@@ -25,10 +25,15 @@ table{
 td{
     font-size: larger;
     padding: 10px 20px 5px;
+    width: unset;
     /*border: 1px solid black;*/
 }
 img{
     width: 30px;
+}
+#teamListDiv{
+    padding:1%;
+    background-color: #80808017;
 }
 button{
     padding: 0%;
@@ -57,8 +62,8 @@ h3{
 #teamDiv{
     background-color: white;
     margin: 1%;
-
-    padding: 2%;
+    border-radius: 10px;
+    padding: 1%;
 }
 table{
 

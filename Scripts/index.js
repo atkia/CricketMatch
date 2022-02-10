@@ -69,41 +69,107 @@ export function createMenuItems() {
     button3.id = 'history';
     button1.innerText = menuItems[1];
     button1.onclick = function (){
-        console.log("New Match button clicked")
+        console.log("New Match button clicked");
         if(div2.style.display == 'none'){
             div2.style.display = 'block';
         }
-        div4.innerHTML = '';
-        div4.appendChild(elem.createForm());
-        div4.appendChild(elem.createSubmitButton());
+        if(document.getElementById('scoreBoardDiv')!=null){
+            console.log('found Scoreboard Div');
+            document.getElementById('scoreBoardDiv').style.display = 'none';
+        }
+        if(document.getElementById('congoDiv')!=null){
+            document.getElementById('congoDiv').style.display = 'none';
+        }
+        if(document.getElementById('historyDiv')!=null){
+            document.getElementById('historyDiv').style.display = 'none';
+        }
+        if(document.getElementById('teamListDiv')!=null){
+            document.getElementById('teamListDiv').style.display = 'none';
+        }
+        if(document.getElementById('form')!=null){
+            document.getElementById('form').innerHTML = '';
+            document.getElementById('form').remove();
+            // div4.style.display = 'block';
+            // div4.appendChild(elem.createForm());
+            // div4.appendChild(elem.createSubmitButton());
+        }
+     //   else{
+        let div = elem.createForm();
+        div.appendChild(elem.createSubmitButton());
+        div.id = 'form';
+            div1.appendChild(div);
+     //   }
+        document.getElementById('form').style.display = 'block';
         indexPage();
     }
     button2.innerText = menuItems[2];
     button2.onclick = function (){
-        console.log("teams button clicked")
+        console.log("teams button clicked");
+        let game = utils.getItem('gameId');
         if(div2.style.display == 'none'){
             div2.style.display = 'block';
         }
-        div4.innerHTML = '';
-       let game = utils.getItem('gameId');
-       div4.appendChild(getTeam.teamName(game));
+        if(document.getElementById('congoDiv')!=null){
+            document.getElementById('congoDiv').style.display = 'none';
+        }
+        if(document.getElementById('scoreBoardDiv')!=null){
+            console.log('found Scoreboard Div');
+            document.getElementById('scoreBoardDiv').style.display = 'none';
+        }
+        if(document.getElementById('historyDiv')!=null){
+            document.getElementById('historyDiv').style.display = 'none';
+        }
+        if(document.getElementById('form')!=null){
+            document.getElementById('form').style.display = 'none';
+        }
+
+        if(document.getElementById('teamListDiv')!=null){
+            document.getElementById('teamListDiv').remove();
+        }
+       // else {
+            let div = getTeam.teamName(game);
+            div.id = 'teamListDiv';
+            // div4.style.display = 'none';
+            div1.appendChild(div);
+        document.getElementById('teamListDiv').style.display = 'block';
+      //  }
+
+
     }
     button3.innerText = menuItems[3];
     button3.onclick = function (){
+        console.log("History button clicked");
+        let game = utils.getItem('gameId');
         if(div2.style.display == 'none'){
             div2.style.display = 'block';
         }
-
-        div4.innerHTML = '';
-        console.log("History button clicked")
-        let game = utils.getItem('gameId');
-        div4.appendChild(history(game));
-        // let button1 = document.getElementById('resume');
-        // button1.onclick=()=>{
-        //     div3.style.display = 'block';
-        //     console.log(match.matchIndex);
-        //     //   scoreBoard.createBody(match.matchIndex);
-        // }
+        if(document.getElementById('scoreBoardDiv')!=null){
+            console.log('found Scoreboard Div');
+            document.getElementById('scoreBoardDiv').style.display = 'none';
+        }
+        if(document.getElementById('congoDiv')!=null){
+            console.log('found congo Div');
+            document.getElementById('congoDiv').style.display = 'none';
+        }
+        if(document.getElementById('teamListDiv')!=null){
+            console.log('found teamList Div');
+            document.getElementById('teamListDiv').style.display = 'none';
+        }
+        if(document.getElementById('form')!=null){
+            console.log('found Form Div');
+            document.getElementById('form').style.display = 'none';
+        }
+        if(document.getElementById('historyDiv')!=null){
+            console.log('found history Div');
+            document.getElementById('historyDiv').remove();
+        }
+     //   else{
+            console.log('Not found history Div...creating history Div');
+            let div = history(game);
+            div.id = 'historyDiv'
+            div1.appendChild(div);
+        document.getElementById('historyDiv').style.display = 'block'
+       // }
     }
     li1.appendChild(button);
     li2.appendChild(button1);
@@ -125,20 +191,30 @@ export function indexPage(){
      submitButton.onclick = function (){
          div2.style.display = 'none';
          div3.style.display = 'none';
+         document.getElementById('form').style.display = 'none';
          elem.storeInputData();
-         div4.innerHTML = '';
-         div4.appendChild(players.createDivs());
+         if(document.createElement('selectPlayerDiv')!=null){
+             document.createElement('selectPlayerDiv').innerHTML = '';
+         }
+         let div = players.createDivs();
+         div.id = 'selectPlayerDiv';
+         div1.appendChild(div);
          let submitButton = document.getElementById("startMatch");
          submitButton.onclick = function (){
-            // div2.style.display = 'block';
-             div3.style.display = 'block';
              elem.storeInputData();
+             if(document.getElementById('selectPlayerDiv')!=null){
+                 document.getElementById('selectPlayerDiv').remove();
+             }
+             div3.style.display = 'block';
+
             players.createObjects();
-           //  body.innerHTML = '';
-          //   createDivs();
              console.log('match Index:  '+players.matchIndex);
-             div4.innerHTML = '';
-             div4.appendChild(scores.createBody(players.matchIndex));
+             if(document.createElement('scoreBoardDiv')!=null){
+                 document.createElement('scoreBoardDiv').innerHTML = '';
+             }
+             let div = scores.createBody(players.matchIndex);
+             div.id = 'scoreBoardDiv';
+             div1.appendChild(div);
 
          }
      }
@@ -147,9 +223,8 @@ export function indexPage(){
 
 function createDivs(){
      console.log('1')
-  //  body.innerHTML = '';
     addLink();
-    div1.className="center";
+    div1.id="center";
     div2.id = "fixedTitleDiv";
     div3.id="menuItems";
     div4.id = "form";

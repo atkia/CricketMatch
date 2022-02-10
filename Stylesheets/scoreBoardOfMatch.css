@@ -3,19 +3,34 @@
     background-color: darkgreen;
 }
 h1{
-    padding-left: 44%;
+    padding-left: 19%;
     color: white;
 }
-#extraUl{
+#extraUl,#totalUl{
     padding: 1%;
     border: none;
     background-color: unset;
 }
 #extraDetails{
-    padding-left: 68%;
+    padding-left: 63%;
 }
-#extraTitle,#extraDetails{
+#totalDetails{
+    padding-left: 83%;
+}
+li :hover{
+    background-color: unset;
+}
+#extraTitle,#extraDetails,#totalTitle,#totalDetails{
     font-size: larger;
+}
+hr {
+    width: 201%;
+}
+#extrasHr,#totalsHr{
+    width: 100%;
+}
+#backButton{
+    /*transform: rotate(180deg);*/
 }
 h2{
     padding-left: 5%;
@@ -25,15 +40,27 @@ table{
     padding: 1%;
     border-collapse: collapse;
 }
+#batsmanStatus {
+    text-align: left;
+    color: darkslategray;
+    font-size: small;
+    padding: 0% 0% 0% 1%;
+}
+#playerName{
+    color: black;
+}
 
 td{
+    width:5%;
     text-align: right;
     padding-left: 1%;
 }
 #leftTd,#playerName{
     text-align: left;
+    width: 25%;
 }
 #tableHead{
+    color: darkslategray;
     padding: 2%;
     background-color: #8fbc8f8f;
 }
