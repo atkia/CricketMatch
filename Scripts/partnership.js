@@ -13,7 +13,6 @@ td6  = document.createElement('td'),
 td7 = document.createElement('td'),
 td8 = document.createElement('td');
  let ball =0;
-//tr3.id = 'ballNo';
 table.id = 'partnerShipTable';
 export function getPartnershipTable(){
     ball = striker.batting.ballNo +nonStriker.batting.ballNo;

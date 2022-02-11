@@ -1,5 +1,6 @@
 import{battingTeam} from './ScoreBoard.js';
 import {getPartnershipTable} from './partnership.js';
+import * as object from './PlayerData.js';
 let div = document.getElementById('fifthRow'),
     div1 = document.createElement('div'),
     div2 = document.createElement('div'),
@@ -22,17 +23,14 @@ export function addExtra(){
     if(div3.hasChildNodes()==true){
         div3.innerHTML = '';
     }
-    console.log('Extras......'+battingTeam.extras.getByes());
-    string = 'Extras: '+battingTeam.extras.getByes()+','+battingTeam.extras.getLB()+','+battingTeam.extras.getWB()+','+
-        battingTeam.extras.getNB()+','+battingTeam.extras.getPenalty();
-  //  p.id = 'extraInfo';
+    string = 'Extras: '+object.getByes(battingTeam.extras.byes)+','+object.getLB(battingTeam.extras.lByes)+','+object.getWB(battingTeam.extras.wB)+','+
+        object.getNB(battingTeam.extras.noBall)+','+object.getPenalty(battingTeam.extras.penalty);
     p.innerText = string;
     div3.appendChild(p);
     return div3;
 }
 
 export  function addPartnership(){
-   // div2.removeChild(p);
     let table=getPartnershipTable();
     if(div3.hasChildNodes()==true){
         div3.innerHTML = '';
@@ -45,6 +43,7 @@ export function addModal(){
     addLink();
 
     div1.className = 'modal';
+    div1.id = 'modal';
     span.className = 'close';
     span.id = 'span';
     div2.className = 'modal-content';

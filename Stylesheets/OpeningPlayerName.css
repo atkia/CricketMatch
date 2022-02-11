@@ -10,11 +10,12 @@
 /*}*/
 #title{
     background-color: darkgreen;
-    padding: 1.5% 1.5% 1.5% 20%;
+    padding:2.5% 2.5% 2.5% 3%;
 }
 #heading{
     color: white;
     font-size: 30px;
+    padding-left: 4%;
 }
 #player_form{
     padding: 1.5%;
@@ -52,4 +53,7 @@ h2{
     width: 500px;
     border-radius: 20px;
 
+}
+img#backArrow {
+    width: 4%;
 }

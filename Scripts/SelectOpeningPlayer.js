@@ -31,11 +31,15 @@ function inputField(id,name){
 }
 
 function createTitle(){
-    let h2 = document.createElement('h2');
-    h2.innerText = headingTitle;
-    h2.id = "heading"
+    let span = document.createElement('span'),
+        img = document.createElement('img');;
+    span.innerText = headingTitle;
+    img.src = 'https://pixabay.com/static/uploads/photo/2012/04/15/21/34/arrow-35386_960_720.png';
+    img.id = 'backArrow';
+    span.id = "heading"
     div2.id = "title";
-    div2.appendChild(h2);
+    div2.appendChild(img);
+    div2.appendChild(span);
 }
 
 function createInputFields(){

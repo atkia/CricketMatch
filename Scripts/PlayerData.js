@@ -43,6 +43,12 @@ export function addPenalty(penalty,value){
 export function getPenalty(penalty){
     return penalty+'P';
 }
+
+export function fielding(){
+    this.catches = 0;
+    this.stumpongs = 0;
+    this.runOuts = 0;
+}
 export function Batting(){
     this.run=0;
     this.ballNo=0;
@@ -71,6 +77,7 @@ export function changeStatus(status){
     status = 'Out';
     return status;
 }
+
 export function sR(ballNo,sr,run){
     if(ballNo!=0){
         sr = (run/ballNo)*100;
@@ -80,11 +87,13 @@ export function sR(ballNo,sr,run){
 
     return '' +sr;
 }
+
 export function ballDetail(value,type){
     console.log(value+' '+type);
     this.ballValue = value;
     this.type = type;
 }
+
 export function Bowling(){
     this.wickets=0;
     this.run = 0;
@@ -92,8 +101,12 @@ export function Bowling(){
     this.overs='0.0';
     this.maiden=0;
     this.er = 0.00;
+    this.wides = 0;
+    this.noBall =0;
+    this.dotsBall = 0;
     this.ballDetails = [];
 }
+
 export function getRuns(totalRun,run){
     totalRun = totalRun+run;
     return totalRun;
@@ -111,7 +124,6 @@ export function getOver(ballNo,overs){
         return overs;
     }
 }
-
 
 export function getMaiden(run,maiden){
     if(run ==0){
@@ -175,11 +187,15 @@ export function getTotalScore(players,partnershipScore){
 }
 
 export function Inning(){
-
     this.battingTeam = new team();
     this.bowlingTeam = new team();
 }
-
+export function getRequiredRunRate(run,ball){
+    let rr = 0;
+    rr = run/ball;
+    rr = rr*6;
+    return rr.toPrecision(4);
+}
 export function match(){
     this.date = 0;
     this.time =0;

@@ -6,6 +6,11 @@
     margin-bottom: 2%;
     background-color: darkgreen;
 }
+span {
+     font-size: larger;
+     padding: 0%;
+     color: black;
+}
 #newBowlerName{
     margin: 2%;
 }
@@ -80,6 +85,7 @@ hr{
 #tableHead{
     color: black;
     font-size: larger;
+    background-color: white;
 }
 #title{
     background-color: darkgreen;
@@ -242,4 +248,10 @@ input[type=checkbox]{
     cursor: pointer;
     float: left;
     border-radius: 10px;
+}
+hr#batsmanHr {
+    width: 192%;
+}
+hr#bowlerHr {
+    width: 180%;
 }

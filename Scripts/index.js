@@ -200,6 +200,12 @@ export function indexPage(){
          div.id = 'selectPlayerDiv';
          div1.appendChild(div);
          let submitButton = document.getElementById("startMatch");
+         document.getElementById('backArrow').onclick=()=>{
+             div.remove();
+             div2.style.display = 'block';
+             div3.style.display = 'block';
+             document.getElementById('form').style.display = 'block';
+         }
          submitButton.onclick = function (){
              elem.storeInputData();
              if(document.getElementById('selectPlayerDiv')!=null){
@@ -209,11 +215,13 @@ export function indexPage(){
 
             players.createObjects();
              console.log('match Index:  '+players.matchIndex);
-             if(document.createElement('scoreBoardDiv')!=null){
-                 document.createElement('scoreBoardDiv').innerHTML = '';
+             if(document.getElementById('scoreBoardDiv')!=null){
+                 document.getElementById('scoreBoardDiv').remove();
+
              }
              let div = scores.createBody(players.matchIndex);
              div.id = 'scoreBoardDiv';
+             div.style.display = 'block';
              div1.appendChild(div);
 
          }
