@@ -1,5 +1,5 @@
 import{battingTeam} from './ScoreBoard.js';
-import {getPartnershipTable} from './partnership.js';
+import {getTable} from './partnership.js';
 import * as object from './PlayerData.js';
 let div = document.getElementById('fifthRow'),
     div1 = document.createElement('div'),
@@ -29,13 +29,15 @@ export function addExtra(){
     div3.appendChild(p);
     return div3;
 }
-
+let divT = document.createElement('div');
 export  function addPartnership(){
-    let table=getPartnershipTable();
+
+    // let div=   getPartnershipTable();
     if(div3.hasChildNodes()==true){
         div3.innerHTML = '';
     }
-    div3.appendChild(table);
+    div3.appendChild(getTable());
+    console.log(div3);
     return div3;
 }
 

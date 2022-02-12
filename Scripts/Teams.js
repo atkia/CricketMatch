@@ -1,5 +1,6 @@
 import {addModal} from "./Extras.js";
 import * as utils from './LocalStorageUtils.js';
+import {createPlayerDetailsDiv} from "./PlayerDetails.js";
 let body = document.getElementsByTagName('body')[0],
     div = document.createElement('div'),changedName,games=utils.getItem('gameId'),
     removeItem;
@@ -35,10 +36,17 @@ const getRandomColor = () => {
 
     return `hsl(${h}deg, ${s}%, ${l}%)`;
 };
+function removePlayer(){
+    let text = "Are you sure you want to delete this Player? All the matches played by this player will not be deleted."
+    if(confirm(text)==true){
+      return true;
+    }
+
+}
 function removeTeam(){
     let text = "Are you sure you want to delete this team? All the associated matches and players stats of this team will not be deleted."
     if(confirm(text)==true){
-      return true;
+        return true;
     }
 
 }
@@ -71,7 +79,18 @@ function createPlayerDiv(team,player){
     img3.src = 'https://www.shareicon.net/data/256x256/2016/04/03/743930_button_512x512.png';
     img1.id = 'personIcon';
     img1.src = 'https://www.pngkit.com/png/full/14-141902_person-icon-png.png';
-    img1.onclick = ()=>{}
+    img1.onclick = ()=>{
+        console.log(team.tName,player.playerName);
+        document.getElementById('center').appendChild(createPlayerDetailsDiv(team.tName,player));
+        document.getElementById('playerListDiv').style.display = 'none';
+        document.getElementById('teamTitle').style.display = 'none';
+        document.getElementById('backArrow').onclick=()=>{
+            console.log('back button clicked');
+            document.getElementById('playerDetailDiv').remove();
+            document.getElementById('playerListDiv').style.display = 'block';
+            document.getElementById('teamTitle').style.display = 'block';
+        }
+    }
     img.id = 'editIcon';
     img.onclick=()=>{
         changedName = editTeamName(name);
@@ -134,36 +153,58 @@ function createPlayerDiv(team,player){
     img2.src='https://cdn.onlinewebfonts.com/svg/img_304350.png';
     img2.alt = 'remove icon';
     img2.onclick=()=>{
-        // let confirmation =removeTeam();
-        // if(confirmation==true){
-        //     for(let i=0;i<team.matchNo.length;i++){
-        //         if(team.tName ==  games.matches[team.matchNo[i]].innings[0].battingTeam.teamName){
-        //             games.matches[team.matchNo[i]].innings[0].battingTeam.teamName = 'Unknown';
-        //             games.matches[team.matchNo[i]].innings[1].bowlingTeam.teamName = 'Unknown';
-        //             for(let j=0;j<games.matches[team.matchNo[i]].innings[0].battingTeam.players.length;j++){
-        //                 games.matches[team.matchNo[i]].innings[0].battingTeam.players[j].playerName = 'Unknown';
-        //             }
-        //             for(let j=0;j<games.matches[team.matchNo[i]].innings[1].bowlingTeam.players.length;j++){
-        //                 games.matches[team.matchNo[i]].innings[1].bowlingTeam.players[j].playerName = 'Unknown';
-        //             }
-        //
-        //
-        //         }
-        //         else{
-        //             games.matches[team.matchNo[i]].innings[0].bowlingTeam.teamName = 'Unknown';
-        //             games.matches[team.matchNo[i]].innings[1].battingTeam.teamName = 'Unknown';
-        //             for(let j=0;j<games.matches[team.matchNo[i]].innings[1].battingTeam.players.length;j++){
-        //                 games.matches[team.matchNo[i]].innings[1].battingTeam.players[j].playerName = 'Unknown';
-        //             }
-        //             for(let j=0;j<games.matches[team.matchNo[i]].innings[0].bowlingTeam.players.length;j++){
-        //                 games.matches[team.matchNo[i]].innings[0].bowlingTeam.players[j].playerName = 'Unknown';
-        //             }
-        //         }
-        //     }
-        //     utils.setItem('gameId',games);
-        //     removeItem=true;
-        //     teamName();
-        //}
+        let confirmation =removePlayer();
+        if(confirmation==true){
+            for (let i=0;i<team.matchNo.length;i++){
+                if(games.matches[team.matchNo[i]].innings[0].battingTeam.players.length!==0){
+                    let playerNo  = games.matches[team.matchNo[i]].innings[0].battingTeam.players.length;
+                    let tempTeam = games.matches[team.matchNo[i]].innings[0].battingTeam;
+                    console.log(games.matches[team.matchNo[i]].innings[0].battingTeam.players.length);
+                    for(let i=0;i<playerNo;i++){
+                        if(tempTeam.players[i].playerName ==player.playerName){
+                            console.log(changedName);
+                            tempTeam.players[i].playerName = 'Unknown';
+                        }
+                    }
+                }
+                if(games.matches[team.matchNo[i]].innings[0].bowlingTeam.players.length!=0){
+                    let playerNo  = games.matches[team.matchNo[i]].innings[0].bowlingTeam.players.length;
+                    let tempTeam = games.matches[team.matchNo[i]].innings[0].bowlingTeam;
+                    console.log(games.matches[team.matchNo[i]].innings[0].battingTeam.players.length);
+                    for(let i=0;i<playerNo;i++){
+                        if(tempTeam.players[i].playerName ==player.playerName){
+                            console.log(changedName);
+                            tempTeam.players[i].playerName = 'Unknown';
+                        }
+                    }
+                }
+                if(games.matches[team.matchNo[i]].innings[1].battingTeam.players.length!=0){
+                    let playerNo  = games.matches[team.matchNo[i]].innings[1].battingTeam.players.length;
+                    let tempTeam = games.matches[team.matchNo[i]].innings[1].battingTeam;
+                    console.log(games.matches[team.matchNo[i]].innings[1].battingTeam.players.length);
+                    for(let i=0;i<playerNo;i++){
+                        if(tempTeam.players[i].playerName ==player.playerName){
+                            console.log(changedName);
+                            tempTeam.players[i].playerName = 'Unknown';
+                        }
+                    }
+                }
+                if(games.matches[team.matchNo[i]].innings[1].bowlingTeam.players.length!=0){
+                    let playerNo  = games.matches[team.matchNo[i]].innings[1].bowlingTeam.players.length;
+                    let tempTeam = games.matches[team.matchNo[i]].innings[1].bowlingTeam;
+                    console.log(games.matches[team.matchNo[i]].innings[1].battingTeam.players.length);
+                    for(let i=0;i<playerNo;i++){
+                        if(tempTeam.players[i].playerName ==player.playerName){
+                            console.log(changedName);
+                            tempTeam.players[i].playerName = 'Unknown';
+                        }
+                    }
+                }
+            }
+            utils.setItem('gameId',games);
+            document.getElementById('playerListDiv').remove();
+            document.getElementById('center').appendChild(createPlayerList(team));
+        }
     }
     li1.appendChild(img1);
     li3.appendChild(img);
@@ -190,10 +231,10 @@ function createPlayerDivList(team,players){
 function createPlayerList(team){
     let playersOfTeam = [];
     for (let i=0;i<team.matchNo.length;i++){
-        console.log(team.tName);
-        console.log(team.matchNo[i]);
-        console.log(games.matches[team.matchNo[i]].innings[0].battingTeam.teamName);
-        console.log(games.matches[0].innings[1].battingTeam.teamName);
+        // console.log(team.tName);
+        // console.log(team.matchNo[i]);
+        // console.log(games.matches[team.matchNo[i]].innings[0].battingTeam.teamName);
+        // console.log(games.matches[0].innings[1].battingTeam.teamName);
         if(games.matches[team.matchNo[i]].innings[0].battingTeam.teamName===team.tName){
             if(games.matches[team.matchNo[i]].innings[0].battingTeam.players.length!==0){
                 let playerNo  = games.matches[team.matchNo[i]].innings[0].battingTeam.players.length;
@@ -201,7 +242,10 @@ function createPlayerList(team){
                 console.log(games.matches[team.matchNo[i]].innings[0].battingTeam.players.length);
                 for(let i=0;i<playerNo;i++){
                     console.log(tempTeam.players[i]);
-                    playersOfTeam.push(tempTeam.players[i]);
+                    if(tempTeam.players[i].playerName!='Unknown'){
+                        playersOfTeam.push(tempTeam.players[i]);
+                    }
+
                 }
             }
         }
@@ -211,8 +255,10 @@ function createPlayerList(team){
                 let tempTeam = games.matches[team.matchNo[i]].innings[0].bowlingTeam;
                 console.log(games.matches[team.matchNo[i]].innings[0].battingTeam.players.length);
                 for(let i=0;i<playerNo;i++){
-                    console.log(tempTeam.players[i]);
-                    playersOfTeam.push(tempTeam.players[i]);
+                    console.log(tempTeam.players[i].playerName);
+                    if(tempTeam.players[i].playerName!='Unknown'){
+                        playersOfTeam.push(tempTeam.players[i]);
+                    }
                 }
             }
         }
@@ -222,8 +268,10 @@ function createPlayerList(team){
                 let tempTeam = games.matches[team.matchNo[i]].innings[1].battingTeam;
                 console.log(games.matches[team.matchNo[i]].innings[1].battingTeam.players.length);
                 for(let i=0;i<playerNo;i++){
-                    console.log(tempTeam.players[i]);
-                    playersOfTeam.push(tempTeam.players[i]);
+                    console.log(tempTeam.players[i].playerName);
+                    if(tempTeam.players[i].playerName!='Unknown'){
+                        playersOfTeam.push(tempTeam.players[i]);
+                    }
                 }
             }
         }
@@ -233,8 +281,10 @@ function createPlayerList(team){
                 let tempTeam = games.matches[team.matchNo[i]].innings[1].bowlingTeam;
                 console.log(games.matches[team.matchNo[i]].innings[1].battingTeam.players.length);
                 for(let i=0;i<playerNo;i++){
-                    console.log(tempTeam.players[i]);
-                    playersOfTeam.push(tempTeam.players[i]);
+                    console.log(tempTeam.players[i].playerName);
+                    if(tempTeam.players[i].playerName!='Unknown'){
+                        playersOfTeam.push(tempTeam.players[i]);
+                    }
                 }
             }
         }
@@ -310,8 +360,6 @@ function createDiv(team){
                     for(let j=0;j<games.matches[team.matchNo[i]].innings[1].bowlingTeam.players.length;j++){
                         games.matches[team.matchNo[i]].innings[1].bowlingTeam.players[j].playerName = 'Unknown';
                     }
-
-
                 }
                 else{
                     games.matches[team.matchNo[i]].innings[0].bowlingTeam.teamName = 'Unknown';
@@ -327,6 +375,7 @@ function createDiv(team){
             utils.setItem('gameId',games);
             removeItem=true;
             teamName();
+            // div.remove();
         }
     }
     div.id = 'teamDiv'

@@ -56,7 +56,6 @@ li :hover {
 .Disabled{
     pointer-events: none;
 }
-
  .active {
     color: white;
      /*font-size: larger;*/

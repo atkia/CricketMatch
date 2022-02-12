@@ -161,6 +161,7 @@ function createDiv(i,match){
         let div,
             div2 = document.getElementById('historyDiv');
         document.getElementById('fixedTitleDiv').style.display = 'none';
+        document.getElementById('historyDiv').style.display = 'block';
         for(let i=0;i<document.getElementsByClassName('teamDiv').length;i++){
             document.getElementsByClassName('teamDiv').item(i).style.display = 'none';
         }

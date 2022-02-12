@@ -165,7 +165,7 @@ h1{
 }
 #crrValue {
     font-size: unset;
-    padding-left: 68%;
+    padding-left: 75%;
 }
 #congo{
     color: black;
@@ -254,4 +254,55 @@ hr#batsmanHr {
 }
 hr#bowlerHr {
     width: 180%;
+}
+div#retireTitle {
+    background-color: darkgreen;
+    padding: 3%;
+}
+span#heading {
+    background-color: darkgreen;
+    padding-left: 7%;
+    font-size: xx-large;
+    color: white;
+}
+form#retire_form {
+    padding: 2%;
+}
+input#done {
+    background-color: darkgreen;
+    width: 67%;
+    color: white;
+    font-size: xx-large;
+    border-radius: 20px;
+    padding: 2%;
+    margin-left: 13%;
+}
+h1#retirePlayerHeading,#replaceByHeading {
+    color: darkgreen;
+    margin-left: 0%;
+}
+label#retireL {
+    padding-left: 1%;
+    font-size: xx-large;
+}
+span#targetText {
+    color: darkgreen;
+}
+span#crr2 {
+    padding-left: 41%;
+}
+span#target {
+    padding-left: 11%;
+}
+span#rr {
+    padding-left: 11%;
+}
+span#crrValue2 {
+    padding-left: 39%;
+}
+span#targetValue {
+    padding-left: 12%;
+}
+span#rrValue {
+    padding-left: 12%;
 }

@@ -147,6 +147,7 @@ export function player (name,type) {
     this.type=type;
     this.batting = new Batting();
     this.bowling = new Bowling();
+    this.fielding = new fielding();
 };
 export function team (name) {
     this.wicket = 0;
@@ -156,6 +157,7 @@ export function team (name) {
     this.partnershipScore=0;
     this.totalScore = 0;
     this.extras = new Extras();
+    this.partnerShips = [];
     this.crr = 0;
 }
 
@@ -185,7 +187,17 @@ export function getTotalScore(players,partnershipScore){
     totalScore =  totalScore+partnershipScore;
     return totalScore;
 }
-
+export function partnership(name1,name2){
+    this.player1Name = name1;
+    this.player2Name = name2;
+    this.player1Run = 0;
+    this.player2Run = 0;
+    this.player1Ball = 0;
+    this.player2Ball = 0;
+    // this.totalRun = player1.batting.run+player2.batting.run;
+    // this.totalBall = player1.batting.ballNo+player2.batting.ballNo;
+    this.extra = 0;
+}
 export function Inning(){
     this.battingTeam = new team();
     this.bowlingTeam = new team();

@@ -68,7 +68,7 @@ let headingTitle = "Cricket Scorer",
 //      return ul;
 // }
 
- function inputField(type,id,name){
+export function inputField(type,id,name){
     let input = document.createElement('input');
     input.type = type;
     input.id = id;
@@ -77,7 +77,7 @@ let headingTitle = "Cricket Scorer",
     return input;
 }
 
- function createLabel(forL,text){
+export function createLabel(forL,text){
     let label = document.createElement('label');
     label.for = forL;
     // label.innerText = localStorage.getItem("Host Name")

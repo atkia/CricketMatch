@@ -1,0 +1,45 @@
+span{
+    font-size: x-large;
+    color:black;
+    display: inline-block;
+}
+div#headingD {
+    background-color: darkgreen;
+}
+h1 {
+    font-size: xxx-large;
+    color: white;
+    padding-left: 7%;
+    padding-bottom: 3%;
+}
+div#selectionDiv {
+    padding: 2%;
+    background-color: green;
+    margin: 0% 0% 1%;
+}
+span#batting,#bowling,#fielding {
+    padding: 3%;
+    color: white;
+    font-size: xx-large;
+}
+img#personIcon {
+    width: 25%;
+    /* background-color: darkgrey; */
+    border-radius: 0%;
+    padding-left: 32%;
+}
+span#match ,#innings ,#run,#noOuts,#bestScore,#sr,#avg,#fours,#six,#thirties,#fifties,#hundreds,#duck {
+    background-color: white;
+    margin: 2%;
+    font-size: x-large;
+    border: 1px solid gray;
+    /*width: 22%;*/
+    padding: 4%;
+}
+td {
+    font-size: larger;
+    padding: 0px 10px 26px;
+}
+table {
+    background-color: #d3d3d329;
+}
