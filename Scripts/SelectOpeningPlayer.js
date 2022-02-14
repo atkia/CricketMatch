@@ -32,7 +32,9 @@ function inputField(id,name){
 
 function createTitle(){
     let span = document.createElement('span'),
-        img = document.createElement('img');;
+        img = document.createElement('img'),
+        i = document.createElement('i');
+    i.className="fas fa-arrow-left";
     span.innerText = headingTitle;
     img.src = 'https://pixabay.com/static/uploads/photo/2012/04/15/21/34/arrow-35386_960_720.png';
     img.id = 'backArrow';

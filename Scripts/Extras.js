@@ -10,6 +10,7 @@ let div = document.getElementById('fifthRow'),
     // table = document.createElement('table'),
 button = document.getElementById('extras');
 let string;
+div3.id = 'modalContent';
 function addLink(){
     let head = document.getElementsByTagName('head')[0],
         link = document.createElement('link');
@@ -42,6 +43,7 @@ export  function addPartnership(){
 }
 
 export function addModal(){
+    div1.innerHTML = '';
     addLink();
 
     div1.className = 'modal';

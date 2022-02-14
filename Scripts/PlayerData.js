@@ -87,7 +87,8 @@ export function sR(ballNo,sr,run){
     return '' +sr;
 }
 
-export function ballDetail(value,type){
+export function ballDetail(batsmanName,value,type){
+    this.batsmanName = batsmanName;
     console.log(value+' '+type);
     this.ballValue = value;
     this.type = type;

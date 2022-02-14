@@ -122,12 +122,40 @@ function createStrikerDetailRow(index) {
     return trs;
 }
 
+function overDetails(bowler,i,balls){
+    let table = document.createElement('table'),
+        tr1 = document.createElement('tr'),
+        tr2 = document.createElement('tr'),
+        td1 = document.createElement('td'),
+        td2 = document.createElement('td'),
+        td3 = document.createElement('td'),
+        td4 = document.createElement('td');
+
+
+    td1.innerText = 'Ov '+i;
+    td1.innerText = bowler.playerName +' to ' ;
+
+}
+function overCount(allBalls){
+    let overNo = Math.floor(allBalls/6),
+        balls = [];
+    for (let i=0;i<overNo;i++){
+        for(let j=0;j<6;j++){
+            let c = j+i;
+            balls.push(allBalls[c]);
+        }
+
+    }
+}
+
 function createBowlerDetailRow(index){
         let playerNo = runningMatch.innings[index].bowlingTeam.players.length;
         let trs = [];
         for(let i=0;i<playerNo;i++){
             let bowler = runningMatch.innings[index].bowlingTeam.players[i];
             trs.push(changeBattingTableData(bowler,'','bowler'));
+            overCount(bowler.bowling.ballDetails);
+            overDetails(bowler);
             trs.push(createHr());
         }
    return trs;
