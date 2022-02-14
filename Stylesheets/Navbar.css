@@ -11,14 +11,15 @@
 
 }
 #fixedTitle{
-
+    padding: 0%;
     color: whitesmoke;
     text-align: center;
     font-size: xxx-large ;
     margin-left: 0%;
 
 }
-h2{
+h2#firstPageHeading{
+    padding: 0%;
     color: darkgreen;
 }
 ul {

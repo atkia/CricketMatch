@@ -1,36 +1,15 @@
-/*.center {*/
-/*    position: absolute;*/
-/*    left: 50%;*/
-/*    transform: translate(-50%);*/
-/*    padding: 8px;*/
-/*    height: 100%;*/
-/*    width: 700px;*/
-/*    background-color: gainsboro;*/
-/*}*/
-/*#title{*/
-/*    background-color: darkgreen;*/
-/*    padding: 2%;*/
-/*    align-items: center;*/
-/*}*/
-/*h1{*/
-/*    color: white;*/
-/*    margin-left: 35%;*/
-/*    !*font: bold;*!*/
-/*}*/
 div#teamTitle {
     padding: 4%;
     background-color: darkgreen;
 }
 img#backArrow {
     width: 5%;
-    /*transform: rotate(180deg);*/
 }
-span {
+span#teamNameWhite {
     font-size: xxx-large;
     padding: 10%;
     color: white;
 }
-
 ul#playerDetails {
     background-color: white;
     border-radius: 20px;
@@ -69,14 +48,13 @@ img#personIcon {
     width: 56%;
 }
 table{
-    /*border:1px solid black;*/
     width: 100%;
 }
 td{
+    text-align: left;
     font-size: larger;
     padding: 10px 20px 5px;
     width: unset;
-    /*border: 1px solid black;*/
 }
 img{
     width: 30px;
@@ -93,16 +71,11 @@ button{
     padding: 3%;
 }
 #teamName{
-    /*border: grey;*/
     color: white;
     border-radius: 50%;
     padding: 0%;
     width: 13%;
-
-    /*    padding: 22%;*/
-    /*align-items: center;*/
     text-align: center;
-    /*margin-right: 3%;*/
     font-size: 26px;
     cursor: pointer;
 }
@@ -114,7 +87,4 @@ h3{
     margin: 1%;
     border-radius: 10px;
     padding: 1%;
-}
-table{
-
 }

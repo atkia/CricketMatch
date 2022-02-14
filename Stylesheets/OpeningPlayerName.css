@@ -36,7 +36,8 @@ input[type=text]{
 /*    padding-bottom: 2%;*/
 /*    !*background-color: lightsteelblue;*!*/
 /*}*/
-h2{
+h2#selectPLayerHeading{
+    padding: 0%;
     color: darkgreen;
 }
 #startMatch{

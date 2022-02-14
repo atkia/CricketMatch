@@ -45,6 +45,7 @@ function createTitle(){
 function createInputFields(){
     for(let heading of titleOfInputFields){
         let h2 = document.createElement('h2');
+        h2.id = 'selectPLayerHeading'
         h2.innerText = heading;
         let input = document.createElement('input');
         input = inputField("f1",heading);

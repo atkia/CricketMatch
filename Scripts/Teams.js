@@ -84,12 +84,12 @@ function createPlayerDiv(team,player){
         document.getElementById('center').appendChild(createPlayerDetailsDiv(team.tName,player));
         document.getElementById('playerListDiv').style.display = 'none';
         document.getElementById('teamTitle').style.display = 'none';
-        document.getElementById('backArrow').onclick=()=>{
-            console.log('back button clicked');
-            document.getElementById('playerDetailDiv').remove();
-            document.getElementById('playerListDiv').style.display = 'block';
-            document.getElementById('teamTitle').style.display = 'block';
-        }
+        // document.getElementById('backArrow').onclick=()=>{
+        //     console.log('back button clicked');
+        //     document.getElementById('playerDetailDiv').remove();
+        //     document.getElementById('playerListDiv').style.display = 'block';
+        //     document.getElementById('teamTitle').style.display = 'block';
+        // }
     }
     img.id = 'editIcon';
     img.onclick=()=>{
@@ -307,6 +307,7 @@ function createTitleDiv(team){
     div.id = 'teamTitle';
     img.src = 'https://pixabay.com/static/uploads/photo/2012/04/15/21/34/arrow-35386_960_720.png';
     img.id = 'backArrow';
+    span.id= 'teamNameWhite';
     span.innerText = team.tName;
     div.appendChild(img);
     div.appendChild(span);

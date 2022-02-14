@@ -46,7 +46,7 @@ export function getPenalty(penalty){
 
 export function fielding(){
     this.catches = 0;
-    this.stumpongs = 0;
+    this.stumpings = 0;
     this.runOuts = 0;
 }
 export function Batting(){
@@ -84,7 +84,6 @@ export function sR(ballNo,sr,run){
         sr = sr.toPrecision(5);
         return sr;
     }
-
     return '' +sr;
 }
 
@@ -112,7 +111,8 @@ export function getRuns(totalRun,run){
     return totalRun;
 }
 
-export function getOver(ballNo,overs){
+export function getOver(ballNo){
+    let overs = '';
     if(ballNo<6){
         overs = "0."+ballNo;
         return overs;
@@ -120,7 +120,7 @@ export function getOver(ballNo,overs){
     else{
         let over = Math.floor( ballNo/6),
             ball = ballNo%6;
-        overs =''+ over +'.'+ball;
+        overs =over +'.'+ball;
         return overs;
     }
 }

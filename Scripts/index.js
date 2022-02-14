@@ -30,15 +30,13 @@ function addLink(){
 }
 function createTitle(){
     let h1 = document.createElement('h1'),
-        b = document.createElement('b'),
         br1 = document.createElement('br'),
         br2 = document.createElement('br'),title;
     // title = document.getElementById("firstRow");
     h1.id = 'fixedTitle';
     div2.appendChild(br1);
     div2.appendChild(h1);
-    h1.appendChild(b);
-    b.innerText = headingTitle;
+    h1.innerText = headingTitle;
 
     div2.appendChild(br2);
 }

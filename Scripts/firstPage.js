@@ -93,10 +93,12 @@ export function createForm(){
         label1 = document.createElement('label') ,
         label2 = document.createElement('label') ,
         input2 = document.createElement('input');
-    form.id = "user_form";
+    // form.id = "user_form";
 
     for(let heading of headings){
+
         h2 = document.createElement('h2');
+        h2.id = 'firstPageHeading';
         h2.innerText=heading;
 
         form.appendChild(h2);

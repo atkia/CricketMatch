@@ -1,12 +1,7 @@
-span{
-    font-size: x-large;
-    color:black;
-    display: inline-block;
-}
 div#headingD {
     background-color: darkgreen;
 }
-h1 {
+h1#playerHeading{
     font-size: xxx-large;
     color: white;
     padding-left: 7%;
@@ -18,28 +13,40 @@ div#selectionDiv {
     margin: 0% 0% 1%;
 }
 span#batting,#bowling,#fielding {
-    padding: 3%;
+    padding-left: 7%;
+    padding-right: 6%;
     color: white;
     font-size: xx-large;
 }
-img#personIcon {
+img#personIcon2 {
     width: 25%;
-    /* background-color: darkgrey; */
     border-radius: 0%;
     padding-left: 32%;
 }
 span#match ,#innings ,#run,#noOuts,#bestScore,#sr,#avg,#fours,#six,#thirties,#fifties,#hundreds,#duck {
-    background-color: white;
-    margin: 2%;
     font-size: x-large;
-    border: 1px solid gray;
-    /*width: 22%;*/
-    padding: 4%;
+    color:#666666e3;
+    font-size: x-large;
+    padding: 0%;
 }
-td {
+td#tbData {
+    background-color: white;
+    width: 92px;
+    padding: 5%;
     font-size: larger;
-    padding: 0px 10px 26px;
+    border: 34px solid #d3d3d370;
 }
-table {
+table#tb{
     background-color: #d3d3d329;
+}
+span#matchValue ,#inValue ,#runValue,#noValue,#bestScoreValue,#srValue,#avgValue,#foursValue,#sixValue,#thirtiesValue,#fiftiesValue,#hundredValue,#duckValue {
+    color: black;
+    padding-left: 22%;
+}
+span#battingActive, #fieldingActive,#bowlingActive {
+    padding-right: 6%;
+    border-bottom: 5px solid white;
+    padding-left: 7%;
+    font-size: xx-large;
+    color: white;
 }
