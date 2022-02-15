@@ -89,9 +89,48 @@ export function sR(ballNo,sr,run){
 
 export function ballDetail(batsmanName,value,type){
     this.batsmanName = batsmanName;
-    console.log(value+' '+type);
     this.ballValue = value;
     this.type = type;
+    console.log('balldetail object value: '+batsmanName,value,type);
+}
+
+function overDetail(overNo){
+    this.overNo = overNo;
+    this.ball = [];
+}
+
+export function overCount(ballDetails){
+    let overs = [],count=0,overN0=0;
+    let over = new overDetail(overN0);
+    for (let i=0;i<ballDetails.length;i++){
+        console.log(ballDetails[i].type);
+        if(count==6){
+            count=0;
+            console.log(over.overNo);
+            overN0++;
+            overs.push(over);
+            over.overNo = 0;
+            over.ball = '';
+            over = new overDetail(overN0);
+        }
+        if(ballDetails[i].type.match(/WD/) || ballDetails[i].type=='NB'){
+            console.log('wide or nb found');
+            over.ball.push(ballDetails[i]);
+        }
+        else{
+            over.ball.push(ballDetails[i]);
+            count++;
+            console.log(count);
+        }
+    }
+    if(count<6){
+        overs.push(over);
+    }
+    for(let i=0;i<overs.length;i++){
+        console.log('overs:  '+overs[i]);
+    }
+
+    return overs;
 }
 
 export function Bowling(){

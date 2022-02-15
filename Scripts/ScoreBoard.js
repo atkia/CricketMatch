@@ -341,41 +341,56 @@ function createThirdRow(){
                 scoreTR2.innerHTML = '';
             }
         }
-        if(bowler.bowling.ballDetails.length!=0){
-            let ballNo = bowler.bowling.ballDetails.length;
-            if(ballNo%6==0 && runningMatch.inningIndex==1){
-                let div = addBowlerDiv();
-                document.getElementById('menuItems').appendChild(div);
-                document.getElementById('form').style.display = 'none';
-                let submit = document.getElementById('addBowlerButton');
-                submit.onclick = ()=>{
-                    elem.storeInputData();
-                    changeBowler();
-                    createBowlerTable();
-                    document.getElementById('scoreBoardDiv').style.display = 'block';
-                    div.remove();
-                }
-            }
+    if(bowler.bowling.ballDetails.length!=0) {
+        let oversDetail = object.overCount(bowler.bowling.ballDetails);
+        let runningOverIndex = oversDetail.length - 1, count = 0;
+        let runningOver = oversDetail[runningOverIndex];
+        for (let i = 0; i < runningOver.ball.length; i++) {
+           if (runningOver.ball[i].type.match(/WD/) || runningOver.ball[i].type == 'NB') {
+               console.log('wide or nb found');
+           }
             else{
-                for(let i=0;i<bowler.bowling.ballDetails.length;i++){
-                    let td1 = document.createElement('td'),td2 = document.createElement('td') ,span = document.createElement('span'),span2 = document.createElement('span');
-                    let button = document.createElement('button'),label = document.createElement('label');
-                    let li = document.createElement('li');
-                    label.id = 'scoreTag';
-                    td1.id = 'scoreButton';
-                    td2.id = 'scoreButton';
-                    span.id = 'ball'+bowler.bowling.ballDetails[i].ballValue;
-                    span.innerText = bowler.bowling.ballDetails[i].ballValue;
-                    label.htmlFor = 'ball'+bowler.bowling.ballDetails[i].ballValue;
-                    label.innerText =bowler.bowling.ballDetails[i].type;
-                    td1.appendChild(span);
-                    td2.appendChild(label);
-                    scoreTR1.appendChild(td1);
-                    scoreTR2.appendChild(td2);
-                }
+                count++;
+                console.log(count);
             }
-
         }
+        console.log(count);
+        if(count==6 && runningMatch.inningIndex==1){
+            let div = addBowlerDiv();
+            document.getElementById('menuItems').appendChild(div);
+            document.getElementById('form').style.display = 'none';
+            let submit = document.getElementById('addBowlerButton');
+            submit.onclick = ()=>{
+                elem.storeInputData();
+                changeBowler();
+                createBowlerTable();
+                document.getElementById('scoreBoardDiv').style.display = 'block';
+                div.remove();
+            }
+        }
+        else{
+            for(let i=0;i<runningOver.ball.length;i++){
+                let td1 = document.createElement('td'),td2 = document.createElement('td') ,span = document.createElement('span'),span2 = document.createElement('span');
+                let label = document.createElement('label');
+                // let li = document.createElement('li');
+                label.id = 'scoreTag';
+                td1.id = 'scoreButton';
+                td2.id = 'scoreButton';
+                span.id = 'ball'+runningOver.ball[i].ballValue;
+                span.innerText = runningOver.ball[i].ballValue;
+                label.htmlFor = 'ball'+runningOver.ball[i].ballValue;
+                label.innerText =runningOver.ball[i].type;
+                td1.appendChild(span);
+                td2.appendChild(label);
+                scoreTR1.appendChild(td1);
+                scoreTR2.appendChild(td2);
+            }
+        }
+    }
+
+
+
+     //   }
         scoreTable.appendChild(scoreTR1);
         scoreTable.appendChild(scoreTR2);
         li2.appendChild(scoreTable);
@@ -835,6 +850,7 @@ function getScoreButton(value) {
                         scoreTR2.appendChild(td2);
                         byes=false;
                         let ball = new object.ballDetail(striker.playerName,0,value+'BYE');
+                        console.log(ball);
                         bowler.bowling.ballDetails.push(ball);
                     }
                     if(lB==true){
@@ -847,6 +863,7 @@ function getScoreButton(value) {
                         console.log(span2);
                         lB = false;
                         let ball = new object.ballDetail(striker.playerName,0,value+'LB');
+                        console.log(ball);
                         // let over = new object.ballDetails();
                         // over.ballDetail.push(ball);
                         bowler.bowling.ballDetails.push(ball);
@@ -860,6 +877,7 @@ function getScoreButton(value) {
                         td2.appendChild(label)
                         scoreTR2.appendChild(td2);
                         let ball = new object.ballDetail(striker.playerName,0,score+'WD');
+                        console.log(ball);
                         // let over = new object.ballDetails();
                         // over.ballDetail.push(ball);
                         bowler.bowling.ballDetails.push(ball);
@@ -880,7 +898,9 @@ function getScoreButton(value) {
                         label.innerText = 'NB';
                         td2.appendChild(label)
                         scoreTR2.appendChild(td2);
+                        console.log(striker.playerName);
                         let ball = new object.ballDetail(striker.playerName,value,'NB');
+                        console.log(ball);
                         // let over = new object.ballDetails();
                         // over.ballDetail.push(ball);
                         bowler.bowling.ballDetails.push(ball);
@@ -890,6 +910,7 @@ function getScoreButton(value) {
                         label.innerText = '';
                         td2.appendChild(label)
                         scoreTR2.appendChild(td2);
+
                         let ball = new object.ballDetail(striker.playerName,value,'');
                         // let over = new object.ballDetails();
                         // over.ballDetail.push(ball);
@@ -1028,25 +1049,6 @@ function getScoreButton(value) {
         }
         if(runningMatch.inningIndex==1){
             if(runningMatch.matchOvers == battingTeam.totalOver){
-                // console.log('2nd innings....');
-                // runningMatch.inningIndex = 2;
-                // utils.setItem('gameId',gameObject);
-                // setInnings();
-                // document.getElementById('scoreBoardDiv').style.display = 'none';
-                // let tempDiv = players.createDivs();
-                // document.getElementById('menuItems').appendChild(tempDiv);
-                // let submitButton = document.getElementById("startMatch");
-                // submitButton.onclick = function (){
-                //     elem.storeInputData(document.getElementById('player_form'));
-                //     tempDiv.remove();
-                //     document.getElementById('scoreBoardDiv').style.display = 'block';
-                //     createTitle();
-                //     createFirstRow();
-                //     createSecondRow();
-                //     createThirdRow();
-                //     createFourthRow();
-                //     createFifthRow();
-                // }
                 newInning();
             }
             else{
@@ -1077,7 +1079,7 @@ function getScoreButton(value) {
                         td2.appendChild(label)
                         scoreTR2.appendChild(td2);
                         byes=false;
-                        let ball = new object.ballDetail(0,value+'BYE');
+                        let ball = new object.ballDetail(striker.playerName,0,value+'BYE');
                         bowler.bowling.ballDetails.push(ball);
                     }
                     if(lB==true){
@@ -1089,7 +1091,7 @@ function getScoreButton(value) {
                         scoreTR2.appendChild(td2);
                         console.log(span2);
                         lB = false;
-                        let ball = new object.ballDetail(0,value+'LB');
+                        let ball = new object.ballDetail(striker.playerName,0,value+'LB');
                         bowler.bowling.ballDetails.push(ball);
                     }
                     if(wide==true){
@@ -1100,7 +1102,7 @@ function getScoreButton(value) {
                         battingTeam.partnerShips[partnershipIndex].extra = battingTeam.partnerShips[partnershipIndex].extra +score;
                         td2.appendChild(label)
                         scoreTR2.appendChild(td2);
-                        let ball = new object.ballDetail(0,score+'WD');
+                        let ball = new object.ballDetail(striker.playerName,0,score+'WD');
                         bowler.bowling.ballDetails.push(ball);
                     }
                 }
@@ -1118,14 +1120,14 @@ function getScoreButton(value) {
                         label.innerText = 'NB';
                         td2.appendChild(label)
                         scoreTR2.appendChild(td2);
-                        let ball = new object.ballDetail(value,'NB');
+                        let ball = new object.ballDetail(striker.playerName,value,'NB');
                         bowler.bowling.ballDetails.push(ball);
                     }else{
                         label.htmlFor = 'ball'+value;
                         label.innerText = '';
                         td2.appendChild(label)
                         scoreTR2.appendChild(td2);
-                        let ball = new object.ballDetail(value,'');
+                        let ball = new object.ballDetail(striker.playerName,value,'');
                         if(bowler!=null){
                             bowler.bowling.ballDetails.push(ball);
                         }
