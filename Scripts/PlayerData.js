@@ -59,6 +59,15 @@ export function Batting(){
     this.status = 'Not Out';
 }
 
+export function NotPlayedTeam(teamName){
+    this.teamName = teamName;
+    this.players = [];
+}
+export  function  NotPlayedTeamList(){
+    this.id = 'notPlayed';
+    this.notPlayedTeams = [];
+}
+
 export function crr(players){
     let crr=0;
     for(let i=0;i<players.length;i++){

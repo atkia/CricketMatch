@@ -458,7 +458,8 @@ export function createPlayerDetailsDiv(teamName,player){
         div2 = document.createElement('div'),
         div3 = document.createElement('div'),
         img = document.createElement('img'),
-        img0 = document.createElement('img'),
+        i = document.createElement('i'),
+        i2 = document.createElement('i'),
     h1 = document.createElement('h1'),
     span1 = document.createElement('span'),
         span2 = document.createElement('span'),
@@ -467,18 +468,19 @@ export function createPlayerDetailsDiv(teamName,player){
     h1.id = 'playerHeading';
     div.id = 'playerDetailDiv';
     div1.id = 'headingD';
-    img0.src = 'https://pixabay.com/static/uploads/photo/2012/04/15/21/34/arrow-35386_960_720.png';
-    img0.id = 'backArrow';
-    img0.onclick=()=>{
+    i.className = "fas fa-arrow-left";
+    i.id = 'backArrow';
+    i.onclick=()=>{
         console.log('back button clicked');
         document.getElementById('playerDetailDiv').remove();
         document.getElementById('playerListDiv').style.display = 'block';
         document.getElementById('teamTitle').style.display = 'block';
     }
+
     img.id = 'personIcon2';
     img.src = 'https://www.pngkit.com/png/full/14-141902_person-icon-png.png';
     h1.innerText = player.playerName;
-    div1.appendChild(img0);
+    div1.appendChild(i);
     div1.appendChild(br);
     div1.appendChild(img);
     div1.appendChild(h1);
