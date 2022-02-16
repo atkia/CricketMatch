@@ -1,5 +1,3 @@
-// import {hostTeam, visitorTeam} from "./SelectOpeningPlayer";
-
 export function Extras(){
     this.byes=0;
     this.lByes =0;
@@ -68,19 +66,20 @@ export  function  NotPlayedTeamList(){
     this.notPlayedTeams = [];
 }
 
-export function crr(players){
-    let crr=0;
-    for(let i=0;i<players.length;i++){
-        crr =crr+ +players[i].bowling.er ;
-        console.log(crr);
+export function crr(totalScore,bowlers){
+    let ballNo=0,crr = '0.00';
+    for(let i=0;i<bowlers.length;i++){
+        ballNo =ballNo+bowlers[i].bowling.ballNo ;
+        console.log(ballNo);
     }
-    if(players.length==0){
-        return crr+'.00';
+    console.log(totalScore);
+    if(ballNo!=0){
+        crr = totalScore/ballNo;
+        crr = crr*6;
+        crr = crr.toPrecision(4)
     }
     console.log(crr);
-    crr = crr/players.length;
-    console.log(crr);
-    return crr.toPrecision(4);
+    return crr;
 }
 export function changeStatus(status){
     status = 'Out';
