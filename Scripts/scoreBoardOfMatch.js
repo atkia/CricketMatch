@@ -1,4 +1,6 @@
 import * as utils from "./LocalStorageUtils.js";
+import * as object from "./PlayerData.js";
+import {createSpan} from "./PlayerDetails.js";
 let gameObject,MatchIndex,runningMatch,div = document.createElement('div');
 let headingDiv = document.createElement('div');
 function addLink(){
@@ -123,29 +125,100 @@ function createStrikerDetailRow(index) {
 }
 
 function overDetails(bowler,i,balls){
-    let table = document.createElement('table'),
+    i= i+1;
+    let batsmanNames = [];
+
+    let overDiv = document.createElement('div'),
+        table = document.createElement('table'),
+        scoreTable = document.createElement('table'),
         tr1 = document.createElement('tr'),
         tr2 = document.createElement('tr'),
+        scoreTR1 = document.createElement('tr'),
+        scoreTR2 = document.createElement('tr'),
         td1 = document.createElement('td'),
         td2 = document.createElement('td'),
         td3 = document.createElement('td'),
         td4 = document.createElement('td');
+    let ul = document.createElement('ul'),
+        li1 = document.createElement('li'),
+        li2 = document.createElement('li');
 
+    ul.className = 'grid-container'
+    ul.id = 'scoreList';
 
-    td1.innerText = 'Ov '+i;
-    td1.innerText = bowler.playerName +' to ' ;
-
+console.log(balls.length);
+for(let c=0;c<balls.length;c++){
+    batsmanNames.push(balls[c].batsmanName);
 }
-function overCount(allBalls){
-    let overNo = Math.floor(allBalls/6),
-        balls = [];
-    for (let i=0;i<overNo;i++){
-        for(let j=0;j<6;j++){
-            let c = j+i;
-            balls.push(allBalls[c]);
-        }
-
+    let uniqueNames = [...new Set(batsmanNames)];
+    for(let c=0;c<uniqueNames.length;c++){
+        console.log(uniqueNames[c]);
     }
+    td1.innerText = 'Ov '+i;
+    if(uniqueNames.length==2){
+        td2.innerText = bowler.playerName +' to ' +uniqueNames[0] +','+uniqueNames[1];
+    }
+    else{
+        td2.innerText = bowler.playerName +' to ' +uniqueNames[0] ;
+    }
+    tr1.appendChild(td1);
+    tr1.appendChild(td2);
+    li1.id = 'givenRun';
+    li1.innerText = bowler.bowling.run;
+    // td3.rowSpan = 2;
+    // td3.innerText = ;
+    // let span = document.createElement('span');
+    // for(let c=0;c<balls.length;c++){
+    //     span.appendChild( createSpan('ballValue',balls[c].ballValue,'ballType',balls[c].type));
+    // }
+    // scoreTR1.appendChild(td3);
+    for(let c=0;c<balls.length;c++){
+        let td1 = document.createElement('td'),td2 = document.createElement('td') ,span = document.createElement('span'),span2 = document.createElement('span');
+        let label = document.createElement('label');
+        // let li = document.createElement('li');
+        label.id = 'scoreTag';
+        td1.id = 'scoreButton';
+        td2.id = 'scoreButton';
+        span.id = 'ball'+balls[c].ballValue;
+        span.innerText = balls[c].ballValue;
+        label.htmlFor = 'ball'+balls[c].ballValue;
+        label.innerText =balls[c].type;
+        td1.appendChild(span);
+        td2.appendChild(label);
+        scoreTR1.appendChild(td1);
+        scoreTR2.appendChild(td2);
+    }
+
+ //   td4.appendChild(span);
+ //   tr2.appendChild(td3);
+ //   tr2.appendChild(td4);
+    scoreTable.appendChild(scoreTR1);
+    scoreTable.appendChild(scoreTR2);
+    li2.appendChild(scoreTable);
+    ul.appendChild(li1);
+    ul.appendChild(li2);
+    tr2.appendChild(ul);
+    table.appendChild(tr1);
+    table.appendChild(tr2);
+    // table.appendChild(scoreTR2)
+    overDiv.appendChild(table);
+    overDiv.id = 'overDiv';
+    console.log(overDiv);
+    return overDiv;
+   // document.getElementById('center').appendChild(table);
+}
+function overCount(bowler,allBalls){
+   let overs = object.overCount(allBalls),overNo = [], overDivs= [];
+   console.log(overs.length);
+   for(let i=0;i<overs.length;i++){
+       console.log(overs[i]);
+       overNo.push(i);
+       let tdiv = overDetails(bowler,i,overs[i].ball);
+       console.log(tdiv);
+       overDivs.push(tdiv);
+   }
+   console.log(overDivs[0]);
+   return overDivs;
 }
 
 function createBowlerDetailRow(index){
@@ -154,9 +227,20 @@ function createBowlerDetailRow(index){
         for(let i=0;i<playerNo;i++){
             let bowler = runningMatch.innings[index].bowlingTeam.players[i];
             trs.push(changeBattingTableData(bowler,'','bowler'));
-            overCount(bowler.bowling.ballDetails);
-            overDetails(bowler);
+            let overDivs = overCount(bowler,bowler.bowling.ballDetails);
+
+            for (let j=0;j<overDivs.length;j++){
+                let tr = document.createElement('tr'),td = document.createElement('td');
+                td.colSpan = 6;
+                td.appendChild(overDivs[j]);
+                tr.appendChild(td);
+                trs.push(tr);
+            }
+
             trs.push(createHr());
+        }
+        for(let i=0;i<trs.length;i++){
+            console.log(trs[i]);
         }
    return trs;
 }

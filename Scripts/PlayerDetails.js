@@ -11,7 +11,7 @@ function addLink(){
     link.href = "./Stylesheets/playerDetails.css";
     head.appendChild(link);
 }
-function createSpan(id1,text,id2,value){
+export function createSpan(id1,text,id2,value){
     let span1 = document.createElement('span'),
         span2 = document.createElement('span'),br = document.createElement('br');
     span1.id = id1;

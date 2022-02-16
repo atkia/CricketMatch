@@ -2,7 +2,7 @@ import {addModal} from "./Extras.js";
 import * as object from "./PlayerData.js";
 import * as utils from './LocalStorageUtils.js';
 import {createPlayerDetailsDiv} from "./PlayerDetails.js";
-import {NotPlayedTeam, player} from "./PlayerData.js";
+import {NotPlayedTeam, NotPlayedTeamList, player} from "./PlayerData.js";
 let body = document.getElementsByTagName('body')[0],
     div = document.createElement('div'),changedName,games=utils.getItem('gameId'),
     removeItem,notPlayedTeam;
@@ -215,60 +215,76 @@ function createPlayerDivList(team,players){
     return div;
 }
 
-function createPlayerList(team){
+function createPlayerList(team,type){
+    console.log('create player list function called')
     let playersOfTeam = [];
-    for (let i=0;i<team.matchNo.length;i++){
-        if(games.matches[team.matchNo[i]].innings[0].battingTeam.teamName===team.tName){
-            if(games.matches[team.matchNo[i]].innings[0].battingTeam.players.length!==0){
-                let playerNo  = games.matches[team.matchNo[i]].innings[0].battingTeam.players.length;
-                let tempTeam = games.matches[team.matchNo[i]].innings[0].battingTeam;
-                console.log(games.matches[team.matchNo[i]].innings[0].battingTeam.players.length);
-                for(let i=0;i<playerNo;i++){
-                    console.log(tempTeam.players[i]);
-                    if(tempTeam.players[i].playerName!='Unknown'){
-                        playersOfTeam.push(tempTeam.players[i]);
-                    }
+    if(type =='played'){
+        for (let i=0;i<team.matchNo.length;i++){
+            if(games.matches[team.matchNo[i]].innings[0].battingTeam.teamName===team.tName){
+                if(games.matches[team.matchNo[i]].innings[0].battingTeam.players.length!==0){
+                    let playerNo  = games.matches[team.matchNo[i]].innings[0].battingTeam.players.length;
+                    let tempTeam = games.matches[team.matchNo[i]].innings[0].battingTeam;
+                    console.log(games.matches[team.matchNo[i]].innings[0].battingTeam.players.length);
+                    for(let i=0;i<playerNo;i++){
+                        console.log(tempTeam.players[i]);
+                        if(tempTeam.players[i].playerName!='Unknown'){
+                            playersOfTeam.push(tempTeam.players[i]);
+                        }
 
+                    }
                 }
             }
-        }
-        if(games.matches[team.matchNo[i]].innings[0].bowlingTeam.teamName==team.tName){
-            if(games.matches[team.matchNo[i]].innings[0].bowlingTeam.players.length!=0){
-                let playerNo  = games.matches[team.matchNo[i]].innings[0].bowlingTeam.players.length;
-                let tempTeam = games.matches[team.matchNo[i]].innings[0].bowlingTeam;
-                console.log(games.matches[team.matchNo[i]].innings[0].battingTeam.players.length);
-                for(let i=0;i<playerNo;i++){
-                    console.log(tempTeam.players[i].playerName);
-                    if(tempTeam.players[i].playerName!='Unknown'){
-                        playersOfTeam.push(tempTeam.players[i]);
+            if(games.matches[team.matchNo[i]].innings[0].bowlingTeam.teamName==team.tName){
+                if(games.matches[team.matchNo[i]].innings[0].bowlingTeam.players.length!=0){
+                    let playerNo  = games.matches[team.matchNo[i]].innings[0].bowlingTeam.players.length;
+                    let tempTeam = games.matches[team.matchNo[i]].innings[0].bowlingTeam;
+                    console.log(games.matches[team.matchNo[i]].innings[0].battingTeam.players.length);
+                    for(let i=0;i<playerNo;i++){
+                        console.log(tempTeam.players[i].playerName);
+                        if(tempTeam.players[i].playerName!='Unknown'){
+                            playersOfTeam.push(tempTeam.players[i]);
+                        }
+                    }
+                }
+            }
+            if(games.matches[team.matchNo[i]].innings[1].battingTeam.teamName==team.tName){
+                if(games.matches[team.matchNo[i]].innings[1].battingTeam.players.length!=0){
+                    let playerNo  = games.matches[team.matchNo[i]].innings[1].battingTeam.players.length;
+                    let tempTeam = games.matches[team.matchNo[i]].innings[1].battingTeam;
+                    console.log(games.matches[team.matchNo[i]].innings[1].battingTeam.players.length);
+                    for(let i=0;i<playerNo;i++){
+                        console.log(tempTeam.players[i].playerName);
+                        if(tempTeam.players[i].playerName!='Unknown'){
+                            playersOfTeam.push(tempTeam.players[i]);
+                        }
+                    }
+                }
+            }
+            if(games.matches[team.matchNo[i]].innings[1].bowlingTeam.teamName==team.tName){
+                if(games.matches[team.matchNo[i]].innings[1].bowlingTeam.players.length!=0){
+                    let playerNo  = games.matches[team.matchNo[i]].innings[1].bowlingTeam.players.length;
+                    let tempTeam = games.matches[team.matchNo[i]].innings[1].bowlingTeam;
+                    console.log(games.matches[team.matchNo[i]].innings[1].battingTeam.players.length);
+                    for(let i=0;i<playerNo;i++){
+                        console.log(tempTeam.players[i].playerName);
+                        if(tempTeam.players[i].playerName!='Unknown'){
+                            playersOfTeam.push(tempTeam.players[i]);
+                        }
                     }
                 }
             }
         }
-        if(games.matches[team.matchNo[i]].innings[1].battingTeam.teamName==team.tName){
-            if(games.matches[team.matchNo[i]].innings[1].battingTeam.players.length!=0){
-                let playerNo  = games.matches[team.matchNo[i]].innings[1].battingTeam.players.length;
-                let tempTeam = games.matches[team.matchNo[i]].innings[1].battingTeam;
-                console.log(games.matches[team.matchNo[i]].innings[1].battingTeam.players.length);
-                for(let i=0;i<playerNo;i++){
-                    console.log(tempTeam.players[i].playerName);
-                    if(tempTeam.players[i].playerName!='Unknown'){
-                        playersOfTeam.push(tempTeam.players[i]);
-                    }
+    }
+    else{
+        console.log(notPlayedTeam.notPlayedTeams[0].players.length);
+
+        for(let i=0;i<notPlayedTeam.notPlayedTeams.length;i++){
+            if(notPlayedTeam.notPlayedTeams[i].teamName == team.teamName){
+                for(let j=0;j<notPlayedTeam.notPlayedTeams[i].players.length;j++){
+                    let player = notPlayedTeam.notPlayedTeams[i].players[j];
+                    playersOfTeam.push(player);
                 }
-            }
-        }
-        if(games.matches[team.matchNo[i]].innings[1].bowlingTeam.teamName==team.tName){
-            if(games.matches[team.matchNo[i]].innings[1].bowlingTeam.players.length!=0){
-                let playerNo  = games.matches[team.matchNo[i]].innings[1].bowlingTeam.players.length;
-                let tempTeam = games.matches[team.matchNo[i]].innings[1].bowlingTeam;
-                console.log(games.matches[team.matchNo[i]].innings[1].battingTeam.players.length);
-                for(let i=0;i<playerNo;i++){
-                    console.log(tempTeam.players[i].playerName);
-                    if(tempTeam.players[i].playerName!='Unknown'){
-                        playersOfTeam.push(tempTeam.players[i]);
-                    }
-                }
+
             }
         }
     }
@@ -325,9 +341,60 @@ function playerAddDiv(){
     div.id = 'playerAddDiv'
     return div;
 }
+function playerAddBtnOnclick(team,type,button){
+    let div22 = playerAddDiv();
+    let newPlayerName;
+    document.getElementById('personAdd').style.display = 'none';
+    document.getElementById('teamTitle').style.display = 'none';
+    document.getElementById('playerListDiv').style.display = 'none';
+    document.getElementById('center').appendChild(div22);
+    document.getElementById('cancel').onclick = () => {
+        div22.remove();
+        document.getElementById('teamTitle').style.display = 'block';
+        document.getElementById('personAdd').style.display = 'block';
+    }
+    document.getElementById('ok').onclick = () => {
+        document.getElementById('personAdd').remove();
 
+        document.getElementById('teamTitle').style.display = 'block';
+        document.getElementById('playerListDiv').style.display = 'block';
+        let input = document.getElementById('playerAddingInput');
+        newPlayerName = input.value;
+        localStorage.setItem(input.name, newPlayerName);
+        div22.remove();
+        if(type =='notPlayed'){
+            let player = new object.player(newPlayerName);
+            for (let i = 0; i < notPlayedTeam.notPlayedTeams.length; i++) {
+                if (notPlayedTeam.notPlayedTeams[i].teamName == team.teamName) {
+                    notPlayedTeam.notPlayedTeams[i].players.push(player);
+                }
+
+            }
+            utils.setItem('notPlayed', notPlayedTeam);
+        }
+        // else{
+        //     for (let i=0;i<team.matchNo.length;i++) {
+        //         if (games.matches[team.matchNo[i]].innings[0].battingTeam.players.length !== 0) {
+        //
+        //         }
+        //     }
+        // }
+        document.getElementById('playerListDiv').remove();
+        document.getElementById('center').appendChild(createPlayerList(team, type));
+        document.getElementById('center').appendChild(button);
+        document.getElementById('personAdd').style.display = 'block';
+    }
+}
 function teamNameClicked(team,type) {
     console.log('teamNam clicked...');
+    let button = document.createElement('button'),
+        i = document.createElement('i');
+    button.id = 'personAdd';
+    i.className = "fas fa-user-plus";
+    i.style.color = 'white';
+    button.appendChild(i);
+
+
     document.getElementById('teamListDiv').style.display = 'none';
     document.getElementById('fixedTitleDiv').style.display = 'none';
     document.getElementById('menuItems').style.display = 'none';
@@ -338,47 +405,52 @@ function teamNameClicked(team,type) {
             let div = document.createElement('div');
             let p = document.createElement('p');
             p.innerText = "You don't have any players added in the team yet.Please add players";
-            let button = document.createElement('button'),
-                i = document.createElement('i');
-            button.id = 'personAdd';
-            i.className = "fas fa-user-plus";
-            i.style.color = 'white';
-            button.appendChild(i);
             div.appendChild(p);
-            div.appendChild(button);
             div.id = "playerListDiv";
             document.getElementById('center').appendChild(div);
-            button.onclick = () => {
-               // let modal = addModal();
-                let div22 = playerAddDiv();
-                document.getElementById('teamTitle').style.display = 'none';
-                document.getElementById('playerListDiv').style.display = 'none';
-                document.getElementById('center').appendChild(div22);
-                document.getElementById('cancel').onclick = () => {
-                    div22.remove();
-                }
-                document.getElementById('ok').onclick = () => {
-                    document.getElementById('teamTitle').style.display = 'block';
-                    document.getElementById('playerListDiv').style.display = 'block';
-                    let input = document.getElementById('playerAddingInput');
-                    let newPlayerName = input.value;
-                    localStorage.setItem(input.name, newPlayerName);
-                    div22.remove();
-                    let player = new object.player(newPlayerName);
-                    for (let i = 0; i < notPlayedTeam.notPlayedTeams.length; i++) {
-                        if (notPlayedTeam.notPlayedTeams[i].teamName == team.teamName) {
-                            notPlayedTeam.notPlayedTeams[i].players.push(player);
-                        }
 
-                    }
-                    utils.setItem('notPlayed', notPlayedTeam);
-                }
-            }
         }
+        button.onclick = () => {
+            playerAddBtnOnclick(team,type,button);
+            // let div22 = playerAddDiv();
+            // let newPlayerName;
+            // document.getElementById('personAdd').style.display = 'none';
+            // document.getElementById('teamTitle').style.display = 'none';
+            // document.getElementById('playerListDiv').style.display = 'none';
+            // document.getElementById('center').appendChild(div22);
+            // document.getElementById('cancel').onclick = () => {
+            //     div22.remove();
+            //     document.getElementById('teamTitle').style.display = 'block';
+            //     document.getElementById('personAdd').style.display = 'block';
+            // }
+            // document.getElementById('ok').onclick = () => {
+            //     document.getElementById('personAdd').remove();
+            //
+            //     document.getElementById('teamTitle').style.display = 'block';
+            //     document.getElementById('playerListDiv').style.display = 'block';
+            //     let input = document.getElementById('playerAddingInput');
+            //     newPlayerName = input.value;
+            //     localStorage.setItem(input.name, newPlayerName);
+            //     div22.remove();
+            //     let player = new object.player(newPlayerName);
+            //     for (let i = 0; i < notPlayedTeam.notPlayedTeams.length; i++) {
+            //         if (notPlayedTeam.notPlayedTeams[i].teamName == team.teamName) {
+            //             notPlayedTeam.notPlayedTeams[i].players.push(player);
+            //         }
+            //
+            //     }
+            //     utils.setItem('notPlayed', notPlayedTeam);
+            //     document.getElementById('playerListDiv').remove();
+            //     document.getElementById('center').appendChild(createPlayerList(team, type));
+            //     document.getElementById('center').appendChild(button);
+            //     document.getElementById('personAdd').style.display = 'block';
+            // }
+
+        }
+
     }
-    else {
-        document.getElementById('center').appendChild(createPlayerList(team, type));
-    }
+         document.getElementById('center').appendChild(createPlayerList(team, type));
+    document.getElementById('center').appendChild(button);
     if (document.getElementById('backArrow') != null) {
        document.getElementById('backArrow').onclick = () => {
                 console.log('back arrow clicked')
@@ -387,6 +459,7 @@ function teamNameClicked(team,type) {
                 document.getElementById('menuItems').style.display = 'block';
                 document.getElementById('teamTitle').remove();
             document.getElementById('playerListDiv').remove();
+            document.getElementById('personAdd').remove();
        }
     }
 }
@@ -642,8 +715,13 @@ export function teamName(game) {
             }
         }
     }
-
-    notPlayedTeam = utils.getItem('notPlayed');
+    if (utils.getItem('notPlayed')==null){
+        notPlayedTeam = new object.NotPlayedTeamList();
+        utils.setItem('notPlayed',notPlayedTeam);
+    }
+    else{
+        notPlayedTeam = utils.getItem('notPlayed');
+    }
     for (let i = 0; i < teamInfos.length; i++) {
         console.log(teamInfos[i].tName, teamInfos[i].matchNo, teamInfos[i].matchCount);
         div.appendChild(createDiv(teamInfos[i],'played'));
@@ -685,15 +763,13 @@ export function teamName(game) {
             div.style.display = 'none';
            div22.remove();
            let newAddedTeam = new object.NotPlayedTeam(newTeamName);
-           // let notPlayedTeams = new object.NotPlayedTeamList();
-            notPlayedTeam.notPlayedTeams.push(newAddedTeam);
+           notPlayedTeam.notPlayedTeams.push(newAddedTeam);
            utils.setItem('notPlayed',notPlayedTeam);
            console.log(createDiv(newAddedTeam,'notPlayed'));
            div.innerHTML = '';
            teamName();
         }
     }
-
 
     div.appendChild(button);
     return div;

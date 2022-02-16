@@ -14,6 +14,33 @@ h1{
 #extraDetails{
     padding-left: 61%;
 }
+span#ball0,#ball1,#ball2,#ball3,#ball4,#ball5,#ball6 {
+    border: 1px solid black;
+    color: black;
+    font-size: large;
+    padding: 4%;
+    border-radius: 50%;
+}
+#scoreButton{
+    /*width: 32%;*/
+    padding: 4px 8px 0px;
+    margin: 0%;
+}
+.grid-container {
+    display: grid;
+    grid-template-columns:104px 99px;
+    padding-right: 2%;
+}
+#ball4{
+    background-color: darkorange;
+    border-color: chocolate;
+    color: white;
+}
+#ball6{
+    background-color: green;
+    border-color: darkgreen;
+    color: white;
+}
 #totalDetails{
     padding-left: 83%;
 }
