@@ -87,7 +87,8 @@ export function changeStatus(status){
     return status;
 }
 
-export function sR(ballNo,sr,run){
+export function sR(ballNo,run){
+    let sr = '0.00';
     if(ballNo!=0){
         sr = (run/ballNo)*100;
         sr = sr.toPrecision(5);
@@ -107,10 +108,14 @@ function overDetail(overNo){
     this.overNo = overNo;
     this.ball = [];
 }
-
+export function states(){
+    this.id = 'state';
+    this.states = [];
+}
 export function overCount(ballDetails){
     let overs = [],count=0,overN0=0;
     let over = new overDetail(overN0);
+    console.log(ballDetails.length);
     for (let i=0;i<ballDetails.length;i++){
         console.log(ballDetails[i].type);
         if(count==6){
@@ -132,9 +137,10 @@ export function overCount(ballDetails){
             console.log(count);
         }
     }
-    if(count<6){
+    if(count<=6){
         overs.push(over);
     }
+    console.log(overs.length);
     for(let i=0;i<overs.length;i++){
         console.log('overs:  '+overs[i]);
     }
@@ -153,6 +159,14 @@ export function Bowling(){
     this.noBall =0;
     this.dotsBall = 0;
     this.ballDetails = [];
+}
+
+export function undoRun(totalRun,run){
+    if(totalRun!=0){
+        totalRun = totalRun-run;
+    }
+
+    return totalRun;
 }
 
 export function getRuns(totalRun,run){
@@ -180,7 +194,8 @@ export function getMaiden(run,maiden){
     }
     return maiden;
 }
-export function eR(er,ballNo,run){
+export function eR(ballNo,run){
+    let er = '0.00';
     if(ballNo!=0){
         er= run/ballNo;
         er=er*6;

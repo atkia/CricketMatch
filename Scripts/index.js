@@ -12,7 +12,11 @@ let headingTitle = "Cricket Scorer",
     div3 = document.createElement('div'),
     div4 = document.createElement('div'),
     headings = ['Teams','Toss By Won', 'Opted to?','Overs?'];
-//let body = document.getElementsByTagName('body')[0];
+
+if(utils.getItem('state')==null){
+    let states = new object.states();
+    utils.setItem('state',states);
+}
  if(utils.getItem('gameId')===null){
   let game = new object.Games();
     console.log('got null!!!!!!!!!!')
@@ -31,8 +35,7 @@ function addLink(){
 function createTitle(){
     let h1 = document.createElement('h1'),
         br1 = document.createElement('br'),
-        br2 = document.createElement('br'),title;
-    // title = document.getElementById("firstRow");
+        br2 = document.createElement('br');
     h1.id = 'fixedTitle';
     div2.appendChild(br1);
     div2.appendChild(h1);

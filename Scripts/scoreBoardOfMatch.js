@@ -129,86 +129,70 @@ function overDetails(bowler,i,balls){
     let batsmanNames = [];
 
     let overDiv = document.createElement('div'),
-        table = document.createElement('table'),
         scoreTable = document.createElement('table'),
-        tr1 = document.createElement('tr'),
-        tr2 = document.createElement('tr'),
         scoreTR1 = document.createElement('tr'),
         scoreTR2 = document.createElement('tr'),
-        td1 = document.createElement('td'),
-        td2 = document.createElement('td'),
-        td3 = document.createElement('td'),
-        td4 = document.createElement('td');
-    let ul = document.createElement('ul'),
+        span1 = document.createElement('span'),
+        span2 = document.createElement('span'),
+        ul = document.createElement('ul'),
         li1 = document.createElement('li'),
         li2 = document.createElement('li');
 
     ul.className = 'grid-container'
     ul.id = 'scoreList';
 
-console.log(balls.length);
-for(let c=0;c<balls.length;c++){
-    batsmanNames.push(balls[c].batsmanName);
-}
+    console.log(balls.length);
+    for(let c=0;c<balls.length;c++){
+      batsmanNames.push(balls[c].batsmanName);
+    }
     let uniqueNames = [...new Set(batsmanNames)];
     for(let c=0;c<uniqueNames.length;c++){
         console.log(uniqueNames[c]);
     }
-    td1.innerText = 'Ov '+i;
+    span1.id = 'overNo';
+    span2.id = 'players';
+    span1.innerText = 'Ov '+i;
     if(uniqueNames.length==2){
-        td2.innerText = bowler.playerName +' to ' +uniqueNames[0] +','+uniqueNames[1];
+        span2.innerText = bowler.playerName +' to ' +uniqueNames[0] +','+uniqueNames[1];
     }
     else{
-        td2.innerText = bowler.playerName +' to ' +uniqueNames[0] ;
+        span2.innerText = bowler.playerName +' to ' +uniqueNames[0] ;
     }
-    tr1.appendChild(td1);
-    tr1.appendChild(td2);
+    overDiv.appendChild(span1);
+    overDiv.appendChild(span2);
     li1.id = 'givenRun';
-    li1.innerText = bowler.bowling.run;
-    // td3.rowSpan = 2;
-    // td3.innerText = ;
-    // let span = document.createElement('span');
-    // for(let c=0;c<balls.length;c++){
-    //     span.appendChild( createSpan('ballValue',balls[c].ballValue,'ballType',balls[c].type));
-    // }
-    // scoreTR1.appendChild(td3);
+    li1.innerText = bowler.bowling.run +'Runs';
     for(let c=0;c<balls.length;c++){
         let td1 = document.createElement('td'),td2 = document.createElement('td') ,span = document.createElement('span'),span2 = document.createElement('span');
         let label = document.createElement('label');
-        // let li = document.createElement('li');
-        label.id = 'scoreTag';
+
+        label.id = 'scoreTags';
         td1.id = 'scoreButton';
         td2.id = 'scoreButton';
-        span.id = 'ball'+balls[c].ballValue;
+        span.id = 'sball'+balls[c].ballValue;
         span.innerText = balls[c].ballValue;
-        label.htmlFor = 'ball'+balls[c].ballValue;
+        label.htmlFor = 'sball'+balls[c].ballValue;
         label.innerText =balls[c].type;
         td1.appendChild(span);
         td2.appendChild(label);
         scoreTR1.appendChild(td1);
         scoreTR2.appendChild(td2);
     }
-
- //   td4.appendChild(span);
- //   tr2.appendChild(td3);
- //   tr2.appendChild(td4);
     scoreTable.appendChild(scoreTR1);
     scoreTable.appendChild(scoreTR2);
     li2.appendChild(scoreTable);
     ul.appendChild(li1);
     ul.appendChild(li2);
-    tr2.appendChild(ul);
-    table.appendChild(tr1);
-    table.appendChild(tr2);
-    // table.appendChild(scoreTR2)
-    overDiv.appendChild(table);
+    overDiv.appendChild(ul);
     overDiv.id = 'overDiv';
     console.log(overDiv);
     return overDiv;
    // document.getElementById('center').appendChild(table);
 }
 function overCount(bowler,allBalls){
+    console.log(allBalls.length)
    let overs = object.overCount(allBalls),overNo = [], overDivs= [];
+   console.log(bowler.playerName);
    console.log(overs.length);
    for(let i=0;i<overs.length;i++){
        console.log(overs[i]);
@@ -231,6 +215,7 @@ function createBowlerDetailRow(index){
 
             for (let j=0;j<overDivs.length;j++){
                 let tr = document.createElement('tr'),td = document.createElement('td');
+                td.id = 'overTd'
                 td.colSpan = 6;
                 td.appendChild(overDivs[j]);
                 tr.appendChild(td);

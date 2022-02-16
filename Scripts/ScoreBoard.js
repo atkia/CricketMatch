@@ -26,7 +26,7 @@ let div1 = document.createElement('div'),
     count = 0,byes,lB,NB,wide,inning,wicket;
 
 export let bowlingTeam,battingTeam,striker,nonStriker,matchIndex;
-let gameObject ;
+let gameObject ,states;
 let runningMatch,partnership;
 
 function addLink(){
@@ -879,9 +879,9 @@ function getScoreButton(value) {
                         scoreTR2.appendChild(td2);
                         let ball = new object.ballDetail(striker.playerName,0,score+'WD');
                         console.log(ball);
-                        // let over = new object.ballDetails();
-                        // over.ballDetail.push(ball);
                         bowler.bowling.ballDetails.push(ball);
+                        bowler.bowling.run = object.getRuns(bowler.bowling.run,score);
+                        bowler.bowling.wides  = bowler.bowling.wides+score;
                     }
                 }
                 else{
@@ -891,7 +891,6 @@ function getScoreButton(value) {
                     scoreTR1.appendChild(td1);
                     if(NB==true){
                         let score = value+1;
-                        // battingTeam.extras.addNB(1);
                         battingTeam.extras.noBall = object.addNB(battingTeam.extras.noBall,1);
                         battingTeam.partnerShips[partnershipIndex].extra = battingTeam.partnerShips[partnershipIndex].extra +1;
                         //   battingTeam.addPartnershipScore(1);
@@ -902,22 +901,20 @@ function getScoreButton(value) {
                         console.log(striker.playerName);
                         let ball = new object.ballDetail(striker.playerName,value,'NB');
                         console.log(ball);
-                        // let over = new object.ballDetails();
-                        // over.ballDetail.push(ball);
                         bowler.bowling.ballDetails.push(ball);
+                        bowler.bowling.run = object.getRuns(bowler.bowling.run,score);
+                        bowler.bowling.noBall  = bowler.bowling.noBall+1;
                     }
                     else{
                         label.htmlFor = 'ball'+value;
                         label.innerText = '';
                         td2.appendChild(label)
                         scoreTR2.appendChild(td2);
-
                         let ball = new object.ballDetail(striker.playerName,value,'');
-                        // let over = new object.ballDetails();
-                        // over.ballDetail.push(ball);
                         if(bowler!=null){
                             bowler.bowling.ballDetails.push(ball);
                         }
+                        bowler.bowling.run = object.getRuns(bowler.bowling.run,value);
 
                     }
                     striker.batting.run = object.getRuns(striker.batting.run,value);
@@ -932,7 +929,7 @@ function getScoreButton(value) {
                         console.log(battingTeam.partnerShips[partnershipIndex].player2Name);
                         battingTeam.partnerShips[partnershipIndex].player2Run = battingTeam.partnerShips[partnershipIndex].player2Run+value;
                     }
-                    bowler.bowling.run = object.getRuns(bowler.bowling.run,value);
+
                 }
                 if( wide!=true){
                     striker.batting.ballNo++;
@@ -944,7 +941,8 @@ function getScoreButton(value) {
                     }
                     if(NB!=true){
                         bowler.bowling.ballNo++;
-                        bowler.bowling.er = object.eR(bowler.bowling.er,bowler.bowling.ballNo,bowler.bowling.run);
+
+                        bowler.bowling.er = object.eR(bowler.bowling.ballNo,bowler.bowling.run);
                         console.log(bowlingTeam.players.length);
                         battingTeam.crr = object.crr(bowlingTeam.players);
                         console.log(battingTeam.crr);
@@ -952,7 +950,7 @@ function getScoreButton(value) {
                     }
 
                 }
-                striker.batting.sr = object.sR(striker.batting.ballNo,striker.batting.sr,striker.batting.run);
+                striker.batting.sr = object.sR(striker.batting.ballNo,striker.batting.run);
 
                 console.log(striker.batting.sr);
                 bowler.bowling.overs = object.getOver(bowler.bowling.ballNo);
@@ -1064,6 +1062,7 @@ function getScoreButton(value) {
                 span.id = 'ball'+value;
                 span2.id = 'type'
                 let label = document.createElement('label');
+                let stringState;
                 let partnershipIndex = battingTeam.partnerShips.length-1;
                 label.id = 'scoreTag';
                 if(byes==true || lB == true || wide ==true){
@@ -1076,16 +1075,18 @@ function getScoreButton(value) {
                         label.innerText = value+'BYE';
                         battingTeam.extras.byes = object.addByes(battingTeam.extras.byes,value);
                         battingTeam.partnerShips[partnershipIndex].extra = battingTeam.partnerShips[partnershipIndex].extra +value;
-                        // utils.setItem('gameId',gameObject);
                         td2.appendChild(label)
                         scoreTR2.appendChild(td2);
                         byes=false;
                         let ball = new object.ballDetail(striker.playerName,0,value+'BYE');
+                        states.states.push(ball);
                         bowler.bowling.ballDetails.push(ball);
                     }
                     if(lB==true){
                         label.htmlFor = 'ball'+value;
                         label.innerText = value+'LB';
+                        // stringState = value+'LB';
+                        // states.states.push(stringState);
                         battingTeam.extras.lByes = object.addLB(value,battingTeam.extras.lByes);
                         battingTeam.partnerShips[partnershipIndex].extra = battingTeam.partnerShips[partnershipIndex].extra +value;
                         td2.appendChild(label);
@@ -1093,6 +1094,7 @@ function getScoreButton(value) {
                         console.log(span2);
                         lB = false;
                         let ball = new object.ballDetail(striker.playerName,0,value+'LB');
+                        states.states.push(ball);
                         bowler.bowling.ballDetails.push(ball);
                     }
                     if(wide==true){
@@ -1104,7 +1106,10 @@ function getScoreButton(value) {
                         td2.appendChild(label)
                         scoreTR2.appendChild(td2);
                         let ball = new object.ballDetail(striker.playerName,0,score+'WD');
+                        states.states.push(ball);
                         bowler.bowling.ballDetails.push(ball);
+                        bowler.bowling.run = object.getRuns(bowler.bowling.run,score);
+                        bowler.bowling.wides  = bowler.bowling.wides+score;
                     }
                 }
                 else{
@@ -1122,13 +1127,17 @@ function getScoreButton(value) {
                         td2.appendChild(label)
                         scoreTR2.appendChild(td2);
                         let ball = new object.ballDetail(striker.playerName,value,'NB');
+                        states.states.push(ball);
                         bowler.bowling.ballDetails.push(ball);
+                        bowler.bowling.run = object.getRuns(bowler.bowling.run,score);
+                        bowler.bowling.noBall  = bowler.bowling.noBall+1;
                     }else{
                         label.htmlFor = 'ball'+value;
                         label.innerText = '';
                         td2.appendChild(label)
                         scoreTR2.appendChild(td2);
                         let ball = new object.ballDetail(striker.playerName,value,'');
+                        states.states.push(ball);
                         if(bowler!=null){
                             bowler.bowling.ballDetails.push(ball);
                         }
@@ -1144,7 +1153,7 @@ function getScoreButton(value) {
                     else{
                         battingTeam.partnerShips[partnershipIndex].player2Run = battingTeam.partnerShips[partnershipIndex].player2Run+value;
                     }
-                    bowler.bowling.run = object.getRuns(bowler.bowling.run,value);
+
                 }
                 if( wide!=true){
                     striker.batting.ballNo++;
@@ -1156,7 +1165,9 @@ function getScoreButton(value) {
                     }
                     if(NB!=true){
                         bowler.bowling.ballNo++;
-                        bowler.bowling.er = object.eR(bowler.bowling.er,bowler.bowling.ballNo,bowler.bowling.run);
+                        bowler.bowling.run = object.getRuns(bowler.bowling.run,value);
+
+                        bowler.bowling.er = object.eR(bowler.bowling.ballNo,bowler.bowling.run);
                         console.log(bowlingTeam.players.length);
                         battingTeam.crr = object.crr(bowlingTeam.players);
                         console.log(battingTeam.crr);
@@ -1164,7 +1175,7 @@ function getScoreButton(value) {
                     }
 
                 }
-                striker.batting.sr = object.sR(striker.batting.ballNo,striker.batting.sr,striker.batting.run);
+                striker.batting.sr = object.sR(striker.batting.ballNo,striker.batting.run);
                 console.log(striker.batting.sr);
                 bowler.bowling.overs = object.getOver(bowler.bowling.ballNo);
                 battingTeam.totalOver = object.getTotalOver(bowlingTeam.players);
@@ -1258,13 +1269,97 @@ function createFifthRow(){
             tr = document.createElement('tr'),
             td1 = document.createElement('td'),
             td2 = document.createElement('td'),
-            div = document.createElement('div');;
+            div = document.createElement('div');
         td1.id = 'leftSide';
         button1.id = 'undo';
         button1.innerText = 'Undo';
         button1.onclick = () => {
+            console.log('undo clicked');
 
-        };
+            let ballNo = bowler.bowling.ballDetails.length,lastBall;
+
+            if(ballNo!=0) {
+                lastBall = bowler.bowling.ballDetails[ballNo - 1];
+                if (lastBall.type == '') {
+                    if (striker.playerName == lastBall.batsmanName) {
+                        if (striker.batting.ballNo != 0) {
+                            striker.batting.ballNo--;
+                        }
+
+                        console.log(lastBall.ballValue);
+                        striker.batting.run = object.undoRun(striker.batting.run, lastBall.ballValue);
+                        striker.batting.sr = object.sR(striker.batting.ballNo, striker.batting.run);
+
+                    }
+                    else {
+                        if (nonStriker.batting.ballNo != 0) {
+                            nonStriker.batting.ballNo--;
+                        }
+                        nonStriker.batting.run = object.undoRun(nonStriker.batting.run, lastBall.ballValue);
+                        nonStriker.batting.sr = object.sR(nonStriker.batting.ballNo, nonStriker.batting.run);
+
+                    }
+                    bowler.bowling.ballNo--;
+                    bowler.bowling.overs = object.getOver(bowler.bowling.ballNo);
+                    battingTeam.totalOver = object.getTotalOver(bowlingTeam.players);
+                    battingTeam.totalScore = object.getTotalScore(battingTeam.players, battingTeam.partnershipScore);
+                    bowler.bowling.run = object.undoRun(bowler.bowling.run, lastBall.ballValue);
+                    bowler.bowling.er = object.eR(bowler.bowling.ballNo, bowler.bowling.run);
+                    battingTeam.crr = object.crr(bowlingTeam.players);
+                    bowler.bowling.ballDetails.pop();
+                    utils.setItem('gameId', gameObject);
+                    createFirstRow();
+                    createBattingPLayerTable();
+                    createBowlerTable();
+                    createThirdRow();
+
+                }
+                else{
+                    if(lastBall.type == 'NB'){
+                        battingTeam.partnershipScore = battingTeam.partnershipScore-1;
+                        bowler.bowling.noBall--;
+                        if (striker.playerName == lastBall.batsmanName) {
+                            striker.batting.ballNo--;
+                            striker.batting.run = object.undoRun(striker.batting.run, lastBall.ballValue);
+                            striker.batting.sr = object.sR(striker.batting.ballNo, striker.batting.run);
+                            // battingTeam.extras.noBall
+
+                        }
+                        else{
+                            nonStriker.batting.ballNo--;
+                            nonStriker.batting.run = object.undoRun(nonStriker.batting.run, lastBall.ballValue);
+                            nonStriker.batting.sr = object.sR(nonStriker.batting.ballNo, nonStriker.batting.run);
+                        }
+                        bowler.bowling.er = object.eR(bowler.bowling.ballNo, bowler.bowling.run);
+                        let run = lastBall.ballValue+1;
+                        bowler.bowling.run = object.undoRun(bowler.bowling.run, run);
+
+                        bowler.bowling.ballDetails.pop();
+                    }
+                    if(lastBall.type == 'WD'){
+                        let run = lastBall.ballValue+1;
+                        battingTeam.partnershipScore = battingTeam.partnershipScore-run;
+                        bowler.bowling.wides = bowler.bowling.wides-lastBall.ballValue;
+                        bowler.bowling.run = object.undoRun(bowler.bowling.run, run);
+
+                    }
+                    else{
+                        battingTeam.partnershipScore = battingTeam.partnershipScore-lastBall.ballValue;
+                    }
+                }
+                bowler.bowling.overs = object.getOver(bowler.bowling.ballNo);
+                battingTeam.totalOver = object.getTotalOver(bowlingTeam.players);
+                battingTeam.totalScore = object.getTotalScore(battingTeam.players, battingTeam.partnershipScore);
+                battingTeam.crr = object.crr(bowlingTeam.players);
+                bowler.bowling.ballDetails.pop();
+                utils.setItem('gameId', gameObject);
+                createFirstRow();
+                createBattingPLayerTable();
+                createBowlerTable();
+                createThirdRow();
+            }
+
+        }
         button2.id = 'partnership';
         button2.innerText = 'Partnership';
         div = addModal();
@@ -1307,6 +1402,7 @@ function createFifthRow(){
 
 export function createBody(matchIndex){
     matchIndex = matchIndex;
+    states = utils.getItem('state');
     gameObject = utils.getItem('gameId');
     console.log('matchIndex got:  '+matchIndex+'game object er length:'+gameObject.matches.length);
     for(let i=0;i<gameObject.matches.length;i++){

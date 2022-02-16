@@ -14,12 +14,42 @@ h1{
 #extraDetails{
     padding-left: 61%;
 }
-span#ball0,#ball1,#ball2,#ball3,#ball4,#ball5,#ball6 {
-    border: 1px solid black;
+ul#scoreList {
+    background-color: unset;
+    border: 0;
+}
+li#givenRun {
+    font-size: large;
+    padding-top: 43%;
+    color: gray;
+    padding-left: 0%;
+}
+span#sball0,#sball1,#sball2,#sball3,#sball4,#sball5,#sball6 {
+    padding: 10%;
+    border: 1px solid grey;
+    color: black;
+    border-radius: 50%;
+    height: 18px;
+    width:  18px;
+    align-items: center;
+    text-align: center;
+    font-size: small;
+    display: inline-block;
+    background-color: white;
+}
+td#overTd {
+    text-align: left;
+}
+span#overNo,#players {
     color: black;
     font-size: large;
-    padding: 4%;
-    border-radius: 50%;
+    padding: unset;
+    padding-right: 3%;
+}
+label#scoreTags {
+    margin: 0;
+    padding: 0;
+    font-size: xx-small;
 }
 #scoreButton{
     /*width: 32%;*/
@@ -28,15 +58,15 @@ span#ball0,#ball1,#ball2,#ball3,#ball4,#ball5,#ball6 {
 }
 .grid-container {
     display: grid;
-    grid-template-columns:104px 99px;
+    grid-template-columns:59px 99px;
     padding-right: 2%;
 }
-#ball4{
+#sball4{
     background-color: darkorange;
     border-color: chocolate;
     color: white;
 }
-#ball6{
+#sball6{
     background-color: green;
     border-color: darkgreen;
     color: white;
