@@ -355,38 +355,47 @@ function createThirdRow(){
                 console.log(count);
             }
         }
-        console.log(count);
-        if(count==6 && runningMatch.inningIndex==1){
-            let div = addBowlerDiv();
-            document.getElementById('menuItems').appendChild(div);
-            document.getElementById('form').style.display = 'none';
-            let submit = document.getElementById('addBowlerButton');
-            submit.onclick = ()=>{
-                elem.storeInputData();
-                changeBowler();
-                createBowlerTable();
-                document.getElementById('scoreBoardDiv').style.display = 'block';
-                div.remove();
+        console.log(runningMatch.inningIndex);
+
+        if(runningMatch.inningIndex==1){
+            if(runningMatch.matchOvers == battingTeam.totalOver){
+                newInning();
+            }
+            else{
+                if(count==6){
+                    let div = addBowlerDiv();
+                    document.getElementById('menuItems').appendChild(div);
+                    document.getElementById('form').style.display = 'none';
+                    let submit = document.getElementById('addBowlerButton');
+                    submit.onclick = ()=>{
+                        elem.storeInputData();
+                        changeBowler();
+                        createBowlerTable();
+                        document.getElementById('scoreBoardDiv').style.display = 'block';
+                        div.remove();
+                    }
+                }
+                else{
+                    for(let i=0;i<runningOver.ball.length;i++){
+                        let td1 = document.createElement('td'),td2 = document.createElement('td') ,span = document.createElement('span'),span2 = document.createElement('span');
+                        let label = document.createElement('label');
+                        // let li = document.createElement('li');
+                        label.id = 'scoreTag';
+                        td1.id = 'scoreButton';
+                        td2.id = 'scoreButton';
+                        span.id = 'ball'+runningOver.ball[i].ballValue;
+                        span.innerText = runningOver.ball[i].ballValue;
+                        label.htmlFor = 'ball'+runningOver.ball[i].ballValue;
+                        label.innerText =runningOver.ball[i].type;
+                        td1.appendChild(span);
+                        td2.appendChild(label);
+                        scoreTR1.appendChild(td1);
+                        scoreTR2.appendChild(td2);
+                    }
+                }
             }
         }
-        else{
-            for(let i=0;i<runningOver.ball.length;i++){
-                let td1 = document.createElement('td'),td2 = document.createElement('td') ,span = document.createElement('span'),span2 = document.createElement('span');
-                let label = document.createElement('label');
-                // let li = document.createElement('li');
-                label.id = 'scoreTag';
-                td1.id = 'scoreButton';
-                td2.id = 'scoreButton';
-                span.id = 'ball'+runningOver.ball[i].ballValue;
-                span.innerText = runningOver.ball[i].ballValue;
-                label.htmlFor = 'ball'+runningOver.ball[i].ballValue;
-                label.innerText =runningOver.ball[i].type;
-                td1.appendChild(span);
-                td2.appendChild(label);
-                scoreTR1.appendChild(td1);
-                scoreTR2.appendChild(td2);
-            }
-        }
+
     }
         scoreTable.appendChild(scoreTR1);
         scoreTable.appendChild(scoreTR2);
@@ -463,9 +472,6 @@ function calculate(value){
 
     if(value == 'NoBall'){
         NB=true;
-       // bowler.bowling.getRuns(1);
-       //  bowler.bowling.run = object.getRuns(bowler.bowling.run,1);
-       // // battingTeam.addPartnershipScore(1);
         battingTeam.partnershipScore = object.addPartnershipScore(battingTeam.partnershipScore,1);
         utils.setItem('gameId',gameObject);
         console.log("NB:   "+NB);
@@ -670,6 +676,7 @@ function secondInnings(){
 
     }
     submitButton.onclick = function (){
+
         elem.storeInputData(document.getElementById('player_form'));
         tempDiv.remove();
         document.getElementById('secondInningDiv').remove();

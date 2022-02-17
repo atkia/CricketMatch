@@ -2,9 +2,8 @@ import {addModal} from "./Extras.js";
 import * as object from "./PlayerData.js";
 import * as utils from './LocalStorageUtils.js';
 import {createPlayerDetailsDiv} from "./PlayerDetails.js";
-import {NotPlayedPlayer, NotPlayedTeam, NotPlayedTeamList, player} from "./PlayerData.js";
-let body = document.getElementsByTagName('body')[0],
-    div = document.createElement('div'),changedName,games=utils.getItem('gameId'),
+import {createPlayedPlayerDetailsDiv} from "./playedPlayerDetails.js";
+let div = document.createElement('div'),changedName,games=utils.getItem('gameId'),
     removeItem,notPlayedTeam;
 function addLink(){
     let head = document.getElementsByTagName('head')[0],
@@ -84,9 +83,17 @@ function createPlayerDiv(team,player,type){
     button.id = 'personIconBtn';
     i.className="fas fa-user";
     i.onclick = ()=>{
-        document.getElementById('center').appendChild(createPlayerDetailsDiv(team.tName,player.pName,player.playerType));
+        document.getElementById('personAdd').style.display = 'none';
+
         document.getElementById('playerListDiv').style.display = 'none';
         document.getElementById('teamTitle').style.display = 'none';
+        if(type == 'notPlayed'){
+            document.getElementById('center').appendChild(createPlayerDetailsDiv(team.teamName,player.pName));
+        }
+        else{
+            document.getElementById('center').appendChild(createPlayedPlayerDetailsDiv(team.tName,player.pName));
+        }
+
     }
     button.appendChild(i);
     img.id = 'editIcon';
@@ -220,10 +227,6 @@ function createPlayerDiv(team,player,type){
 function createPlayerDivList(team,players,type){
     let div = document.createElement('div');
     div.id = 'playerListDiv';
-
-    // if(type == 'played'){
-    //
-    // }
     for(let i=0;i<players.length;i++){
         console.log(team,players[i].pName,players[i].playerType)
         console.log( createPlayerDiv(team,players[i],type))

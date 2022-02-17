@@ -39,7 +39,7 @@ td#tbData {
 table#tb{
     background-color: #d3d3d329;
 }
-span#matchValue ,#inValue ,#runValue,#noValue,#bestScoreValue,#srValue,#avgValue,#foursValue,#sixValue,#thirtiesValue,#fiftiesValue,#hundredValue,#duckValue {
+span#matchValue ,#inValue ,#runValue,#noValue,#bestScoreValue,#srValue,#avgValue,#foursValue,#sixValue,#thirtiesValue,#fiftiesValue,#hundredValue,#duckValue ,#BmatchValue,#BinValue ,#overValue ,#maidensValue,#wicketsValue ,#BrunValue ,#bBowlingValue ,#erValue ,#bsrValue ,#avgValue ,#widesValue ,#nBValue ,#dBValue ,#fourWicketValue ,#fiveWicketValue {
     color: black;
     padding-left: 22%;
 }
