@@ -13,10 +13,10 @@ let headingTitle = "Cricket Scorer",
     div4 = document.createElement('div'),
     headings = ['Teams','Toss By Won', 'Opted to?','Overs?'];
 
-if(utils.getItem('state')==null){
-    let states = new object.states();
-    utils.setItem('state',states);
-}
+// if(utils.getItem('team')==null){
+//     let teamList = new object.TeamList();
+//     utils.setItem('team',teamList);
+// }
  if(utils.getItem('gameId')===null){
   let game = new object.Games();
     console.log('got null!!!!!!!!!!')

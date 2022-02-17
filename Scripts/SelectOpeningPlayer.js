@@ -1,6 +1,7 @@
 import * as object from "./PlayerData.js";
 import * as utils from './LocalStorageUtils.js';
 import {getItem} from "./LocalStorageUtils.js";
+import {team} from "./PlayerData.js";
 
 let headingTitle = "Select Opening Players",
     titleOfInputFields = ["Striker","Non Striker","Bowler"],
@@ -75,11 +76,13 @@ export function createObjects(){
         ,player3Name = localStorage.getItem('Bowler'),
         over = localStorage.getItem('over'),
         inning1,inning2;
-    let player1 = new object.player(player1Name,'batting'),
-        player2 = new object.player(player2Name,'batting'),
-        player3 = new object.player(player3Name,'bowling'),
-        hostTeam = new object.team(hostTeamName),
+    // let player1 = new object.addedPlayer(player1Name,'playing'),
+    //     player2 = new object.addedPlayer(player2Name,'playing'),
+    //     player3 = new object.addedPlayer(player3Name,'playing'),
+     let   hostTeam = new object.team(hostTeamName),
     visitorTeam = new object.team(visitorTeamName);
+    // let team1 = new object.addedTeam('playing',hostTeamName);
+    // let team2 = new object.addedTeam('playing',visitorTeamName);
     inning1 = new object.Inning();
     inning2 = new object.Inning();
     match = new object.match();
@@ -92,6 +95,7 @@ export function createObjects(){
     console.log('This match will be of '+over);
     console.log(hostTeam.teamName);
     console.log(visitorTeam);
+    let teamList =utils.getItem('teams');
     game = utils.getItem('gameId');
     match.matchOvers = over+'.0';
     let tossWonBy = localStorage.getItem('tossWonBy');
@@ -102,6 +106,9 @@ export function createObjects(){
         if(optedTo === 'Bat'){
             match.optedTo = 'bat';
             inning1.battingTeam = hostTeam;
+            // team1.players.push(player1);
+            // team1.players.push(player2);
+            // team2.players.push(player3);
             inning2.bowlingTeam = hostTeam;
             console.log(hostTeam.teamName);
             inning1.bowlingTeam = visitorTeam;
@@ -110,6 +117,9 @@ export function createObjects(){
         else {
             match.optedTo = 'bowl';
             inning1.battingTeam = visitorTeam;
+            // team2.players.push(player1);
+            // team2.players.push(player2);
+            // team1.players.push(player3);
             inning2.bowlingTeam = visitorTeam;
             inning1.bowlingTeam = hostTeam;
             inning2.battingTeam = hostTeam;
@@ -120,6 +130,9 @@ export function createObjects(){
         if(optedTo=='Bat'){
             match.optedTo = 'bat';
             inning1.battingTeam = visitorTeam;
+            // team2.players.push(player1);
+            // team2.players.push(player2);
+            // team1.players.push(player3);
             inning2.bowlingTeam = visitorTeam;
             console.log(hostTeam.teamName);
             inning1.bowlingTeam = hostTeam;
@@ -128,6 +141,9 @@ export function createObjects(){
         else {
             match.optedTo = 'bowl';
             inning1.battingTeam = hostTeam;
+            // team1.players.push(player1);
+            // team1.players.push(player2);
+            // team2.players.push(player3);
             inning2.bowlingTeam = hostTeam;
             inning1.bowlingTeam = visitorTeam;
             inning2.battingTeam = visitorTeam;
@@ -152,6 +168,8 @@ export function createObjects(){
     inningIndex = match.inningIndex;
     match.innings.push(inning1);
     match.innings.push(inning2);
+    // teamList.teams.push(team1);
+    // teamList.teams.push(team2);
     game.matches.push(match);
     utils.setItem('gameId',game);
 }

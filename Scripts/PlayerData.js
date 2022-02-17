@@ -56,8 +56,12 @@ export function Batting(){
     this.retire = false;
     this.status = 'Not Out';
 }
-
-export function NotPlayedTeam(teamName){
+export function NotPlayedPlayer(playerName,type){
+    this.playerName = playerName;
+    this.type = type;
+}
+export function NotPlayedTeam(teamName,type){
+    this.teamType = type;
     this.teamName = teamName;
     this.players = [];
 }
@@ -65,7 +69,19 @@ export  function  NotPlayedTeamList(){
     this.id = 'notPlayed';
     this.notPlayedTeams = [];
 }
-
+// export function addedPlayer(addedPlayerName,playerType){
+//     this.addedPlayerName = addedPlayerName;
+//     this.playerType = playerType;
+// }
+// export function addedTeam(teamType,addedTeamName){
+//     this.teamType = teamType;
+//     this.addedTeamName = addedTeamName;
+//     this.players = [];
+// }
+//
+// export function TeamList(){
+//     this.teams = [];
+// }
 export function crr(totalScore,bowlers){
     let ballNo=0,crr = '0.00';
     for(let i=0;i<bowlers.length;i++){

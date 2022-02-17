@@ -232,6 +232,7 @@ function createStrikerDetailRow() {
         console.log('striker is null.....');
         striker = new object.player(localStorage.getItem('Striker'),'batting');
         battingTeam.players.push(striker);
+
         nonStriker = new object.player(localStorage.getItem('Non Striker'),'batting');
         battingTeam.players.push(nonStriker);
         partnership = new object.partnership(striker.playerName,nonStriker.playerName);
@@ -1166,7 +1167,7 @@ function getScoreButton(value) {
                     if(NB!=true ){
                         bowler.bowling.ballNo++;
                         // bowler.bowling.run = object.getRuns(bowler.bowling.run,value);
-                        // bowler.bowling.er = object.eR(bowler.bowling.ballNo,bowler.bowling.run);
+                         bowler.bowling.er = object.eR(bowler.bowling.ballNo,bowler.bowling.run);
                         console.log(bowlingTeam.players.length);
                         count++;
                     }
@@ -1349,6 +1350,7 @@ function createFifthRow(){
                         console.log(battingTeam.partnershipScore);
                         bowler.bowling.wides = bowler.bowling.wides-run;
                         bowler.bowling.run = object.undoRun(bowler.bowling.run, run);
+                        bowler.bowling.er = object.eR(bowler.bowling.ballNo, bowler.bowling.run);
                         battingTeam.partnerShips[partnershipIndex].extra = battingTeam.partnerShips[partnershipIndex].extra-run;
 
                     }
@@ -1356,6 +1358,13 @@ function createFifthRow(){
                         let str = lastBall.type;
                         let run = +str.substr(0,1);
                         bowler.bowling.ballNo--;
+                        if (striker.playerName == lastBall.batsmanName) {
+                            striker.batting.ballNo--;
+                        }
+                        else{
+                            nonStriker.batting.ballNo--;
+                        }
+                        bowler.bowling.er = object.eR(bowler.bowling.ballNo, bowler.bowling.run);
                         battingTeam.partnershipScore = battingTeam.partnershipScore-run;
                         console.log(battingTeam.partnershipScore)
                         battingTeam.partnerShips[partnershipIndex].extra = battingTeam.partnerShips[partnershipIndex].extra-run;
@@ -1365,7 +1374,7 @@ function createFifthRow(){
                     console.log(battingTeam.players[0].batting.run,battingTeam.partnershipScore)
                     battingTeam.totalScore = object.getTotalScore(battingTeam.players, battingTeam.partnershipScore);
                     console.log(battingTeam.totalScore);
-                    battingTeam.crr = object.crr(battingTeam.totalScore,battingTeam.totalOver);
+                    battingTeam.crr = object.crr(battingTeam.totalScore,bowlingTeam.players);
                     bowler.bowling.ballDetails.pop();
                     // bowler.bowling.ballDetails.pop();
                     utils.setItem('gameId', gameObject);
